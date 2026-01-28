@@ -1,3 +1,41 @@
 import { Routes } from '@angular/router';
+import { BlankComponent } from './layouts/blank/blank.component';
+import { FullComponent } from './layouts/full/full.component';
+import { ShopListComponent } from './pages/shop-management/shop-list/shop-list.component';
+import { ShopFormComponent } from './pages/shop-management/shop-form/shop-form.component';
+import { LoginComponent } from './pages/authentication/login/login.component';
+import { RegisterComponent } from './pages/authentication/register/register.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    {
+        path: '',
+        component: FullComponent,
+        children: [
+            {
+                path: 'shop-list',
+                component: ShopListComponent
+            },
+            {
+                path: 'shop-form',
+                component: ShopFormComponent
+            }
+        ]
+    },{
+        path: '',
+        component: BlankComponent,
+        children: [
+            {
+                path: 'login',
+                component: LoginComponent
+            },
+            {
+                path: 'register',
+                component: RegisterComponent
+            }
+        ]
+    },{
+        path: '**',
+        component: NotFoundComponent
+    }
+];
