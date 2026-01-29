@@ -6,19 +6,16 @@ import { ShopFormComponent } from './pages/shop-management/shop-form/shop-form.c
 import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ClientComponent } from './layouts/client/client.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: FullComponent,
+        component: ClientComponent,
         children: [
             {
                 path: 'shop-list',
                 component: ShopListComponent
-            },
-            {
-                path: 'shop-form',
-                component: ShopFormComponent
             }
         ]
     },{
@@ -32,6 +29,20 @@ export const routes: Routes = [
             {
                 path: 'register',
                 component: RegisterComponent
+            }
+        ]
+    },
+    {
+        path: 'admin',
+        component: FullComponent,
+        children: [
+            {
+                path: 'shop-list',
+                component: ShopListComponent
+            },
+            {
+                path: 'shop-form',
+                component: ShopFormComponent
             }
         ]
     },{

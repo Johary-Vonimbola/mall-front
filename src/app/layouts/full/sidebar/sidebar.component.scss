@@ -1,0 +1,25 @@
+:host {
+  grid-area: aside;
+  display: block;
+  background-color: rgb(206, 206, 206);
+}
+
+nav {
+  border: solid 1px;
+}
+
+.menu {
+  list-style: none;
+  padding-left: 0;
+}
+
+.menu-item {
+  border: solid 1px;
+  display: flex;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+
+.menu-item:hover {
+  background-color: rgb(170, 169, 168);
+}
