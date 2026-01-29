@@ -1,1 +1,17 @@
-<p>login works!</p>
+<form [formGroup]="form" (submit)="onSubmit()">
+    @for (err of errors(); track err) {
+        <p class="error">{{ err }}</p>
+    }
+    <div class="input-group">
+        <input formControlName="username" type="email" id="email">
+        <label for="email">Email</label>
+    </div>
+    <div class="input-group">
+        <input formControlName="password" type="password" id="password">
+        <label for="password">Password</label>
+    </div>
+    <div class="input-group">
+        <button [disabled]="form.invalid" type="submit">Connexion</button>
+    </div>
+    <p>Don't have account? <a href="">Sign up</a></p>
+</form>
