@@ -42,7 +42,7 @@ export class LoginComponent {
         if(loginReponse){
           set('access_token', loginReponse.accessToken);
           set('refresh_token', loginReponse.refreshToken);
-          this.router.navigateByUrl('shop-list');
+          this.router.navigateByUrl('shops');
         }
       },
       error: res => {
