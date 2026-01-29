@@ -4,12 +4,15 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { set } from '../../../utils/localStorage';
 import { LoginResponse } from '../../../models/authentication';
 import { Router } from '@angular/router';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    NgClass,
+    NgIf
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -23,7 +26,12 @@ export class LoginComponent {
   });
   errors = signal<string[]>([]);
 
+  isInvalid(field: FormControl): boolean{
+    return field.invalid && (field.touched || field.dirty);
+  }
+
   onSubmit(): void{
+    this.form.markAllAsTouched();
     if(this.form.invalid){
       return;
     }

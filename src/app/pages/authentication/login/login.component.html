@@ -3,12 +3,21 @@
         <p class="error">{{ err }}</p>
     }
     <div class="input-group">
-        <input formControlName="username" type="email" id="email">
+        <input formControlName="username" type="email" id="email" [ngClass]="{'is-invalid': isInvalid(form.controls.username)}">
         <label for="email">Email</label>
+        <p *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')" class="error">
+            Email is required
+        </p>
+        <p *ngIf="form.controls.username.hasError('email')" class="error">
+            Invalid Format
+        </p>
     </div>
     <div class="input-group">
-        <input formControlName="password" type="password" id="password">
+        <input formControlName="password" type="password" id="password" [ngClass]="{'is-invalid': isInvalid(form.controls.password)}">
         <label for="password">Password</label>
+        <p *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')" class="error">
+            Password is required
+        </p>
     </div>
     <div class="input-group">
         <button [disabled]="form.invalid" type="submit">Connexion</button>
