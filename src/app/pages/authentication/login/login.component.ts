@@ -5,6 +5,7 @@ import { set } from '../../../utils/localStorage';
 import { LoginResponse } from '../../../models/authentication';
 import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { isInvalid } from '../../../utils/form';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ import { NgClass, NgIf } from '@angular/common';
 export class LoginComponent {
   private authService: AuthenticationService = inject(AuthenticationService);
   private router: Router = inject(Router);
+  isInvalid = isInvalid;
 
   form = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),
@@ -26,15 +28,13 @@ export class LoginComponent {
   });
   errors = signal<string[]>([]);
 
-  isInvalid(field: FormControl): boolean{
-    return field.invalid && (field.touched || field.dirty);
+  onSignup(): void{
+    this.router.navigateByUrl('register');
   }
 
   onSubmit(): void{
     this.form.markAllAsTouched();
-    if(this.form.invalid){
-      return;
-    }
+    if(this.form.invalid) return;
     const formValue = this.form.value;
     this.authService.login(formValue).subscribe({
       next: res => {
