@@ -16,14 +16,14 @@
         </div>
         <div class="input-group">
             <label for="name">Name</label>
-            <input formControlName="name" type="text" id="name" [ngClass]="{ 'is-invalid': isInvalid(form.controls.name) }"> 
+            <input placeholder="John" formControlName="name" type="text" id="name" [ngClass]="{ 'is-invalid': isInvalid(form.controls.name) }"> 
             <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error">
                 Name is required
             </p>
         </div>
         <div class="input-group">
             <label for="email">Email</label>
-            <input formControlName="email" type="email" id="email" [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }">
+            <input placeholder="john@gmail.com" formControlName="email" type="email" id="email" [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }">
             <p *ngIf="isInvalid(form.controls.email) && form.controls.email.hasError('required')" class="error">
                 Email is required
             </p>
@@ -33,14 +33,14 @@
         </div>
         <div class="input-group">
             <label for="contact">Contact</label>
-            <input formControlName="contact" type="text" id="contact" [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }">
+            <input placeholder="034 00 000 00" formControlName="contact" type="text" id="contact" [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }">
             <p *ngIf="isInvalid(form.controls.contact) && form.controls.contact.hasError('required')" class="error">
                 Contact is required
             </p>
         </div>
         <div class="input-group">
             <label for="passwordHash">Password</label>
-            <input formControlName="passwordHash" type="password" id="passwordHash" [ngClass]="{ 'is-invalid': isInvalid(form.controls.passwordHash) }">
+            <input placeholder="****" formControlName="passwordHash" type="password" id="passwordHash" [ngClass]="{ 'is-invalid': isInvalid(form.controls.passwordHash) }">
             <p *ngIf="isInvalid(form.controls.passwordHash) && form.controls.passwordHash.hasError('required')" class="error">
                 Password is required
             </p>
