@@ -4,20 +4,22 @@ import { isInvalid } from '../../../utils/form';
 import { NgClass, NgIf } from '@angular/common';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Router } from '@angular/router';
+import { CheckMarkComponent } from '../../../components/check-mark/check-mark.component';
 
 @Component({
   selector: 'app-register',
   imports: [
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    CheckMarkComponent
 ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   private authService: AuthenticationService = inject(AuthenticationService);
-  private router: Router = inject(Router);  
+  private router: Router = inject(Router);
 
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -28,6 +30,11 @@ export class RegisterComponent {
 
   isInvalid = isInvalid;
   errors = signal<string[]>([]);
+  accountCreated = signal<boolean>(false);
+
+  onLogin(): void{
+    this.router.navigateByUrl('login');
+  }
 
   onSubmit(): void{
     this.form.markAllAsTouched();
@@ -35,7 +42,10 @@ export class RegisterComponent {
 
     this.authService.register(this.form.value).subscribe({
       next: res => {
-        this.router.navigateByUrl('login');
+        this.accountCreated.set(true);
+        setTimeout(() => {
+          this.router.navigateByUrl('login');
+        }, Math.random() * (3000 - 1500) + 1500)
       },
       error: res => {
         this.errors.set(res.error.errors);
