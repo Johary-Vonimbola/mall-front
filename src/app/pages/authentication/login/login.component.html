@@ -1,4 +1,4 @@
-<form [formGroup]="form" (submit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     @for (err of errors(); track err) {
         <p class="error">{{ err }}</p>
     }
@@ -22,5 +22,5 @@
     <div class="input-group">
         <button [disabled]="form.invalid" type="submit">Connexion</button>
     </div>
-    <p>Don't have account? <a href="">Sign up</a></p>
+    <p>Don't have account? <a (click)="onSignup()">Sign up</a></p>
 </form>

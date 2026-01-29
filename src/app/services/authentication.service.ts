@@ -15,4 +15,8 @@ export class AuthenticationService {
   login(formValue: Object): Observable<ApiReponse<LoginResponse>>{
     return <Observable<ApiReponse<LoginResponse>>> this.http.post(`${this.apiUrl}/login`, formValue);
   }
+
+  register(formValue: Object): Observable<ApiReponse<any>>{
+    return <Observable<ApiReponse<any>>> this.http.post(`${this.apiUrl}/users`, formValue);
+  }
 }

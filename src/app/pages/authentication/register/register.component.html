@@ -1,21 +1,39 @@
-<form>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    @for (err of errors(); track err) {
+        <p class="error">{{ err }}</p>
+    }
     <div class="input-group">
-        <input type="text" id="name">
+        <input formControlName="name" type="text" id="name" [ngClass]="{ 'is-invalid': isInvalid(form.controls.name) }"> 
         <label for="name">Name</label>
+        <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error">
+            Name is required
+        </p>
     </div>
     <div class="input-group">
-        <input type="email" id="email">
+        <input formControlName="email" type="email" id="email" [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }">
         <label for="email">Email</label>
+        <p *ngIf="isInvalid(form.controls.email) && form.controls.email.hasError('required')" class="error">
+            Email is required
+        </p>
+        <p *ngIf="form.controls.email.hasError('email')" class="error">
+            Invalid Format
+        </p>
     </div>
     <div class="input-group">
-        <input type="text" id="contact">
+        <input formControlName="contact" type="text" id="contact" [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }">
         <label for="contact">Contact</label>
+        <p *ngIf="isInvalid(form.controls.contact) && form.controls.contact.hasError('required')" class="error">
+            Contact is required
+        </p>
     </div>
     <div class="input-group">
-        <input type="password" id="passwordHash">
+        <input formControlName="passwordHash" type="password" id="passwordHash" [ngClass]="{ 'is-invalid': isInvalid(form.controls.passwordHash) }">
         <label for="passwordHash">Password</label>
+        <p *ngIf="isInvalid(form.controls.passwordHash) && form.controls.passwordHash.hasError('required')" class="error">
+            Password is required
+        </p>
     </div>
     <div class="input-group">
-        <button type="submit">Sign up</button>
+        <button [disabled]="form.invalid" type="submit">Sign up</button>
     </div>
 </form>
