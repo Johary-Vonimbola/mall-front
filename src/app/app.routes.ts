@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/authentication/login/login.component';
 import { RegisterComponent } from './pages/authentication/register/register.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ClientComponent } from './layouts/client/client.component';
+import { ShopCategoryListComponent } from './pages/shop-management/shop-category-list/shop-category-list.component';
 
 export const routes: Routes = [
     {
@@ -14,7 +15,7 @@ export const routes: Routes = [
         component: ClientComponent,
         children: [
             {
-                path: 'shop-list',
+                path: 'shops',
                 component: ShopListComponent
             }
         ]
@@ -37,13 +38,17 @@ export const routes: Routes = [
         component: FullComponent,
         children: [
             {
-                path: 'shop-list',
+                path: 'shops',
                 component: ShopListComponent
             },
             {
                 path: 'shop-form',
                 component: ShopFormComponent
-            }
+            },
+            {
+                path: 'shopCategories',
+                component: ShopCategoryListComponent
+            },
         ]
     },{
         path: '**',
