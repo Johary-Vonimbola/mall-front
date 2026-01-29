@@ -1,26 +1,36 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    @for (err of errors(); track err) {
-        <p class="error">{{ err }}</p>
-    }
-    <div class="input-group">
-        <input formControlName="username" type="email" id="email" [ngClass]="{'is-invalid': isInvalid(form.controls.username)}">
-        <label for="email">Email</label>
-        <p *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')" class="error">
-            Email is required
-        </p>
-        <p *ngIf="form.controls.username.hasError('email')" class="error">
-            Invalid Format
-        </p>
+    <div class="header-form">
+        <img src="/assets/img/logo.webp" alt="Logo" class="logo">
+        <h2>Login</h2>
     </div>
-    <div class="input-group">
-        <input formControlName="password" type="password" id="password" [ngClass]="{'is-invalid': isInvalid(form.controls.password)}">
-        <label for="password">Password</label>
-        <p *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')" class="error">
-            Password is required
-        </p>
+    <div class="main-form">
+        <div class="errors">
+            @for (err of errors(); track err) {
+                <p class="header-error">{{ err }}</p>
+            }
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input placeholder="john@gmail.com" formControlName="username" type="email" id="email" [ngClass]="{'is-invalid': isInvalid(form.controls.username)}">
+            <p *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')" class="error">
+                Email is required
+            </p>
+            <p *ngIf="form.controls.username.hasError('email')" class="error">
+                Invalid Format
+            </p>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input placeholder="****" formControlName="password" type="password" id="password" [ngClass]="{'is-invalid': isInvalid(form.controls.password)}">
+            <p *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')" class="error">
+                Password is required
+            </p>
+        </div>
+        <div class="input-group">
+            <button [disabled]="form.invalid" type="submit">Connexion</button>
+        </div>
     </div>
-    <div class="input-group">
-        <button [disabled]="form.invalid" type="submit">Connexion</button>
+    <div class="footer-form">
+        <p>Don't have account? <a (click)="onSignup()">Sign up</a></p>
     </div>
-    <p>Don't have account? <a (click)="onSignup()">Sign up</a></p>
 </form>
