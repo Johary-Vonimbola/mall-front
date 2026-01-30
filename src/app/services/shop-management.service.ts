@@ -39,4 +39,33 @@ export class ShopManagementService {
         )
       );
   }
+
+  createShop(payload: any): Observable<ApiReponse<any>> {
+    return this.http.post<ApiReponse<any>>(
+      `${this.apiUrl}/shops`,
+      payload
+    );
+  }
+
+  deleteShop(id: string): Observable<ApiReponse<any>> {
+    return this.http.delete<ApiReponse<any>>(
+      `${this.apiUrl}/shops/${id}`
+    );
+  }
+  
+  activateShop(id: string): Observable<ApiReponse<any>> {
+    return this.http.patch<ApiReponse<any>>(
+      `${this.apiUrl}/shops/${id}/activate`,
+      {}
+    );
+  }
+
+  deactivateShop(id: string): Observable<ApiReponse<any>> {
+    return this.http.patch<ApiReponse<any>>(
+      `${this.apiUrl}/shops/${id}/deactivate`,
+      {}
+    );
+  }
+
+
 }

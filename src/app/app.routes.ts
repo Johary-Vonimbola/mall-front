@@ -8,6 +8,7 @@ import { RegisterComponent } from './pages/authentication/register/register.comp
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ClientComponent } from './layouts/client/client.component';
 import { ShopCategoryListComponent } from './pages/shop-management/shop-category-list/shop-category-list.component';
+import { ShopCategoryFormComponent } from './pages/shop-management/shop-category-form/shop-category-form.component';
 
 export const routes: Routes = [
     {
@@ -49,6 +50,10 @@ export const routes: Routes = [
                 path: 'shopCategories',
                 component: ShopCategoryListComponent
             },
+            {
+                path: 'shopCategories-form',
+                component: ShopCategoryFormComponent
+            }
         ]
     },{
         path: '**',

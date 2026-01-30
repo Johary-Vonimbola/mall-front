@@ -1,3 +1,57 @@
-@for (shop of shops; track shop.id) {
-    <h1>{{ shop.name }}</h1><br>
-}
+<div class="card">
+  <div class="shop-list">
+    <div
+      class="shop-item"
+      *ngFor="let shop of shops(); let first = first"
+      [class.border-top]="!first"
+    >
+      <!-- LEFT -->
+      <div class="shop-info">
+        <span class="category">
+          {{ shop.category }}
+        </span>
+
+        <span class="name">
+          {{ shop.name }}
+        </span>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="actions">
+        <!-- STATUS -->
+        <span
+          class="status"
+          [class.active]="shop.isActive"
+          [class.inactive]="!shop.isActive"
+        >
+          {{ shop.isActive ? 'ACTIVE' : 'INACTIVE' }}
+        </span>
+
+        <!-- BUTTONS -->
+        <button
+            type="button"
+          *ngIf="!shop.isActive"
+          class="btn btn-success"
+          (click)="activate(shop.id)"
+        >
+          Activer
+        </button>
+
+        <button
+          *ngIf="shop.isActive"
+          class="btn btn-warning"
+          (click)="deactivate(shop.id)"
+        >
+          Désactiver
+        </button>
+
+        <button
+          class="btn btn-danger"
+          (click)="remove(shop.id)"
+        >
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
