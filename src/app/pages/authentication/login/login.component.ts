@@ -5,6 +5,7 @@ import { LoginResponse } from '../../../models/authentication';
 import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 import { isInvalid } from '../../../utils/form';
+import { set } from '../../../utils/localStorage';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,7 @@ export class LoginComponent {
             accessToken: loginReponse.accessToken,
             refreshToken: loginReponse.refreshToken
           });
+          set('refresh_token', loginReponse.refreshToken);
           this.router.navigateByUrl('shops');
         }
       },

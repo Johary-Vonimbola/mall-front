@@ -5,6 +5,7 @@ import { environment } from '../../environment';
 import { LoginResponse } from '../models/authentication';
 import { ApiReponse } from '../models/apiReponse';
 import { Router } from '@angular/router';
+import { get } from '../utils/localStorage';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class AuthenticationService {
   }
 
   refreshTokenFn(): void{
-    (<Observable<ApiReponse<string>>>this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken: this.getRefreshToken() })).subscribe({
+    (<Observable<ApiReponse<string>>>this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken: get('refresh_token') })).subscribe({
       next: res => {
         if(res.data){
           this.setAccessToken(res.data)
