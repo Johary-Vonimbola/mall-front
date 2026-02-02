@@ -12,6 +12,10 @@ import { ShopCategoryListComponent } from './pages/shop-management/shop-category
 export const routes: Routes = [
     {
         path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },{
+        path: '',
         component: ClientComponent,
         children: [
             {
