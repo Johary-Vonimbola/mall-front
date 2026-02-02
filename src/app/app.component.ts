@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,11 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'mall-front';
+export class AppComponent implements OnInit{
+  private authService = inject(AuthenticationService);
+
+  ngOnInit(): void {
+    this.authService.refreshTokenFn();
+  }
+
 }

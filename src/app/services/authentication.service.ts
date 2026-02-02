@@ -4,13 +4,59 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environment';
 import { LoginResponse } from '../models/authentication';
 import { ApiReponse } from '../models/apiReponse';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private apiUrl: String = `${environment.apiUrl}`;
+  private apiUrl: string = `${environment.apiUrl}`;
   private http: HttpClient = inject(HttpClient);
+  private accessToken: string | null = null;
+  private refreshToken: string | null = null;
+  private router: Router = inject(Router);
+
+  setToken({ accessToken, refreshToken }: { accessToken: string, refreshToken: string}): void{
+    this.setAccessToken(accessToken);
+    this.setRefreshToken(refreshToken);
+  }
+
+  setAccessToken(accessToken: string): void{
+    this.accessToken = accessToken;
+  }
+  setRefreshToken(refreshToken: string): void{
+    this.refreshToken = refreshToken;
+  }
+  getToken(): any{
+    return {
+      accessToken: this.accessToken,
+      refreshToken: this.refreshToken
+    }
+  }
+  getAccessToken(): string | null{
+    return this.accessToken;
+  }
+  getRefreshToken(): string | null{
+    return this.refreshToken;
+  }
+
+  clear(): void{
+    this.accessToken = null;
+    this.refreshToken = null;
+  }
+
+  refreshTokenFn(): void{
+    (<Observable<ApiReponse<string>>>this.http.post(`${this.apiUrl}/refresh-token`, { refreshToken: this.getRefreshToken() })).subscribe({
+      next: res => {
+        if(res.data){
+          this.setAccessToken(res.data)
+        }
+      },
+      error: res => {
+        this.router.navigateByUrl('login');
+      }
+    })
+  }
 
   login(formValue: Object): Observable<ApiReponse<LoginResponse>>{
     return <Observable<ApiReponse<LoginResponse>>> this.http.post(`${this.apiUrl}/login`, formValue);
