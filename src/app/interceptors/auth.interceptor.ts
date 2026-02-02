@@ -1,10 +1,18 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { get } from '../utils/localStorage';
+import { inject } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const newReq = req.clone({
-    headers: req.headers.append('Authorization', `Bearer ${get('access_token')}`)
-  });
+ 
+  const authService = inject(AuthenticationService);
+
+  const accessToken = authService.getAccessToken();
+  let newReq = req;
+  if(accessToken){
+    newReq = req.clone({
+      headers: req.headers.append('Authorization', `Bearer ${accessToken}`)
+    });
+  }
 
   return next(newReq);
 };

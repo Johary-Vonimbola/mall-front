@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { set } from '../../../utils/localStorage';
 import { LoginResponse } from '../../../models/authentication';
 import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
@@ -40,8 +39,10 @@ export class LoginComponent {
       next: res => {
         const loginReponse: LoginResponse | undefined = res.data;
         if(loginReponse){
-          set('access_token', loginReponse.accessToken);
-          set('refresh_token', loginReponse.refreshToken);
+          this.authService.setToken({
+            accessToken: loginReponse.accessToken,
+            refreshToken: loginReponse.refreshToken
+          });
           this.router.navigateByUrl('shops');
         }
       },
