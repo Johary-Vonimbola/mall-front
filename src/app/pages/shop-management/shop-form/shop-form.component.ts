@@ -3,7 +3,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { isInvalid } from '../../../utils/form';
-import { ShopCategoryResponse } from '../../../models/shop';
+import { ShopCategoryResponse, ShopResponse } from '../../../models/shop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop-form',
@@ -17,9 +18,17 @@ import { ShopCategoryResponse } from '../../../models/shop';
 })
 export class ShopFormComponent implements OnInit {
   private shopManagementService: ShopManagementService = inject(ShopManagementService);
+  private router: Router = inject(Router);
   isInvalid = isInvalid;
 
   categories: ShopCategoryResponse[] = [];
+
+  form = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    categoryId: new FormControl('', [Validators.required])
+  });
+
+  errors = signal<String[]>([]);
 
   ngOnInit(): void {
     this.shopManagementService.getAllShopCategory().subscribe({
@@ -32,23 +41,29 @@ export class ShopFormComponent implements OnInit {
     });
   }
 
-  form = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
-    categoryId: new FormControl('', [Validators.required])
-  });
-  errors = signal<String[]>([]);
-
-  onSubmit(): void{
+  onSubmit(): void {
     this.form.markAllAsTouched();
-    if(this.form.invalid) return;
-    const formValue = this.form.value;
-    this.shopManagementService.createShop(formValue).subscribe({
+    if (this.form.invalid) return;
+
+    const categoryId = this.form.value.categoryId;
+
+    const category = this.categories.find(
+      cat => cat.id === categoryId
+    );
+
+    const payload = {
+      name: this.form.value.name,
+      category: category?.name,
+      categoryId: categoryId
+    };
+
+    this.shopManagementService.createShop(payload).subscribe({
       next: res => {
-        
+        alert(res.message);
+        this.router.navigateByUrl('admin/shops');
       },
       error: res => {
-        this.errors.set(res.error.errors)
+        this.errors.set(res.error.errors);
       }
     });
   }
