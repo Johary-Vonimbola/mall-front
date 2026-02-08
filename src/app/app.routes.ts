@@ -9,6 +9,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ClientComponent } from './layouts/client/client.component';
 import { ShopCategoryListComponent } from './pages/shop-management/shop-category-list/shop-category-list.component';
 import { ShopCategoryFormComponent } from './pages/shop-management/shop-category-form/shop-category-form.component';
+import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashboard-admin.component';
 
 export const routes: Routes = [
     {
@@ -42,6 +43,10 @@ export const routes: Routes = [
         path: 'admin',
         component: FullComponent,
         children: [
+            {
+                path: 'dashboard',
+                component: DashboardAdminComponent
+            },
             {
                 path: 'shops',
                 component: ShopListComponent
