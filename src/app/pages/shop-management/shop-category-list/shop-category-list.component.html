@@ -1,3 +1,17 @@
-@for (shopCategory of shopCatgories; track shopCategory.id) {
-    <h1>{{ shopCategory.name }}</h1><br>
-}
+<div class="category-list">
+  @for (shopCategory of shopCategories; track shopCategory.id) {
+    <div class="category-item">
+      <span class="category-name">
+        {{ shopCategory.name }}
+      </span>
+
+      <button
+        type="button"
+        class="btn-delete"
+        (click)="deleteCategory(shopCategory.id)"
+      >
+        Supprimer
+      </button>
+    </div>
+  }
+</div>

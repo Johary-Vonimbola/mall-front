@@ -9,18 +9,32 @@ import { ShopManagementService } from '../../../services/shop-management.service
   styleUrl: './shop-category-list.component.scss'
 })
 export class ShopCategoryListComponent implements OnInit {
-  shopCatgories: ShopCategoryResponse[] = [];
+  shopCategories: ShopCategoryResponse[] = [];
 
   private shopManagementService: ShopManagementService = inject(ShopManagementService);
 
   ngOnInit(): void {
+    this.loadShopCategories();
+  }
+
+  loadShopCategories(): void {
     this.shopManagementService.getAllShopCategory().subscribe({
-      next: (shopCatgories) => {
-        this.shopCatgories = shopCatgories;
+      next: (shopCategories) => {
+        this.shopCategories = shopCategories;
       },
       error: () => {
         console.log('Erreur lors du chargement des categories boutique');
       }
+    });
+  }
+
+  deleteCategory(id: string): void {
+    if (!confirm('Voulez-vous vraiment supprimer cette catégorie ?')) {
+      return;
+    }
+
+    this.shopManagementService.deleteCategoryShop(id).subscribe(() => {
+      this.loadShopCategories();
     });
   }
 }

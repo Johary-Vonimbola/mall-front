@@ -47,7 +47,7 @@ export const routes: Routes = [
                 component: ShopListComponent
             },
             {
-                path: 'shop-form',
+                path: 'shops-form',
                 component: ShopFormComponent
             },
             {

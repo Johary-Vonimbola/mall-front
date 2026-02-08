@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { isInvalid } from '../../../utils/form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop-category-form',
@@ -16,6 +17,7 @@ import { isInvalid } from '../../../utils/form';
 })
 export class ShopCategoryFormComponent {
   private shopManagementService: ShopManagementService = inject(ShopManagementService);
+  private router: Router = inject(Router);
   isInvalid = isInvalid;
 
   form = new FormGroup({
@@ -27,12 +29,13 @@ export class ShopCategoryFormComponent {
     this.form.markAllAsTouched();
     if(this.form.invalid) return;
     const formValue = this.form.value;
-    this.shopManagementService.createShop(formValue).subscribe({
+    this.shopManagementService.createCategoryShop(formValue).subscribe({
       next: res => {
-        
+        alert(res.message);
+        this.router.navigateByUrl('admin/shopCategories');
       },
       error: res => {
-        this.errors.set(res.error.errors)
+        this.errors.set(res.error.errors);
       }
     });
   }

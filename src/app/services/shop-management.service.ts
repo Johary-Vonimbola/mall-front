@@ -28,18 +28,6 @@ export class ShopManagementService {
       );
   }
 
-  getAllShopCategory(): Observable<ShopCategoryResponse[]> {
-    return this.http.get<ApiReponse<any>>(`${this.apiUrl}/shop-categories`)
-      .pipe(
-        map(response =>
-          (response.data ?? []).map((shopCategory: any): ShopCategoryResponse => ({
-            id: shopCategory._id,
-            name: shopCategory.name
-          }))
-        )
-      );
-  }
-
   createShop(payload: any): Observable<ApiReponse<any>> {
     return this.http.post<ApiReponse<any>>(
       `${this.apiUrl}/shops`,
@@ -68,4 +56,28 @@ export class ShopManagementService {
   }
 
 
+  getAllShopCategory(): Observable<ShopCategoryResponse[]> {
+    return this.http.get<ApiReponse<any>>(`${this.apiUrl}/shop-categories`)
+      .pipe(
+        map(response =>
+          (response.data ?? []).map((shopCategory: any): ShopCategoryResponse => ({
+            id: shopCategory._id,
+            name: shopCategory.name
+          }))
+        )
+      );
+  }
+
+  createCategoryShop(payload: any): Observable<ApiReponse<any>> {
+    return this.http.post<ApiReponse<any>>(
+      `${this.apiUrl}/shop-categories`,
+      payload
+    );
+  }
+
+  deleteCategoryShop(id: string): Observable<ApiReponse<any>> {
+    return this.http.delete<ApiReponse<any>>(
+      `${this.apiUrl}/shop-categories/${id}`
+    );
+  }
 }

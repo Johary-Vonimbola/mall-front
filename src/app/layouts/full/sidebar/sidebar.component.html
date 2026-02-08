@@ -1,54 +1,63 @@
 <aside>
-        <div id="layout-profil">
-            <figure class="user-profil">
-                <img src="./assets/images/user-profil.png" alt="Profil de l'utilisateur">
-            </figure>
+  <nav>
+    <ul class="menu">
+
+      <!-- SHOPS -->
+      <li class="menu-item has-children" [class.open]="shopsOpen">
+        <div class="menu-link" (click)="toggleShops()">
+          <img class="icon" src="assets/icons/store.png" alt="Icon Shop">
+          <span>Shops</span>
         </div>
-        <nav>
-            <ul class="menu">
-                <li class="menu-item">
-                    <div class="menu-icon">
-                        <img src="./assets/icons/dashboard.png" alt="Icon dashboard">
-                    </div>
-                    <a href="#">Dashboard</a>
-                </li>
 
-                <li class="menu-item has-children">
-                    <div class="menu-icon">
-                        <img src="./assets/icons/product.png" alt="Icon product">
-                    </div>
-                    <a href="#">Product</a>
-                    <!-- <ul class="submenu">
-                        <li class="submenu-item">
-                            <div class="menu-icon">
-                                <img src="./assets/icons/list.png" alt="Icon list">
-                            </div>
-                            <a href="#">List</a>
-                        </li>
+        <ul class="submenu">
+          <li class="submenu-item" routerLinkActive="active">
+            <a routerLink="shops">
+              <img class="icon" src="/assets/icons/list.png" alt="">
+              <span>List</span>
+            </a>
+          </li>
 
-                        <li class="submenu-item">
-                            <div class="menu-icon">
-                                <img src="./assets/icons/add.png" alt="Icon add">
-                            </div>
-                            <a href="#">New</a>
-                        </li>
-                    </ul> -->
-                </li>
-                
+          <li class="submenu-item" routerLinkActive="active">
+            <a routerLink="shops-form">
+              <img class="icon" src="/assets/icons/form.png" alt="">
+              <span>New</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-                <li class="menu-item">
-                    <div class="menu-icon">
-                        <img src="./assets/icons/user.png" alt="Icon user">
-                    </div>
-                    <a href="#">Profil</a>
-                </li>
+      <!-- SHOPS CATEGORIES -->
+      <li class="menu-item has-children" [class.open]="shopCategoriesOpen">
+        <div class="menu-link" (click)="toggleShopCategories()">
+          <img class="icon" src="assets/icons/store.png" alt="Icon Shop Categories">
+          <span>Shop Categories</span>
+        </div>
 
-                <li class="menu-item">
-                    <div class="menu-icon">
-                        <img src="./assets/icons/logout.png" alt="Icon logout">
-                    </div>
-                    <a href="#">Logout</a>
-                </li>
-            </ul>
-        </nav>
-    </aside>
+        <ul class="submenu">
+          <li class="submenu-item" routerLinkActive="active">
+            <a routerLink="shopCategories">
+              <img class="icon" src="/assets/icons/list.png" alt="">
+              <span>List</span>
+            </a>
+          </li>
+
+          <li class="submenu-item" routerLinkActive="active">
+            <a routerLink="shopCategories-form">
+              <img class="icon" src="/assets/icons/form.png" alt="">
+              <span>New</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- LOGOUT -->
+      <li class="menu-item logout" (click)="logout()">
+        <div class="menu-link">
+          <img class="icon" src="assets/icons/logout.png" alt="Icon logout">
+          <span>Logout</span>
+        </div>
+      </li>
+
+    </ul>
+  </nav>
+</aside>

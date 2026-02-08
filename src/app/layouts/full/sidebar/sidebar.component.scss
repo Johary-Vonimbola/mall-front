@@ -2,24 +2,61 @@
   grid-area: aside;
   display: block;
   background-color: rgb(206, 206, 206);
+  height: 100vh;
 }
 
-nav {
-  border: solid 1px;
-}
-
+/* MENU */
 .menu {
   list-style: none;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
 }
 
-.menu-item {
-  border: solid 1px;
+/* LINKS */
+.menu-link,
+.submenu-item a {
   display: flex;
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
 }
 
-.menu-item:hover {
-  background-color: rgb(170, 169, 168);
+/* ICONS */
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* SUBMENU */
+.submenu {
+  display: none;
+  padding-left: 20px;
+}
+
+.menu-item.open .submenu {
+  display: block;
+}
+
+/* ACTIVE ROUTE */
+.submenu-item.active a {
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* LOGOUT */
+.menu-item.logout .menu-link {
+  color: #b91c1c;
+}
+
+.menu-item.logout:hover .menu-link {
+  background-color: #fee2e2;
+}
+
+ul {
+  list-style-type: none;
 }
