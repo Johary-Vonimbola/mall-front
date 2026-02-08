@@ -17,6 +17,7 @@ export class DashboardAdminComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.createShopsByCategoryChart();
     this.createRevenueChart();
+    this.createCAChart();
   }
 
   createShopsByCategoryChart(): void {
@@ -39,6 +40,20 @@ export class DashboardAdminComponent implements AfterViewInit {
 
   createRevenueChart(): void {
     new Chart('revenueChart', {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
+        datasets: [{
+          label: 'Revenus (Ar)',
+          data: [1200000, 900000, 1500000, 1800000, 1600000],
+          backgroundColor: '#4f46e5'
+        }]
+      }
+    });
+  }
+
+  createCAChart(): void {
+    new Chart('ca', {
       type: 'bar',
       data: {
         labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
