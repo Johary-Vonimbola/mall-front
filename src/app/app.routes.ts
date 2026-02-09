@@ -9,6 +9,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ClientComponent } from './layouts/client/client.component';
 import { ShopCategoryListComponent } from './pages/shop-management/shop-category-list/shop-category-list.component';
 import { ShopCategoryFormComponent } from './pages/shop-management/shop-category-form/shop-category-form.component';
+import { ShopCategoryModifComponent } from './pages/shop-management/shop-category-modif/shop-category-modif.component';
+import { ShopModifComponent } from './pages/shop-management/shop-modif/shop-modif.component';
 import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashboard-admin.component';
 
 export const routes: Routes = [
@@ -52,16 +54,22 @@ export const routes: Routes = [
                 component: ShopListComponent
             },
             {
-                path: 'shops-form',
+                path: 'shop-form',
                 component: ShopFormComponent
+            },{
+                path: 'shop-modif/:id',
+                component: ShopModifComponent
             },
             {
-                path: 'shopCategories',
+                path: 'shop-categories',
                 component: ShopCategoryListComponent
             },
             {
-                path: 'shopCategories-form',
+                path: 'shop-category-form',
                 component: ShopCategoryFormComponent
+            },{
+                path: 'shop-category-modif/:id',
+                component: ShopCategoryModifComponent
             }
         ]
     },{
