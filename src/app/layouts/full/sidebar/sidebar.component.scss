@@ -2,7 +2,7 @@
   grid-area: aside;
   display: block;
   background-color: rgb(206, 206, 206);
-  height: 100vh;
+  height: 100%;
 }
 
 /* MENU */
@@ -48,13 +48,8 @@
   font-weight: 600;
 }
 
-/* LOGOUT */
-.menu-item.logout .menu-link {
-  color: #b91c1c;
-}
-
-.menu-item.logout:hover .menu-link {
-  background-color: #fee2e2;
+.menu-item:hover .menu-link {
+  background-color: #838383;
 }
 
 ul {

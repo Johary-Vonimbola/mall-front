@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="main-form">
+
+    <!-- erreurs backend -->
+    <div class="errors">
+      @for (err of errors(); track err) {
+        <p class="header-error">{{ err }}</p>
+      }
+    </div>
+
+    <!-- NAME -->
+    <div class="input-group">
+      <label for="name">Nom du Categorie</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Nom du categorie"
+        formControlName="name"
+        [ngClass]="{'is-invalid': isInvalid(form.controls.name)}"
+      />
+
+      <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error">
+        Le nom est obligatoire
+      </p>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="input-group">
+        <button [disabled]="form.invalid" type="submit">Valisder</button>
+    </div>
+
+  </div>
+</form>
