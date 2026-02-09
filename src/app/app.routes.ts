@@ -10,6 +10,7 @@ import { ClientComponent } from './layouts/client/client.component';
 import { ShopCategoryListComponent } from './pages/shop-management/shop-category-list/shop-category-list.component';
 import { ShopCategoryFormComponent } from './pages/shop-management/shop-category-form/shop-category-form.component';
 import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashboard-admin.component';
+import { ShopRentFormComponent } from './pages/shop-rent/shop-rent-form/shop-rent-form.component';
 
 export const routes: Routes = [
     {
@@ -62,6 +63,10 @@ export const routes: Routes = [
             {
                 path: 'shopCategories-form',
                 component: ShopCategoryFormComponent
+            },
+            {
+                path: 'shop-rent-form',
+                component: ShopRentFormComponent
             }
         ]
     },{

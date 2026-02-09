@@ -1,0 +1,48 @@
+<div>
+    <h2>Creer une configuration de loyer</h2>
+    @for (err of errors(); track err) {
+        <p class="error">{{ err }}</p>
+    }
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+            <label for="shop">Choisir une boutique</label>
+            <select formControlName="shopId">
+                @for (shop of shops(); track shop.id) {
+                    <option [value]="shop.id">{{ shop.name }}</option>
+                }
+            </select>
+            <p class="error" *ngIf="isInvalid(form.controls.shopId) && form.controls.shopId.hasError('required')">
+                La boutique est obligatoire
+            </p>
+        </div>
+        <div class="input-group">
+            <label for="frequency">Frequence</label>
+            <select formControlName="frequencyString">
+                @for (fq of frequencies(); track fq) {
+                    <option [value]="fq">{{ fq }}</option>
+                }
+            </select>
+            <p class="error" *ngIf="isInvalid(form.controls.frequencyString) && form.controls.frequencyString.hasError('required')">
+                La frequence est obligatoire
+            </p>
+        </div>
+        <div class="input-group">
+            <label for="amount">Montant</label>
+            <input type="number" formControlName="amount">
+            <p class="error" *ngIf="isInvalid(form.controls.amount) && form.controls.amount.hasError('required')">
+                Le montant est obligatoire
+            </p>
+        </div>
+        <div class="input-group">
+            <label for="dueDate">Echeance</label>
+            <input type="number" formControlName="dueDate">
+            <p class="error" *ngIf="isInvalid(form.controls.amount) && (form.controls.dueDate.hasError('min') || form.controls.dueDate.hasError('max'))">
+                Le jour d'echeance doit etre entre 1 et 25
+            </p>
+        </div>
+
+        <div class="input-group">
+            <button type="submit">Enregistrer</button>
+        </div>
+    </form>
+</div>

@@ -5,7 +5,7 @@ import { environment } from '../../environment';
 import { LoginResponse } from '../models/authentication';
 import { ApiReponse } from '../models/apiReponse';
 import { Router } from '@angular/router';
-import { get } from '../utils/localStorage';
+import { clear, get, set } from '../utils/localStorage';
 
 @Injectable({
   providedIn: 'root'
@@ -24,18 +24,19 @@ export class AuthenticationService {
 
   setAccessToken(accessToken: string): void{
     this.accessToken = accessToken;
+    set('access_token', accessToken);
   }
   setRefreshToken(refreshToken: string): void{
     this.refreshToken = refreshToken;
   }
   getToken(): any{
     return {
-      accessToken: this.accessToken,
+      accessToken: get('access_token'),
       refreshToken: this.refreshToken
     }
   }
   getAccessToken(): string | null{
-    return this.accessToken;
+    return get('access_token');
   }
   getRefreshToken(): string | null{
     return this.refreshToken;
@@ -44,6 +45,7 @@ export class AuthenticationService {
   clear(): void{
     this.accessToken = null;
     this.refreshToken = null;
+    clear();
   }
 
   refreshTokenFn(): void{
