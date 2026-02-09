@@ -11,6 +11,7 @@ import { ShopCategoryListComponent } from './pages/shop-management/shop-category
 import { ShopCategoryFormComponent } from './pages/shop-management/shop-category-form/shop-category-form.component';
 import { ShopCategoryModifComponent } from './pages/shop-management/shop-category-modif/shop-category-modif.component';
 import { ShopModifComponent } from './pages/shop-management/shop-modif/shop-modif.component';
+import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashboard-admin.component';
 
 export const routes: Routes = [
     {
@@ -44,6 +45,10 @@ export const routes: Routes = [
         path: 'admin',
         component: FullComponent,
         children: [
+            {
+                path: 'dashboard',
+                component: DashboardAdminComponent
+            },
             {
                 path: 'shops',
                 component: ShopListComponent

@@ -1,0 +1,32 @@
+.dashboard {
+  padding: 24px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.chart-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+canvas {
+  max-width: 100%;
+}
