@@ -1,0 +1,45 @@
+<table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Boutique</th>
+            <th>Montant</th>
+            <th>Frequence de paiement</th>
+            <th>Jour d'echeance</th>
+            <th>Cree le</th>
+            <th>Mis a jour le</th>
+            <th>Status</th>
+            <th colspan="2">Option</th>
+        </tr>    
+    </thead>
+    <tbody>
+        @for(shopRent of shopRents(); track shopRent._id){
+            <tr>
+                <td>{{ shopRent._id }}</td>
+                <td>{{ shopRent.shopName }}</td>
+                <td>{{ shopRent.amount }}</td>
+                <td>{{ shopRent.frequencyString }}</td>
+                <td>{{ shopRent.dueDate }}</td>
+                <td>{{ shopRent.createdAt | date : 'dd MMMM YYYY'}}</td>
+                <td>{{ shopRent.updatedAt | date : 'dd MMMM YYYY'}}</td>
+                <td>
+                    <span [ngClass]="{'is-active': shopRent.isActive}">
+                        @if (shopRent.isActive) {
+                            <p>ACTIVE</p>
+                        }@else {
+                            <p>INACTIF</p>
+                        }
+                    </span>
+                </td>
+                <td><button (click)="onUpdate(shopRent)">Modifier</button></td>
+                <td>
+                    @if (shopRent.isActive) {
+                        <button (click)="onDeactivate(shopRent)">Desactiver</button>
+                    }@else {
+                        <button (click)="onActivate(shopRent)">Activer</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -11,6 +11,8 @@ import { ShopCategoryListComponent } from './pages/shop-management/shop-category
 import { ShopCategoryFormComponent } from './pages/shop-management/shop-category-form/shop-category-form.component';
 import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashboard-admin.component';
 import { ShopRentFormComponent } from './pages/shop-rent/shop-rent-form/shop-rent-form.component';
+import { ShopRentListComponent } from './pages/shop-rent/shop-rent-list/shop-rent-list.component';
+import { ShopRentUpdateFormComponent } from './pages/shop-rent/shop-rent-update-form/shop-rent-update-form.component';
 
 export const routes: Routes = [
     {
@@ -67,6 +69,14 @@ export const routes: Routes = [
             {
                 path: 'shop-rent-form',
                 component: ShopRentFormComponent
+            },
+            {
+                path: 'shop-rent-list',
+                component: ShopRentListComponent
+            },
+            {
+                path: 'shop-rent-update/:id',
+                component: ShopRentUpdateFormComponent
             }
         ]
     },{
