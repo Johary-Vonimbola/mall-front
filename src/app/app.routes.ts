@@ -22,6 +22,7 @@ import { ProductFormComponent } from './pages/product-management/product-form/pr
 import { UomFormComponent } from './pages/uom-management/uom-form/uom-form.component';
 import { UomListComponent } from './pages/uom-management/uom-list/uom-list.component';
 import { UomUpdateFormComponent } from './pages/uom-management/uom-update/uom-update.component';
+import { ProductListComponent } from './pages/product-management/product-list/product-list.component';
 
 export const routes: Routes = [
     {
@@ -127,6 +128,10 @@ export const routes: Routes = [
             {
                 path: 'product-form',
                 component: ProductFormComponent
+            },
+            {
+                path: 'product-list',
+                component: ProductListComponent
             }
         ]
     },

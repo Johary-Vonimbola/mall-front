@@ -1,0 +1,64 @@
+<div class="container">
+  <form [formGroup]="form">
+
+    <label for="active">ACTIVE</label>
+    <input type="checkbox" id="active" formControlName="active">
+
+    <label for="inactive">INACTIVE</label>
+    <input type="checkbox" id="inactive" formControlName="inactive">
+
+    <label for="category">Categorie</label>
+    <select id="category" formControlName="category">
+      <option value="">Tous</option>
+      @for(cat of categories(); track cat._id){
+        <option [value]="cat.name">{{ cat.name }}</option>
+      }
+    </select>
+
+  </form>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Unite</th>
+        <th>Prix</th>
+        <th>Categorie</th>
+        <th>Statut</th>
+        <th colspan="2">Option</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for(product of filteredProducts(); track product._id){
+        <tr>
+          <td>{{ product._id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.uom }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.category }}</td>
+          <td>
+            <span [ngClass]="{'is-active': product.isActive}">
+              @if(product.isActive){
+                <p>ACTIVE</p>
+              }@else{
+                <p>INACTIVE</p>
+              }
+            </span>
+          </td>
+          <td>
+            <button (click)="onUpdate(product)">Modifier</button>
+          </td>
+          <td>
+            @if(product.isActive){
+              <button (click)="onDeactivate(product)">Desactiver</button>
+            }@else{
+              <button (click)="onActivate(product)">Activer</button>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
