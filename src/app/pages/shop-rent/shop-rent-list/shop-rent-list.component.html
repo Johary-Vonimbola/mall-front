@@ -1,45 +1,62 @@
-<table border="1">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Boutique</th>
-            <th>Montant</th>
-            <th>Frequence de paiement</th>
-            <th>Jour d'echeance</th>
-            <th>Cree le</th>
-            <th>Mis a jour le</th>
-            <th>Status</th>
-            <th colspan="2">Option</th>
-        </tr>    
-    </thead>
-    <tbody>
-        @for(shopRent of shopRents(); track shopRent._id){
+<div class="container">
+    <form [formGroup]="form">
+        <label for="active">ACTIVE</label>
+        <input type="checkbox" id="active" formControlName="active">
+
+        <label for="inactive">INACTIVE</label>
+        <input type="checkbox" id="inactive" formControlName="inactive">
+
+        <label for="frequencies">Frequence</label>
+        <select id="frequencies" formControlName="frequency">
+            @for(fr of frequencies(); track fr){
+                <option [value]="fr">{{ fr }}</option>
+            }
+        </select>
+    </form>
+
+    <table border="1">
+        <thead>
             <tr>
-                <td>{{ shopRent._id }}</td>
-                <td>{{ shopRent.shopName }}</td>
-                <td>{{ shopRent.amount }}</td>
-                <td>{{ shopRent.frequencyString }}</td>
-                <td>{{ shopRent.dueDate }}</td>
-                <td>{{ shopRent.createdAt | date : 'dd MMMM YYYY'}}</td>
-                <td>{{ shopRent.updatedAt | date : 'dd MMMM YYYY'}}</td>
-                <td>
-                    <span [ngClass]="{'is-active': shopRent.isActive}">
+                <th>Id</th>
+                <th>Boutique</th>
+                <th>Montant</th>
+                <th>Frequence de paiement</th>
+                <th>Jour d'echeance</th>
+                <th>Cree le</th>
+                <th>Mis a jour le</th>
+                <th>Status</th>
+                <th colspan="2">Option</th>
+            </tr>    
+        </thead>
+        <tbody>
+            @for(shopRent of filterRents(); track shopRent._id){
+                <tr>
+                    <td>{{ shopRent._id }}</td>
+                    <td>{{ shopRent.shopName }}</td>
+                    <td>{{ shopRent.amount }}</td>
+                    <td>{{ shopRent.frequencyString }}</td>
+                    <td>{{ shopRent.dueDate }}</td>
+                    <td>{{ shopRent.createdAt | date : 'dd MMMM YYYY'}}</td>
+                    <td>{{ shopRent.updatedAt | date : 'dd MMMM YYYY'}}</td>
+                    <td>
+                        <span [ngClass]="{'is-active': shopRent.isActive}">
+                            @if (shopRent.isActive) {
+                                <p>ACTIVE</p>
+                            }@else {
+                                <p>INACTIVE</p>
+                            }
+                        </span>
+                    </td>
+                    <td><button (click)="onUpdate(shopRent)">Modifier</button></td>
+                    <td>
                         @if (shopRent.isActive) {
-                            <p>ACTIVE</p>
+                            <button (click)="onDeactivate(shopRent)">Desactiver</button>
                         }@else {
-                            <p>INACTIF</p>
+                            <button (click)="onActivate(shopRent)">Activer</button>
                         }
-                    </span>
-                </td>
-                <td><button (click)="onUpdate(shopRent)">Modifier</button></td>
-                <td>
-                    @if (shopRent.isActive) {
-                        <button (click)="onDeactivate(shopRent)">Desactiver</button>
-                    }@else {
-                        <button (click)="onActivate(shopRent)">Activer</button>
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
