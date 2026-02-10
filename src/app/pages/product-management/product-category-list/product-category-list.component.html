@@ -1,0 +1,25 @@
+<div class="category-list">
+  @for (productCategorie of productCategories(); track productCategorie._id) {
+    <div class="category-item">
+      <span class="category-name">
+        {{ productCategorie.name }}
+      </span>
+
+      <button
+        type="button"
+        class="btn-delete"
+        (click)="deleteCategory(productCategorie._id)"
+      >
+        Supprimer
+      </button>
+
+      <button
+        type="button"
+        class="btn-primary"
+        (click)="update(productCategorie._id)"
+      >
+        Modifier
+      </button>
+    </div>
+  }
+</div>

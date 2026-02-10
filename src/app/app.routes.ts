@@ -15,6 +15,9 @@ import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashb
 import { ShopRentFormComponent } from './pages/shop-rent/shop-rent-form/shop-rent-form.component';
 import { ShopRentListComponent } from './pages/shop-rent/shop-rent-list/shop-rent-list.component';
 import { ShopRentUpdateFormComponent } from './pages/shop-rent/shop-rent-update-form/shop-rent-update-form.component';
+import { ProductCategoryFormComponent } from './pages/product-management/product-category-form/product-category-form.component';
+import { ProductCategoryListComponent } from './pages/product-management/product-category-list/product-category-list.component';
+import { ProductCategoryUpdateComponent } from './pages/product-management/product-category-update/product-category-update.component';
 
 export const routes: Routes = [
     {
@@ -87,7 +90,26 @@ export const routes: Routes = [
                 component: ShopCategoryModifComponent
             }
         ]
-    },{
+    },
+    {
+        path: 'admin-shop',
+        component: FullComponent,
+        children: [
+            {
+                path: 'product-category',
+                component: ProductCategoryFormComponent
+            },
+            {
+                path: 'product-category-list',
+                component: ProductCategoryListComponent
+            },
+            {
+                path: 'product-category-update/:id',
+                component: ProductCategoryUpdateComponent
+            }
+        ]
+    },
+    {
         path: '**',
         component: NotFoundComponent
     }
