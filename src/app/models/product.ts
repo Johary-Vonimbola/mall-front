@@ -34,3 +34,17 @@ export class ProductCategory extends AuditField{
     }
 
 }
+
+export class Uom extends AuditField{
+
+    constructor(
+        public _id: string,
+        public abbr: string,
+        public name: string,
+        createdAt: Date,
+        updatedAt: Date
+    ){
+        super(createdAt, updatedAt);
+    }
+
+}

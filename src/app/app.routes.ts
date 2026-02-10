@@ -18,6 +18,10 @@ import { ShopRentUpdateFormComponent } from './pages/shop-rent/shop-rent-update-
 import { ProductCategoryFormComponent } from './pages/product-management/product-category-form/product-category-form.component';
 import { ProductCategoryListComponent } from './pages/product-management/product-category-list/product-category-list.component';
 import { ProductCategoryUpdateComponent } from './pages/product-management/product-category-update/product-category-update.component';
+import { ProductFormComponent } from './pages/product-management/product-form/product-form.component';
+import { UomFormComponent } from './pages/uom-management/uom-form/uom-form.component';
+import { UomListComponent } from './pages/uom-management/uom-list/uom-list.component';
+import { UomUpdateFormComponent } from './pages/uom-management/uom-update/uom-update.component';
 
 export const routes: Routes = [
     {
@@ -85,9 +89,22 @@ export const routes: Routes = [
             {
                 path: 'shop-rent-update/:id',
                 component: ShopRentUpdateFormComponent
-            },{
+            },
+            {
                 path: 'shop-category-modif/:id',
                 component: ShopCategoryModifComponent
+            },
+            {
+                path: 'uom-form',
+                component: UomFormComponent
+            },
+            {
+                path: 'uoms-list',
+                component: UomListComponent
+            },
+            {
+                path: 'uom-update/:id',
+                component: UomUpdateFormComponent
             }
         ]
     },
@@ -100,12 +117,16 @@ export const routes: Routes = [
                 component: ProductCategoryFormComponent
             },
             {
-                path: 'product-category-list',
+                path: 'product-categories-list',
                 component: ProductCategoryListComponent
             },
             {
                 path: 'product-category-update/:id',
                 component: ProductCategoryUpdateComponent
+            },
+            {
+                path: 'product-form',
+                component: ProductFormComponent
             }
         ]
     },

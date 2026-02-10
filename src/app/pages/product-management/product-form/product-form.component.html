@@ -1,0 +1,70 @@
+<h2>Creer un produit</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="main-form">
+
+    <div class="errors">
+      @for (err of errors(); track err) {
+        <p class="header-error">{{ err }}</p>
+      }
+    </div>
+
+    <div class="input-group">
+      <label for="name">Nom du produit</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Nom du produit"
+        formControlName="name"
+        [ngClass]="{'is-invalid': isInvalid(form.controls.name)}"
+      />
+      <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')">
+        Le nom est obligatoire
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="uom">Unite de mesure</label>
+      <select id="uom" formControlName="uomId" [ngClass]="{'is-invalid': isInvalid(form.controls.uomId)}">
+        @for(u of uoms(); track u._id){
+            <option [value]="u._id">{{ u.name }}</option>
+        }
+      </select>
+      <p *ngIf="isInvalid(form.controls.uomId) && form.controls.uomId.hasError('required')">
+        L'unite de mesure est obligatoire
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="shop">Categorie</label>
+      <select id="shop" formControlName="categoryId" [ngClass]="{'is-invalid': isInvalid(form.controls.categoryId)}">
+        @for(c of categories(); track c._id){
+            <option [value]="c._id">{{ c.name }}</option>
+        }
+      </select>
+      <p *ngIf="isInvalid(form.controls.categoryId) && form.controls.categoryId.hasError('required')">
+        Le categorie est obligatoire
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="price">Prix</label>
+      <input
+        id="price"
+        type="number"
+        placeholder="Prix"
+        formControlName="price"
+        [ngClass]="{'is-invalid': isInvalid(form.controls.price)}">
+      <p *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('required')">
+        Le prix est obligatoire
+      </p>
+      <p *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('min')">
+        Le prix ne peut pas etre inferieur a 0
+      </p>
+    </div>
+
+    <div class="input-group">
+        <button [disabled]="form.invalid" type="submit">Valider</button>
+    </div>
+
+  </div>
+</form>

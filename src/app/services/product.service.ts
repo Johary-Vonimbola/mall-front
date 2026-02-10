@@ -40,4 +40,8 @@ export class ProductService {
       })
     );
   }
+
+  save(data: any): Observable<ApiReponse<Product>>{
+    return this.http.post<ApiReponse<Product>>(this.productUrl, data);
+  }
 }
