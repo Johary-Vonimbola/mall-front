@@ -28,9 +28,35 @@ export class ShopManagementService {
       );
   }
 
+  getShopById(id: string): Observable<ShopResponse> {
+    return this.http
+      .get<ApiReponse<any>>(`${this.apiUrl}/shops/${id}`)
+      .pipe(
+        map(response => {
+          const shop = response.data;
+
+          return {
+            id: shop._id,
+            name: shop.name,
+            isActive: shop.isActive,
+            category: shop.category,
+            categoryId: shop.categoryId,
+            logo: shop.logo ?? ''
+          };
+        })
+      );
+  }
+
   createShop(payload: any): Observable<ApiReponse<any>> {
     return this.http.post<ApiReponse<any>>(
       `${this.apiUrl}/shops`,
+      payload
+    );
+  }
+
+  updateShop(id: string, payload: any) {
+    return this.http.put<ApiReponse<any>>(
+      `${this.apiUrl}/shops/${id}`,
       payload
     );
   }
@@ -55,6 +81,12 @@ export class ShopManagementService {
     );
   }
 
+  uploadLogoShop(id: string, payload: any) {
+    return this.http.post<ApiReponse<any>>(
+      `${this.apiUrl}/shops/${id}/upload`,
+      payload
+    );
+  }
 
   getAllShopCategory(): Observable<ShopCategoryResponse[]> {
     return this.http.get<ApiReponse<any>>(`${this.apiUrl}/shop-categories`)
@@ -66,6 +98,29 @@ export class ShopManagementService {
           }))
         )
       );
+  }
+
+  getShopCategoryById(id: string): Observable<ShopCategoryResponse> {
+    return this.http
+      .get<ApiReponse<any>>(`${this.apiUrl}/shop-categories/${id}`)
+      .pipe(
+        map(response => {
+          const category = response.data;
+
+          return {
+            id: category._id,
+            name: category.name
+          };
+        })
+      );
+  }
+
+
+  updateShopCategory(id: string, payload: any) {
+    return this.http.put<ApiReponse<any>>(
+      `${this.apiUrl}/shop-categories/${id}`,
+      payload
+    );
   }
 
   createCategoryShop(payload: any): Observable<ApiReponse<any>> {

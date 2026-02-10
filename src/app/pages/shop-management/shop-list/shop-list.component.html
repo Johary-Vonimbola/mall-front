@@ -46,6 +46,43 @@
         </button>
 
         <button
+          class="btn btn-default"
+          (click)="update(shop.id)"
+        >
+          Modifier
+        </button>
+
+        <button
+          class="btn btn-success"
+          (click)="openModal(shop.id)"
+        >
+          Upload
+        </button>
+
+        <!-- Modal pour ce shop -->
+        <div class="modal" *ngIf="activeUploadShopId === shop.id">
+          <div class="modal-content">
+            <span class="close" (click)="closeModal()">&times;</span>
+            <h2>Upload Logo</h2>
+
+            <form (submit)="upload(); $event.preventDefault()">
+              <!-- Label + Input -->
+              <label for="logoInput">Logo :</label>
+              <input
+                id="logoInput"
+                type="file"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              />
+
+              <!-- Bouton Upload -->
+              <button type="submit" [disabled]="!selectedFile">Upload</button>
+            </form>
+          </div>
+        </div>
+
+        
+        <button
           class="btn btn-danger"
           (click)="remove(shop.id)"
         >

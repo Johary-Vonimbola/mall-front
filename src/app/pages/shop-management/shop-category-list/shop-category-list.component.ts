@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ShopCategoryResponse } from '../../../models/shop';
 import { ShopManagementService } from '../../../services/shop-management.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop-category-list',
@@ -10,7 +11,7 @@ import { ShopManagementService } from '../../../services/shop-management.service
 })
 export class ShopCategoryListComponent implements OnInit {
   shopCategories: ShopCategoryResponse[] = [];
-
+  private router : Router = inject(Router);
   private shopManagementService: ShopManagementService = inject(ShopManagementService);
 
   ngOnInit(): void {
@@ -36,5 +37,9 @@ export class ShopCategoryListComponent implements OnInit {
     this.shopManagementService.deleteCategoryShop(id).subscribe(() => {
       this.loadShopCategories();
     });
+  }
+
+  update(id: string): void {
+    this.router.navigate(['/admin/shop-category-modif', id]);
   }
 }
