@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environment';
 import { LoginResponse } from '../models/authentication';
 import { ApiReponse } from '../models/apiReponse';
 import { Router } from '@angular/router';
 import { clear, get, set } from '../utils/localStorage';
+import { ShopResponse } from '../models/shop';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class AuthenticationService {
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
   private router: Router = inject(Router);
+  public currentShop = signal<ShopResponse | undefined>(undefined);
 
   setToken({ accessToken, refreshToken }: { accessToken: string, refreshToken: string}): void{
     this.setAccessToken(accessToken);
