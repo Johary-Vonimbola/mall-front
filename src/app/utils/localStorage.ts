@@ -6,3 +6,7 @@ export const set = (key: string, value: string): void => {
     localStorage.removeItem(key);
     localStorage.setItem(key, value);
 }
+
+export const clear = () => {
+    localStorage.clear();
+}

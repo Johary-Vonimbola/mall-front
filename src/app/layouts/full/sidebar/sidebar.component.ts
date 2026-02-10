@@ -14,12 +14,17 @@ export class SidebarComponent {
   private router = inject(Router);
   shopsOpen = false;
   shopCategoriesOpen = false;
+  rentOpen = false;
 
   toggleShops(): void {
     this.shopsOpen = !this.shopsOpen;
   }
   toggleShopCategories(): void {
     this.shopCategoriesOpen = !this.shopCategoriesOpen;
+  }
+
+  toggleRent(): void {
+    this.rentOpen = !this.rentOpen;
   }
 
   logout(): void {

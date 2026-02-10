@@ -12,6 +12,9 @@ import { ShopCategoryFormComponent } from './pages/shop-management/shop-category
 import { ShopCategoryModifComponent } from './pages/shop-management/shop-category-modif/shop-category-modif.component';
 import { ShopModifComponent } from './pages/shop-management/shop-modif/shop-modif.component';
 import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashboard-admin.component';
+import { ShopRentFormComponent } from './pages/shop-rent/shop-rent-form/shop-rent-form.component';
+import { ShopRentListComponent } from './pages/shop-rent/shop-rent-list/shop-rent-list.component';
+import { ShopRentUpdateFormComponent } from './pages/shop-rent/shop-rent-update-form/shop-rent-update-form.component';
 
 export const routes: Routes = [
     {
@@ -67,6 +70,18 @@ export const routes: Routes = [
             {
                 path: 'shop-category-form',
                 component: ShopCategoryFormComponent
+            },
+            {
+                path: 'shop-rent-form',
+                component: ShopRentFormComponent
+            },
+            {
+                path: 'shop-rent-list',
+                component: ShopRentListComponent
+            },
+            {
+                path: 'shop-rent-update/:id',
+                component: ShopRentUpdateFormComponent
             },{
                 path: 'shop-category-modif/:id',
                 component: ShopCategoryModifComponent

@@ -60,6 +60,30 @@
         </ul>
       </li>
 
+      <!-- RENT -->
+      <li class="menu-item has-children" [class.open]="rentOpen">
+        <div class="menu-link" (click)="toggleRent()">
+          <img class="icon" src="/assets/icons/rent.png" alt="Icon Shop Rent">
+          <span>Rent</span>
+        </div>
+
+        <ul class="submenu">
+          <li class="submenu-item" routerLinkActive="active">
+            <a routerLink="shop-rent-list">
+              <img class="icon" src="/assets/icons/list.png" alt="">
+              <span>List</span>
+            </a>
+          </li>
+
+          <li class="submenu-item" routerLinkActive="active">
+            <a routerLink="shop-rent-form">
+              <img class="icon" src="/assets/icons/form.png" alt="">
+              <span>New</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
       <!-- LOGOUT -->
       <li class="menu-item logout" (click)="logout()">
         <div class="menu-link">
