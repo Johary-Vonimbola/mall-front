@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { isInvalid } from '../../../utils/form';
+import { isInvalid, toFormData } from '../../../utils/form';
 import { ProductCategory, Uom } from '../../../models/product';
 import { UomService } from '../../../services/uom.service';
 
@@ -36,6 +36,7 @@ private router: Router = inject(Router);
   errors = signal<String[]>([]);
   uomName = '';
   categoryName = '';
+  selectedFile = '';
 
   ngOnInit(): void {
     this.uomService.getAll().subscribe(res => {
@@ -54,11 +55,21 @@ private router: Router = inject(Router);
     });
   }
 
+  onFileChange(event: any): void{
+    const file = event.target.files[0];
+    if(file) this.selectedFile = file;
+  }
+
   onSubmit(): void{
     this.form.markAllAsTouched();
     if(this.form.invalid) return;
     const formValue = this.form.value;
-    this.productService.save({...formValue, shopId: this.authService.currentShop()?.id, uom: this.uomName, category: this.categoryName}).subscribe({
+    const formData = toFormData(formValue);
+    // formData.append('shopId', this.authService.currentShop()?.id);
+    formData.append('uom', this.uomName);
+    formData.append('category', this.categoryName);
+    formData.append('picture', this.selectedFile);
+    this.productService.save(formData).subscribe({
       next: res => {
         alert(res.message);
         this.router.navigateByUrl('admin-shop/product-list');

@@ -1,11 +1,21 @@
 <h2>Creer un produit</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
   <div class="main-form">
 
     <div class="errors">
       @for (err of errors(); track err) {
         <p class="header-error">{{ err }}</p>
       }
+    </div>
+
+    <div class="input-group">
+      <label for="picture">Image</label>
+      <input
+        id="picture"
+        type="file"
+        placeholder="Image du produit"
+        (change)="onFileChange($event)"
+      />
     </div>
 
     <div class="input-group">
