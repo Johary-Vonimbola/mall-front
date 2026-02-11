@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { ShopResponse } from '../../../models/shop';
 import { ShopManagementService } from '../../../services/shop-management.service';
@@ -7,8 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shop-list',
-  standalone: true,
-  imports: [CommonModule],
+  imports: [ ],
   templateUrl: './shop-list.component.html',
   styleUrl: './shop-list.component.scss'
 })
