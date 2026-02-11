@@ -1,13 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-product-list-client',
   imports: [],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  templateUrl: './product-list-client.component.html',
+  styleUrl: './product-list-client.component.scss'
 })
-export class ProductListComponent implements OnInit {
+export class ProductListClientComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
 
   shopId !: String;

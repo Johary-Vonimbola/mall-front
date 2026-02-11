@@ -16,7 +16,6 @@ import { ShopRentFormComponent } from './pages/shop-rent/shop-rent-form/shop-ren
 import { ShopRentListComponent } from './pages/shop-rent/shop-rent-list/shop-rent-list.component';
 import { ShopRentUpdateFormComponent } from './pages/shop-rent/shop-rent-update-form/shop-rent-update-form.component';
 import { ShopListClientComponent } from './pages/shop-management/shop-list-client/shop-list-client.component';
-import { ProductListComponent } from './pages/client/product-list/product-list.component';
 import { ProductCategoryFormComponent } from './pages/product-management/product-category-form/product-category-form.component';
 import { ProductCategoryListComponent } from './pages/product-management/product-category-list/product-category-list.component';
 import { ProductCategoryUpdateComponent } from './pages/product-management/product-category-update/product-category-update.component';
@@ -25,6 +24,7 @@ import { UomFormComponent } from './pages/uom-management/uom-form/uom-form.compo
 import { UomListComponent } from './pages/uom-management/uom-list/uom-list.component';
 import { UomUpdateFormComponent } from './pages/uom-management/uom-update/uom-update.component';
 import { ProductListComponent } from './pages/product-management/product-list/product-list.component';
+import { ProductListClientComponent } from './pages/client/product-list-client/product-list-client.component';
 
 export const routes: Routes = [
     {
@@ -41,7 +41,7 @@ export const routes: Routes = [
             },
             {
                 path: 'shops/:id',
-                component: ProductListComponent
+                component: ProductListClientComponent
             }
         ]
     },{
