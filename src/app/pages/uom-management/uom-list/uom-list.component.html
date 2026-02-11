@@ -1,0 +1,23 @@
+<h2>Liste des unites de mesure</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Abbreviation</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (uom of uoms; track uom._id) {
+      <tr>
+        <td>{{ uom.name }}</td>
+        <td>{{ uom.abbr }}</td>
+        <td>
+          <button (click)="update(uom._id)">Modifier</button>
+          <button (click)="delete(uom._id)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
