@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="main-form">
+
+    <div class="errors">
+      @for (err of errors(); track err) {
+        <p class="header-error">{{ err }}</p>
+      }
+    </div>
+
+    <div class="input-group">
+      <label for="name">Nom de l'unite</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Nom de l'unite"
+        formControlName="name"
+        [ngClass]="{'is-invalid': isInvalid(form.controls.name)}"
+      />
+      <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error">
+        Le nom est obligatoire
+      </p>
+    </div>
+
+    <div class="input-group">
+      <label for="abbr">Abbreviation</label>
+      <input
+        id="abbr"
+        type="text"
+        placeholder="Abbreviation"
+        formControlName="abbr"
+        [ngClass]="{'is-invalid': isInvalid(form.controls.abbr)}"
+      />
+      <p *ngIf="isInvalid(form.controls.abbr) && form.controls.abbr.hasError('required')" class="error">
+        L'abbreviation est obligatoire
+      </p>
+    </div>
+
+    <div class="input-group">
+      <button [disabled]="form.invalid" type="submit">Valider</button>
+    </div>
+
+  </div>
+</form>
