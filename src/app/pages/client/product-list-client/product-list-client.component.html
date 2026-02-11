@@ -1,0 +1,41 @@
+<button (click)="returnToListShop()" type="button">Retour</button>
+
+<div class="product-container">
+
+  @if (productList().length === 0) {
+    <div class="empty-state">
+      Aucun produit disponible
+    </div>
+  }
+
+  @if (productList().length > 0) {
+    <div class="product-grid">
+      @for (product of productList(); track product._id) {
+
+        <div class="product-card">
+
+          <div class="image-container">
+            <img [src]="product.picture" alt="image">
+          </div>
+
+          <div class="product-info">
+            <h3 class="product-name">
+              {{ product.name }}
+            </h3>
+
+            <p class="category">
+              {{ product.category }}
+            </p>
+
+            <div class="price-section">
+              {{ product.price | number:'1.0-0' }} Ar
+            </div>
+          </div>
+
+        </div>
+
+      }
+    </div>
+  }
+
+</div>
