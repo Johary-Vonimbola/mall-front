@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 import { isInvalid } from '../../../utils/form';
 import { set } from '../../../utils/localStorage';
+import { User } from '../../../models/User';
+import { ShopManagementService } from '../../../services/shop-management.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,7 @@ import { set } from '../../../utils/localStorage';
 export class LoginComponent {
   private authService: AuthenticationService = inject(AuthenticationService);
   private router: Router = inject(Router);
+  private shopService: ShopManagementService = inject(ShopManagementService);
   isInvalid = isInvalid;
 
   form = new FormGroup({
@@ -30,6 +33,22 @@ export class LoginComponent {
 
   onSignup(): void{
     this.router.navigateByUrl('register');
+  }
+
+  setShopIfAdmin(user: User): void{
+    if(user.role === 'SHOP_ADMIN'){
+      this.shopService.getShopByIdUser(user.id).subscribe(shop => {
+        this.authService.currentShop.set(shop);
+        set('current_shop', JSON.stringify(shop))
+        this.router.navigateByUrl('admin-shop/products');
+      });
+    }else{
+      if(user.role === 'MALL_ADMIN'){
+        this.router.navigateByUrl('admin/shops');
+      }else{
+        this.router.navigateByUrl('shops');
+      }
+    }
   }
 
   onSubmit(): void{
@@ -45,7 +64,10 @@ export class LoginComponent {
             refreshToken: loginReponse.refreshToken
           });
           set('refresh_token', loginReponse.refreshToken);
-          this.router.navigateByUrl('shops');
+          const payload = loginReponse.accessToken.split('.')[1];
+          const content = JSON.parse(atob(payload));
+          const user = new User(content.id, content.name, content.role);
+          this.setShopIfAdmin(user);
         }
       },
       error: res => {

@@ -47,6 +47,26 @@ export class ShopManagementService {
       );
   }
 
+  getShopByIdUser(id: string): Observable<ShopResponse> {
+    return this.http
+      .post<ApiReponse<any>>(`${this.apiUrl}/shops/admin`, { idUser: id })
+      .pipe(
+        map(response => {
+          const shop = response.data;
+
+          return {
+            id: shop._id,
+            name: shop.name,
+            isActive: shop.isActive,
+            category: shop.category,
+            categoryId: shop.categoryId,
+            logo: shop.logo ?? ''
+          };
+        })
+      );
+  }
+
+
   createShop(payload: any): Observable<ApiReponse<any>> {
     return this.http.post<ApiReponse<any>>(
       `${this.apiUrl}/shops`,

@@ -65,14 +65,17 @@ private router: Router = inject(Router);
     if(this.form.invalid) return;
     const formValue = this.form.value;
     const formData = toFormData(formValue);
-    // formData.append('shopId', this.authService.currentShop()?.id);
+    const currentShop = this.authService.currentShop();
+    if(currentShop){
+      formData.append('shopId', currentShop.id);
+    }
     formData.append('uom', this.uomName);
     formData.append('category', this.categoryName);
     formData.append('picture', this.selectedFile);
     this.productService.save(formData).subscribe({
       next: res => {
         alert(res.message);
-        this.router.navigateByUrl('admin-shop/product-list');
+        this.router.navigateByUrl('admin-shop/products');
       },
       error: res => {
         this.errors.set(res.error.errors);

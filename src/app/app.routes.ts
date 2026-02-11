@@ -23,6 +23,7 @@ import { UomFormComponent } from './pages/uom-management/uom-form/uom-form.compo
 import { UomListComponent } from './pages/uom-management/uom-list/uom-list.component';
 import { UomUpdateFormComponent } from './pages/uom-management/uom-update/uom-update.component';
 import { ProductListComponent } from './pages/product-management/product-list/product-list.component';
+import { ProductUpdateFormComponent } from './pages/product-management/product-update/product-update.component';
 
 export const routes: Routes = [
     {
@@ -100,7 +101,7 @@ export const routes: Routes = [
                 component: UomFormComponent
             },
             {
-                path: 'uoms-list',
+                path: 'uoms',
                 component: UomListComponent
             },
             {
@@ -130,8 +131,12 @@ export const routes: Routes = [
                 component: ProductFormComponent
             },
             {
-                path: 'product-list',
+                path: 'products',
                 component: ProductListComponent
+            },
+            {
+                path: 'product-update/:id',
+                component: ProductUpdateFormComponent
             }
         ]
     },
