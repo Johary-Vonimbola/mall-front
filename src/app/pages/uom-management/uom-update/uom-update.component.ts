@@ -67,7 +67,7 @@ export class UomUpdateFormComponent {
     this.uomService.update(this.uomId, payload).subscribe({
       next: res => {
         alert(res.message);
-        this.router.navigate(['/admin/uoms-list']);
+        this.router.navigate(['/admin/uoms']);
       },
       error: res => {
         this.errors.set(res.error.errors ?? ['Erreur inconnue']);

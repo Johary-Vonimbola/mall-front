@@ -70,7 +70,7 @@ export class ProductUpdateFormComponent implements OnInit {
     this.productService.update(this.productId(), payload).subscribe({
       next: res => {
         alert(res.message);
-        this.router.navigateByUrl('/admin/products-list');
+        this.router.navigateByUrl('/admin-shop/products');
       },
       error: res => {
         this.errors.set(res.error.errors);

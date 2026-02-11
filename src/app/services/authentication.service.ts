@@ -7,6 +7,8 @@ import { ApiReponse } from '../models/apiReponse';
 import { Router } from '@angular/router';
 import { clear, get, set } from '../utils/localStorage';
 import { ShopResponse } from '../models/shop';
+import { User } from '../models/User';
+import { getCurrentShop, getUser } from '../utils/userUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,8 @@ export class AuthenticationService {
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
   private router: Router = inject(Router);
-  public currentShop = signal<ShopResponse | undefined>(undefined);
+  public currentUser = signal<User|null>(getUser());
+  public currentShop = signal<ShopResponse|null>(getCurrentShop());
 
   setToken({ accessToken, refreshToken }: { accessToken: string, refreshToken: string}): void{
     this.setAccessToken(accessToken);

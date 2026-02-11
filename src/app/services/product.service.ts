@@ -43,7 +43,7 @@ export class ProductService {
     );
   }
 
-  save(data: any): Observable<ApiReponse<Product>>{
+  save(data: FormData): Observable<ApiReponse<Product>>{
     return this.http.post<ApiReponse<Product>>(this.productUrl, data);
   }
   getAll(): Observable<Product[]>{
