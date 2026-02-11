@@ -15,6 +15,8 @@ import { DashboardAdminComponent } from './pages/dashboard/dashboard-admin/dashb
 import { ShopRentFormComponent } from './pages/shop-rent/shop-rent-form/shop-rent-form.component';
 import { ShopRentListComponent } from './pages/shop-rent/shop-rent-list/shop-rent-list.component';
 import { ShopRentUpdateFormComponent } from './pages/shop-rent/shop-rent-update-form/shop-rent-update-form.component';
+import { ShopListClientComponent } from './pages/shop-management/shop-list-client/shop-list-client.component';
+import { ProductListComponent } from './pages/client/product-list/product-list.component';
 
 export const routes: Routes = [
     {
@@ -27,7 +29,11 @@ export const routes: Routes = [
         children: [
             {
                 path: 'shops',
-                component: ShopListComponent
+                component: ShopListClientComponent
+            },
+            {
+                path: 'shops/:id',
+                component: ProductListComponent
             }
         ]
     },{
