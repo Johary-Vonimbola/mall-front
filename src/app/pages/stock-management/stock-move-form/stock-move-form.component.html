@@ -1,0 +1,52 @@
+<div>
+    <h2>Creer un mouvement de stock</h2>
+
+    @for (err of errors(); track err) {
+        <p class="error">{{ err }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div class="input-group">
+            <label>Date</label>
+            <input type="datetime-local" formControlName="date">
+        </div>
+
+        <div formArrayName="lines">
+            @for (line of lines.controls; track $index; let i = $index) {
+                <div [formGroupName]="i">
+                    <div class="product-line-form">
+                        <div class="input-group">
+                            <label for="productId">Produit</label>
+                            <select id="productId" formControlName="productId" (change)="onChangeProductName($event, i)">
+                                @for(p of products(); track p){
+                                    <option [value]="p._id">{{p.name}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="type">Type de mouvement</label>
+                            <select id="type" formControlName="type">
+                                @for(t of types; track t){
+                                    <option [value]="t">{{t}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="quantity">Quantite</label>
+                            <input id="quantity" type="number" formControlName="quantity">
+                        </div>
+
+                        <div class="input-group">
+                            <button type="button" (click)="removeLine(i)">Supprimer</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+        </div>
+
+        <button type="button" (click)="addLine()">Ajouter ligne</button>
+        <button type="submit">Enregistrer</button>
+    </form>
+</div>
