@@ -26,6 +26,9 @@ import { UomUpdateFormComponent } from './pages/uom-management/uom-update/uom-up
 import { ProductListComponent } from './pages/product-management/product-list/product-list.component';
 import { ProductUpdateFormComponent } from './pages/product-management/product-update/product-update.component';
 import { ProductListClientComponent } from './pages/client/product-list-client/product-list-client.component';
+import { StockMoveListComponent } from './pages/stock-management/stock-move-list/stock-move-list.component';
+import { StockMoveFormComponent } from './pages/stock-management/stock-move-form/stock-move-form.component';
+import { StockMoveListDetailComponent } from './pages/stock-management/stock-move-list-detail/stock-move-list-detail.component';
 
 export const routes: Routes = [
     {
@@ -143,7 +146,19 @@ export const routes: Routes = [
             {
                 path: 'product-update/:id',
                 component: ProductUpdateFormComponent
-            }
+            },
+            {
+                path: 'stock-moves',
+                component: StockMoveListComponent
+            },
+            {
+                path: 'stock-move-form',
+                component: StockMoveFormComponent
+            },
+            {
+                path: 'stock-move-details/:id',
+                component: StockMoveListDetailComponent
+            },
         ]
     },
     {

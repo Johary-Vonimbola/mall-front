@@ -1,0 +1,21 @@
+<h2>Liste des mouvements de stock</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (move of stockMoves; track move._id) {
+      <tr>
+        <td>{{ move.date }}</td>
+        <td>
+          <button (click)="details(move._id)">Details</button>
+          <button (click)="delete(move._id)">Supprimer</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
