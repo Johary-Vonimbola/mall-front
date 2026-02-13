@@ -1,0 +1,26 @@
+<h2>Stock actuel des produits</h2>
+
+<form [formGroup]="form">
+    <div class="input-group" formArrayName="checkedProducts">
+        @for (p of products(); track p._id; let i = $index) {
+            <label [for]="p.name">{{ p.name }}</label>
+            <input [id]="p.name" type="checkbox" [formControlName]="i">
+        }
+    </div>
+</form>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Produit</th>
+      <th>Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (p of filteredProducts(); track p._id) {
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.stock }} {{ p.uom }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

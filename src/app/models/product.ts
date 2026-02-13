@@ -13,6 +13,7 @@ export class Product extends AuditField{
         public isActive: boolean,
         public category: string,
         public categoryId: string,
+        public stock: number,
         createdAt: Date,
         updatedAt: Date
     ){
