@@ -1,0 +1,34 @@
+<button (click)="returnToListProduct()" type="button">Retour</button>
+
+@if(cart()){
+
+  <p>Total : {{ cart()?.total }}</p>
+  <p>Nombre d'articles : {{ cart()?.nbArticles }}</p>
+
+  @for(product of cart()?.details; track product.productId){
+
+    <div>
+      {{ product.productName }}
+      {{ product.quantity }}
+      {{ product.price }}
+
+    
+      <label for="qty-{{ product.productId }}">Quantité:</label>
+      <input
+        id="qty-{{ product.productId }}"
+        type="number"
+        min="1"
+        [value]="product.quantity"
+        (change)="changeQuantity(product.productId, $event)"
+        required
+      />
+
+    </div>
+
+    <div>
+      <button type="button" (click)="removeProduct(product.productId)">Supprimer</button>
+      <button type="button" (click)="increment(product.productId)">Incrementer +1</button>
+      <button type="button" (click)="decrement(product.productId)">Decrementer -1</button>
+    </div>
+  }
+}

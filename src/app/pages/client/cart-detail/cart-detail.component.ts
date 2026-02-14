@@ -1,0 +1,142 @@
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { CartService } from '../../../services/cart.service';
+import { Cart } from '../../../models/Cart';
+import { get } from '../../../utils/localStorage';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-cart-detail',
+  imports: [],
+  templateUrl: './cart-detail.component.html',
+  styleUrl: './cart-detail.component.scss'
+})
+export class CartDetailComponent implements OnInit {
+  private router: Router = inject(Router);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private cartService = inject(CartService);
+
+  shopId !: String;
+  cart = signal<Cart | undefined>(undefined);
+
+  ngOnInit(): void {
+    const cartId = get('cart_id');
+    if (cartId) {
+      this.cartService.getCart(cartId).subscribe({
+        next: (res) => {
+          this.cart.set(res.data);
+        },
+        error: (err) => console.error('Erreur chargement panier', err)
+      });
+    }
+  }
+
+  returnToListProduct() : void{
+    this.shopId = this.route.snapshot.paramMap.get('id')!;
+    this.router.navigate(['/shops', this.shopId]);
+  }
+
+  removeProduct(productId: string): void {
+    const cartId = get('cart_id');
+
+    if (cartId) {
+      this.cartService.removeProduct(cartId, productId).subscribe({
+        next: (res) => {
+          this.cart.set(res.data);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression d\'un produit', err);
+          alert(err?.error?.message || 'Erreur lors de la suppression d\'un produit');
+        }
+      });
+    }
+  }
+
+  increment(productId: string): void{
+    const cartId = get('cart_id');
+    if (cartId) {
+      const product = this.cart()?.details.find(p => p.productId === productId);
+
+      if (!product) {
+        console.error('Produit introuvable');
+        return;
+      }
+
+      this.cartService.updateQuantity(cartId, productId,{ quantity: 1, price: product.price }).subscribe({
+        next: (res) => {
+          this.cart.set(res.data);
+          // alert('Quantité du produit mise à jour !');
+        },
+        error: (err) => {
+          console.error('Erreur mise à jour quantité', err);
+          alert(err?.error?.message || 'Erreur mise à jour quantité');
+        }
+      });
+    }
+  }
+
+  decrement(productId: string): void{
+    const cartId = get('cart_id');
+    if (cartId) {
+      const product = this.cart()?.details.find(p => p.productId === productId);
+
+      if (!product) {
+        console.error('Produit introuvable');
+        return;
+      }
+
+      if (product.quantity === 1) {
+        this.removeProduct(productId);
+        return;
+      }
+
+      this.cartService.updateQuantity(cartId, productId,{ quantity: -1, price: product.price }).subscribe({
+        next: (res) => {
+          this.cart.set(res.data);
+          // alert('Quantité du produit mise à jour !');
+        },
+        error: (err) => {
+          console.error('Erreur mise à jour quantité', err);
+          alert(err?.error?.message || 'Erreur mise à jour quantité');
+        }
+      });
+    }
+  }
+
+  changeQuantity(productId: string, event: any): void {
+    const input = event.target as HTMLInputElement;
+
+    const cartId = get('cart_id');
+    const cart = this.cart();
+
+    if (!cartId || !cart) return;
+
+    const newQuantity = parseInt(event.target.value, 10);
+    const product = cart.details.find(p => p.productId === productId);
+
+    if (!product) return;
+
+    if (isNaN(newQuantity) || newQuantity < 1) {
+      input.value = product.quantity.toString();
+
+      return;
+    }
+
+    const diff = newQuantity - product.quantity;
+
+    if (diff === 0) return;
+
+    this.cartService.updateQuantity(cartId, productId, {
+      quantity: diff,
+      price: product.price
+    }).subscribe({
+      next: (res) => {
+        this.cart.set(res.data);
+      },
+      error: (err) => {
+        console.error('Erreur update quantity', err);
+        alert(err?.error?.message || 'Erreur update quantity');
+      }
+    });
+  }
+
+}
