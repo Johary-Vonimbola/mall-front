@@ -30,6 +30,7 @@ import { StockMoveListComponent } from './pages/stock-management/stock-move-list
 import { StockMoveFormComponent } from './pages/stock-management/stock-move-form/stock-move-form.component';
 import { StockMoveListDetailComponent } from './pages/stock-management/stock-move-list-detail/stock-move-list-detail.component';
 import { CartDetailComponent } from './pages/client/cart-detail/cart-detail.component';
+import { StockProductComponent } from './pages/stock-management/stock-product/stock-product.component';
 
 export const routes: Routes = [
     {
@@ -164,6 +165,10 @@ export const routes: Routes = [
                 path: 'stock-move-details/:id',
                 component: StockMoveListDetailComponent
             },
+            {
+                path: 'stock-products',
+                component: StockProductComponent
+            }
         ]
     },
     {
