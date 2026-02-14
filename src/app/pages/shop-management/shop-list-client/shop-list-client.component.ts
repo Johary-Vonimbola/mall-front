@@ -4,7 +4,7 @@ import { ShopResponse } from '../../../models/shop';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { set } from '../../../utils/localStorage';
+import { get, remove, set } from '../../../utils/localStorage';
 
 @Component({
   selector: 'app-shop-list-client',
@@ -35,6 +35,17 @@ export class ShopListClientComponent implements OnInit {
     const shop = this.shops().find(s => s.id === id);
 
     if (shop) {
+      const storedShop = get('current_shop');
+
+      if (storedShop) {
+        const parsedShop = JSON.parse(storedShop);
+
+        if (parsedShop.id !== shop.id) {
+          remove('current_shop');
+          remove('cart_id');
+        }
+      }
+
       set('current_shop', JSON.stringify(shop));
       this.autheService.currentShop.set(shop);
       this.router.navigate(['/shops', id]);
