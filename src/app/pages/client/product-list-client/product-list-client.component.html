@@ -1,5 +1,12 @@
 <button (click)="returnToListShop()" type="button">Retour</button>
 
+<button (click)="viewCart()" type="button">Voir Panier</button>
+
+<div *ngIf="cart() as c">
+  <p>Nombre d'articles : {{ c.nbArticles }}</p>
+  <p>Total : {{ c.total | number }}</p>
+</div>
+
 <div class="product-container">
 
   @if (productList().length === 0) {
@@ -30,10 +37,23 @@
             <div class="price-section">
               {{ product.price | number:'1.0-0' }} Ar
             </div>
+
+            <div class="quantity-input">
+              <label for="qty-{{ product._id }}">Quantité:</label>
+              <input
+                id="qty-{{ product._id }}"
+                type="number"
+                min="1"
+                [value]="1"
+                #qtyInput
+              />
+            </div>
           </div>
 
+          <button type="button" (click)="addToBasket(product._id, qtyInput.value)">
+            Commander
+          </button>
         </div>
-
       }
     </div>
   }
