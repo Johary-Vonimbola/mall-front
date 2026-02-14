@@ -53,7 +53,6 @@ export class ProductListClientComponent implements OnInit {
   }
 
   returnToListShop() : void{
-    remove('current_shop');
     this.autheService.currentShop.set(null);
     this.router.navigate(['/shops']);
   }
