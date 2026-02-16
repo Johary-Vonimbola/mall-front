@@ -4,13 +4,15 @@ import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product';
 import { NgClass } from '@angular/common';
 import { StockService } from '../../../services/stock.service';
+import { BackComponent } from "../../../components/back/back.component";
 
 @Component({
   selector: 'app-stock-product-threshold',
   imports: [
     ReactiveFormsModule,
-    NgClass
-  ],
+    NgClass,
+    BackComponent
+],
   templateUrl: './stock-product-threshold.component.html',
   styleUrl: './stock-product-threshold.component.scss'
 })

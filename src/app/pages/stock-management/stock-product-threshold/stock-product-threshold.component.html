@@ -1,22 +1,26 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div formArrayName="thresholds">
-        @for (thr of thresholds.controls; track $index; let i = $index) {
-            <div class="threshold-line" [formGroupName]="i" [ngClass]="{ 'is-checked': thresholds.at(i).get('checked')?.value}">
-                <div class="input-group">
-                    <input type="checkbox" formControlName="checked">
+<app-back link="admin-shop/stock-moves" />
+<div>
+    <h2>Configurer les seuils de stock</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div formArrayName="thresholds">
+            @for (thr of thresholds.controls; track $index; let i = $index) {
+                <div class="threshold-line" [formGroupName]="i" [ngClass]="{ 'is-checked': thresholds.at(i).get('checked')?.value}">
+                    <div class="input-group">
+                        <input type="checkbox" formControlName="checked">
+                    </div>
+                    <div class="input-group">
+                        <span>{{ getProductName(thresholds.at(i).get('productId')?.value) }}</span>
+                        <input type="hidden" formControlName="productId">
+                    </div>
+                    <div class="input-group">
+                        <label [for]="i">Seuil</label>
+                        <input [id]="i" type="number" formControlName="quantity">
+                    </div>
                 </div>
-                <div class="input-group">
-                    <span>{{ getProductName(thresholds.at(i).get('productId')?.value) }}</span>
-                    <input type="hidden" formControlName="productId">
-                </div>
-                <div class="input-group">
-                    <label [for]="i">Seuil</label>
-                    <input [id]="i" type="number" formControlName="quantity">
-                </div>
+            }
+            <div class="input-group">
+                <button type="submit">Valider</button>
             </div>
-        }
-        <div class="input-group">
-            <button type="submit">Valider</button>
         </div>
-    </div>
-</form>
+    </form>
+</div>
