@@ -31,6 +31,8 @@ import { StockMoveFormComponent } from './pages/stock-management/stock-move-form
 import { StockMoveListDetailComponent } from './pages/stock-management/stock-move-list-detail/stock-move-list-detail.component';
 import { CartDetailComponent } from './pages/client/cart-detail/cart-detail.component';
 import { StockProductComponent } from './pages/stock-management/stock-product/stock-product.component';
+import { StockProductMoveComponent } from './pages/stock-management/stock-product-move/stock-product-move.component';
+import { StockProductThresholdComponent } from './pages/stock-management/stock-product-threshold/stock-product-threshold.component';
 
 export const routes: Routes = [
     {
@@ -168,6 +170,14 @@ export const routes: Routes = [
             {
                 path: 'stock-products',
                 component: StockProductComponent
+            },
+            {
+                path: 'stock-product-move/:id',
+                component: StockProductMoveComponent
+            },
+            {
+                path: 'stock-thresholds',
+                component: StockProductThresholdComponent,
             }
         ]
     },

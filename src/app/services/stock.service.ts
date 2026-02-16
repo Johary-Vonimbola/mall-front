@@ -39,4 +39,8 @@ export class StockService {
       map(res => res.data ?? [])
     );
   }
+
+  updateThreshold(thresholds: any[]): Observable<ApiReponse<any>>{
+    return this.http.put<ApiReponse<any>>(`${this.apiUrl}/thresholds`, thresholds);
+  }
 }
