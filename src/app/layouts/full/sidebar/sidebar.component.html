@@ -12,77 +12,131 @@
         </a>
       </li>
 
-      <!-- SHOPS -->
-      <li class="menu-item has-children" [class.open]="shopsOpen">
-        <div class="menu-link" (click)="toggleShops()">
-          <img class="icon" src="/assets/icons/store.png" alt="Icon Shop">
-          <span>Shops</span>
+      @if (isAdmin()) {
+        <!-- SHOPS -->
+        <li class="menu-item has-children" [class.open]="shopsOpen">
+          <div class="menu-link" (click)="toggleShops()">
+            <img class="icon" src="/assets/icons/store.png" alt="Icon Shop">
+            <span>Shops</span>
+          </div>
+
+          <ul class="submenu">
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="shops">
+                <img class="icon" src="/assets/icons/list.png" alt="">
+                <span>List</span>
+              </a>
+            </li>
+
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="shop-form">
+                <img class="icon" src="/assets/icons/form.png" alt="">
+                <span>New</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- SHOPS CATEGORIES -->
+        <li class="menu-item has-children" [class.open]="shopCategoriesOpen">
+          <div class="menu-link" (click)="toggleShopCategories()">
+            <img class="icon" src="/assets/icons/categorization.png" alt="Icon Shop Categories">
+            <span>Shop Categories</span>
+          </div>
+
+          <ul class="submenu">
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="shop-categories">
+                <img class="icon" src="/assets/icons/list.png" alt="">
+                <span>List</span>
+              </a>
+            </li>
+
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="shop-category-form">
+                <img class="icon" src="/assets/icons/form.png" alt="">
+                <span>New</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- RENT -->
+        <li class="menu-item has-children" [class.open]="rentOpen">
+          <div class="menu-link" (click)="toggleRent()">
+            <img class="icon" src="/assets/icons/rent.png" alt="Icon Shop Rent">
+            <span>Rent</span>
+          </div>
+
+          <ul class="submenu">
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="shop-rent-list">
+                <img class="icon" src="/assets/icons/list.png" alt="">
+                <span>List</span>
+              </a>
+            </li>
+
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="shop-rent-form">
+                <img class="icon" src="/assets/icons/form.png" alt="">
+                <span>New</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      }
+
+      <!-- PRODUCTS -->
+      <li class="menu-item has-children" [class.open]="productOpen">
+        <div class="menu-link" (click)="toggleProduct()">
+          <img class="icon" src="/assets/icons/product.png" alt="Icon Product">
+          <span>Produit</span>
         </div>
 
         <ul class="submenu">
           <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="shops">
+            <a routerLink="products">
               <img class="icon" src="/assets/icons/list.png" alt="">
-              <span>List</span>
+              <span>Liste</span>
             </a>
           </li>
 
-          <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="shop-form">
-              <img class="icon" src="/assets/icons/form.png" alt="">
-              <span>New</span>
-            </a>
-          </li>
+          @if(isAdminShop()){
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="product-form">
+                <img class="icon" src="/assets/icons/form.png" alt="">
+                <span>Nouveau</span>
+              </a>
+            </li>
+          }
         </ul>
       </li>
 
-      <!-- SHOPS CATEGORIES -->
-      <li class="menu-item has-children" [class.open]="shopCategoriesOpen">
-        <div class="menu-link" (click)="toggleShopCategories()">
-          <img class="icon" src="/assets/icons/categorization.png" alt="Icon Shop Categories">
-          <span>Shop Categories</span>
-        </div>
+      @if(isAdminShop()){
+        <!-- STOCK -->
+        <li class="menu-item has-children" [class.open]="stockOpen">
+          <div class="menu-link" (click)="toggleStock()">
+            <img class="icon" src="/assets/icons/stock.png" alt="Icon Stock">
+            <span>Stock</span>
+          </div>
 
-        <ul class="submenu">
-          <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="shop-categories">
-              <img class="icon" src="/assets/icons/list.png" alt="">
-              <span>List</span>
-            </a>
-          </li>
+          <ul class="submenu">
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="stock-moves">
+                <img class="icon" src="/assets/icons/list.png" alt="">
+                <span>Mouvement</span>
+              </a>
+            </li>
 
-          <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="shop-category-form">
-              <img class="icon" src="/assets/icons/form.png" alt="">
-              <span>New</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- RENT -->
-      <li class="menu-item has-children" [class.open]="rentOpen">
-        <div class="menu-link" (click)="toggleRent()">
-          <img class="icon" src="/assets/icons/rent.png" alt="Icon Shop Rent">
-          <span>Rent</span>
-        </div>
-
-        <ul class="submenu">
-          <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="shop-rent-list">
-              <img class="icon" src="/assets/icons/list.png" alt="">
-              <span>List</span>
-            </a>
-          </li>
-
-          <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="shop-rent-form">
-              <img class="icon" src="/assets/icons/form.png" alt="">
-              <span>New</span>
-            </a>
-          </li>
-        </ul>
-      </li>
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="stock-move-form">
+                <img class="icon" src="/assets/icons/form.png" alt="">
+                <span>Reajustation</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      }
 
       <!-- LOGOUT -->
       <li class="menu-item logout" (click)="logout()">

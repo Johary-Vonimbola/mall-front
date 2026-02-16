@@ -4,12 +4,14 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { StockService } from '../../../services/stock.service';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product';
+import { BackComponent } from "../../../components/back/back.component";
 
 @Component({
   selector: 'app-stock-move-form',
   imports: [
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    BackComponent
+],
   templateUrl: './stock-move-form.component.html',
   styleUrl: './stock-move-form.component.scss'
 })
@@ -24,7 +26,7 @@ export class StockMoveFormComponent implements OnInit{
 
   form = this.formBuilder.group({
     shopId: new FormControl(this.authService.currentShop()?.id, [Validators.required]),
-    date: new FormControl(new Date().toDateString(), [Validators.required]),
+    date: new FormControl('', [Validators.required]),
     lines: this.formBuilder.array([])
   });
 
@@ -61,7 +63,12 @@ export class StockMoveFormComponent implements OnInit{
 
   onSubmit(): void{
     if(this.form.valid){
-      this.stockService.save(this.form.value).subscribe({
+      const value = this.form.value;
+      if(value.lines?.length === 0) {
+        alert('Veuillez ajouter au moins une ligne de mouvement');
+        return;
+      }
+      this.stockService.save(value).subscribe({
         next: () => alert('Stock move created'),
         error: res => this.errors.set(res.error.errors)
       });

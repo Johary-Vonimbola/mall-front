@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { StockService } from '../../../services/stock.service';
 import { StockMoveLine } from '../../../models/Stock';
 import { ActivatedRoute } from '@angular/router';
+import { BackComponent } from "../../../components/back/back.component";
 
 @Component({
   selector: 'app-stock-move-list-detail',
-  imports: [],
+  imports: [BackComponent],
   templateUrl: './stock-move-list-detail.component.html',
   styleUrl: './stock-move-list-detail.component.scss'
 })
