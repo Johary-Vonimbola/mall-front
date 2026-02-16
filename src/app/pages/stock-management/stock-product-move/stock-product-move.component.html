@@ -1,0 +1,24 @@
+<h2>Mouvement de stock</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Parent</th>
+      <th>Produit</th>
+      <th>Type</th>
+      <th>Quantite</th>
+      <th>Cree le</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (move of lines(); track move._id) {
+      <tr>
+        <td>{{ move.parentId }}</td>
+        <td>{{ move.productName }}</td>
+        <td>{{ move.type }}</td>
+        <td>{{ move.quantity }}</td>
+        <td>{{ move.createdAt | date : "dd-MM-YYYY HH:mm"}}</td>
+      </tr>
+    }
+  </tbody>
+</table>

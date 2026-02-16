@@ -14,6 +14,7 @@ export class Product extends AuditField{
         public category: string,
         public categoryId: string,
         public stock: number,
+        public stockThreshold: number,
         createdAt: Date,
         updatedAt: Date
     ){

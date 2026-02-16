@@ -1,5 +1,5 @@
 <h2>Stock actuel des produits</h2>
-
+<button (click)="onConfigThreshold()">Configurer les seuils de stock</button>
 <form [formGroup]="form">
     <div class="input-group" formArrayName="checkedProducts">
         @for (p of products(); track p._id; let i = $index) {
@@ -13,13 +13,15 @@
     <tr>
       <th>Produit</th>
       <th>Stock</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     @for (p of filteredProducts(); track p._id) {
       <tr>
         <td>{{ p.name }}</td>
-        <td>{{ p.stock }} {{ p.uom }}</td>
+        <td [ngClass]="{ 'is-not-enough': p.stock <= p.stockThreshold}">{{ p.stock }} {{ p.uom }}</td>
+        <td><button (click)="onSeeMoveLines(p._id)">Details</button></td>
       </tr>
     }
   </tbody>

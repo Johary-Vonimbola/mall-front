@@ -6,6 +6,7 @@ export class StockMove extends AuditField{
         public _id: string,
         public shopId: string,
         public date: Date,
+        public description: String,
         createdAt: Date,
         updateAt: Date
     ){
