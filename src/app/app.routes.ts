@@ -33,6 +33,7 @@ import { CartDetailComponent } from './pages/client/cart-detail/cart-detail.comp
 import { StockProductComponent } from './pages/stock-management/stock-product/stock-product.component';
 import { StockProductMoveComponent } from './pages/stock-management/stock-product-move/stock-product-move.component';
 import { StockProductThresholdComponent } from './pages/stock-management/stock-product-threshold/stock-product-threshold.component';
+import { OrderListClientComponent } from './pages/client/order-list-client/order-list-client.component';
 
 export const routes: Routes = [
     {
@@ -54,6 +55,10 @@ export const routes: Routes = [
             {
                 path: 'shops/:id/cart-detail',
                 component: CartDetailComponent
+            },
+            {
+                path: 'shops/:shopId/orders/:clientId',
+                component: OrderListClientComponent
             }
         ]
     },{
