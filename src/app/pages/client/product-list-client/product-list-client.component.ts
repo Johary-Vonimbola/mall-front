@@ -61,6 +61,10 @@ export class ProductListClientComponent implements OnInit {
     this.router.navigate([`/shops/${ this.shopId }/cart-detail`]);
   }
 
+  viewOrders() : void{
+    this.router.navigate([`/shops/${ this.shopId }/orders/${ this.autheService.currentUser()?.id }`]);
+  }
+
   addToBasket(productId: string, quantityStr: string): void {
     const quantity = parseInt(quantityStr, 10) || 1;
     const cartId = get('cart_id');

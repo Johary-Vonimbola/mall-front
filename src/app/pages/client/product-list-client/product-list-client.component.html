@@ -2,6 +2,8 @@
 
 <button (click)="viewCart()" type="button">Voir Panier</button>
 
+<button (click)="viewOrders()" type="button">Voir Tout les commandes</button>
+
 <div *ngIf="cart() as c">
   <p>Nombre d'articles : {{ c.nbArticles }}</p>
   <p>Total : {{ c.total | number }}</p>

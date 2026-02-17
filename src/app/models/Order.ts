@@ -1,7 +1,15 @@
 import { AuditField } from "./AuditField";
 
-export class CartDetail {
+export class OrderResponse{
     constructor(
+        public order: Order,
+        public orderDetails : OrderDetail[]
+    ){}
+}
+
+export class OrderDetail{
+    constructor(
+        public orderId: string,
         public quantity: number,
         public price: number,
         public productId: string,
@@ -11,21 +19,23 @@ export class CartDetail {
         public productPicture: string,
         public productCategory: string,
         public productCategoryId: string
-    ) {}
+    ){
+    }
 }
 
-export class Cart extends AuditField {
+export class Order extends AuditField {
     constructor(
         public _id: string,
         public date: Date,
-        public clientId: string | null,
+        public clientId: string,
         public shopId: string,
         public total: number,
         public nbArticles: number,
-        public details: CartDetail[],
+        public status: string,
+        public details: OrderDetail[],
         createdAt: Date,
         updatedAt: Date
-    ) {
+    ){
         super(createdAt, updatedAt);
     }
 }
