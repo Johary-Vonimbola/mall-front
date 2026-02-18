@@ -113,6 +113,24 @@
       </li>
 
       @if(isAdminShop()){
+        <!-- VENTE -->
+        <li class="menu-item has-children" [class.open]="saleOpen">
+          <div class="menu-link" (click)="toogleSale()">
+            <img class="icon" src="/assets/icons/sale.png" alt="Icon Sale">
+            <span>Vente</span>
+          </div>
+
+          <ul class="submenu">
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="orders">
+                <img class="icon" src="/assets/icons/list.png" alt="">
+                <span>Commande</span>
+              </a>
+            </li>
+          </ul>
+      }
+
+      @if(isAdminShop()){
         <!-- STOCK -->
         <li class="menu-item has-children" [class.open]="stockOpen">
           <div class="menu-link" (click)="toggleStock()">

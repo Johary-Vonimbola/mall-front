@@ -17,6 +17,10 @@ export class OrderService {
     return this.http.get<ApiReponse<Order[]>>(`${this.apiUrl}/${shopId}/${clientId}`);
   }
 
+  getOrdersByShop(shopId: string) : Observable<ApiReponse<Order[]>> {
+    return this.http.get<ApiReponse<Order[]>>(`${this.apiUrl}/${shopId}/orders`);
+  }
+
   save(order : Order): Observable<ApiReponse<Order>> {
     return this.http.post<ApiReponse<Order>>(this.apiUrl, order);
   }
