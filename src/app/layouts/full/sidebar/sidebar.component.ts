@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 
@@ -19,6 +19,14 @@ export class SidebarComponent {
   rentOpen = false;
   productOpen = false;
   stockOpen = false;
+  saleOpen = false;
+  
+  isAdminShop = computed(() => {
+    return this.authService.currentUser()?.role === 'SHOP_ADMIN';
+  });
+  isAdmin = computed(() => {
+    return this.authService.currentUser()?.role === 'MALL_ADMIN';
+  });
 
   toggleShops(): void {
     this.shopsOpen = !this.shopsOpen;
@@ -38,17 +46,13 @@ export class SidebarComponent {
   toggleStock(): void{
     this.stockOpen = !this.stockOpen;
   }
+  toogleSale(): void{
+    this.saleOpen = !this.saleOpen;
+  }
 
   logout(): void {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
 
-  isAdmin(){
-    return this.authService.currentUser()?.role === 'MALL_ADMIN';
-  }
-
-  isAdminShop(){
-    return this.authService.currentUser()?.role === 'SHOP_ADMIN';
-  }
 }

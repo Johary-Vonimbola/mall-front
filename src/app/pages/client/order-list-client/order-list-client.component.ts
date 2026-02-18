@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Order } from '../../../models/Order';
@@ -16,7 +16,20 @@ export class OrderListClientComponent implements OnInit {
   private authService: AuthenticationService = inject(AuthenticationService);
   private redirect: Router = inject(Router);
 
-  orderList = signal<Order[]>([]);
+  statuses = ["UNPAID", "IN_PROGRESS_DELIVERY", "DELIVERED", "CANCELED"];
+
+  allOrders = signal<Order[]>([]);
+
+  selectedStatuses = signal<string[]>([]);
+
+  filteredOrders = computed(() => {
+    const selected = this.selectedStatuses();
+    const orders = this.allOrders();
+
+    if (selected.length === 0) return orders;
+
+    return orders.filter(order => selected.includes(order.status));
+  });
 
   loadOrders(): void{
     const clientId = this.authService.currentUser()?.id || "";
@@ -24,7 +37,7 @@ export class OrderListClientComponent implements OnInit {
 
     this.orderService.getOrders(shopId, clientId).subscribe({
       next: (res) => {
-        this.orderList.set(res.data ?? []);        
+        this.allOrders.set(res.data ?? []);        
       },
       error: (err) => console.error('Erreur chargement commandes', err)
     });
@@ -32,6 +45,16 @@ export class OrderListClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOrders();
+  }
+  onStatusChange(event: Event, status: string): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    const current = this.selectedStatuses();
+
+    if (checked) {
+      this.selectedStatuses.set([...current, status]);
+    } else {
+      this.selectedStatuses.set(current.filter(s => s !== status));
+    }
   }
 
   onCancel(id: string): void{
