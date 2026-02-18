@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { Cart } from '../../../models/Cart';
-import { get } from '../../../utils/localStorage';
+import { get, remove } from '../../../utils/localStorage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../../../services/order.service';
 import { Order, OrderDetail } from '../../../models/Order';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-cart-detail',
@@ -16,6 +17,7 @@ export class CartDetailComponent implements OnInit {
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private cartService = inject(CartService);
+  private authService = inject(AuthenticationService);
   private orderService = inject(OrderService);
 
   shopId !: String;
@@ -176,14 +178,16 @@ export class CartDetailComponent implements OnInit {
       });
 
       this.orderService.save(order).subscribe({
-          next: (res) => {
-            alert(res.message);
-          },
-          error: (err) => {
-            console.error('Erreur lors de la suppression d\'un produit', err);
-            alert(err?.error?.message || 'Erreur lors de la suppression d\'un produit');
-          }
-        });
+        next: (res) => {
+          alert(res.message);
+          remove('cart_id');
+          this.router.navigate([`/shops/${ cart.shopId }/orders/${ this.authService.currentUser()?.id }`]);
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression d\'un produit', err);
+          alert(err?.error?.message || 'Erreur lors de la suppression d\'un produit');
+        }
+      });
     }
   }
 }
