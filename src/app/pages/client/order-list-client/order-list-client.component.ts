@@ -3,10 +3,13 @@ import { OrderService } from '../../../services/order.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Order } from '../../../models/Order';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-order-list-client',
-  imports: [],
+  imports: [
+    BackComponent
+  ],
   templateUrl: './order-list-client.component.html',
   styleUrl: './order-list-client.component.scss'
 })
@@ -16,6 +19,7 @@ export class OrderListClientComponent implements OnInit {
   private orderService: OrderService = inject(OrderService);
   private authService: AuthenticationService = inject(AuthenticationService);
   private redirect: Router = inject(Router);
+  currentShopId = this.authService.currentShop()?.id;
 
   statuses = ["UNPAID", "IN_PROGRESS_DELIVERY", "DELIVERED", "CANCELED"];
 
@@ -66,8 +70,5 @@ export class OrderListClientComponent implements OnInit {
   }
   onSeeDetail(id: string): void{
     this.redirect.navigateByUrl(`my-orders/${id}`);
-  returnToListProduct() : void{
-    const shopId = this.route.snapshot.params['shopId'];    
-    this.router.navigate(['/shops', shopId]);
   }
 }
