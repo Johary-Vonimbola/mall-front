@@ -8,11 +8,6 @@
                 <p><strong>Nb Article : </strong>  <span class="nbArticles">{{ order.nbArticles }}</span></p>
                 <p><strong>Total : </strong>  <span class="total">{{ order.total }}</span></p>
                 <p><strong>Status : </strong>  <span class="status">{{ order.status }}</span></p>
-
-                @if (order.status === 'UNPAID') {
-                  <button (click)="onCancel(order._id)">Annuler</button>
-                }
-                <button (click)="onSeeDetail(order._id)">Detail</button>
             </div>
         </div>
     }

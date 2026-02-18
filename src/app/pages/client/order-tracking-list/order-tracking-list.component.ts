@@ -1,20 +1,19 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../../services/order.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Order } from '../../../models/Order';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-order-list-client',
+  selector: 'app-order-tracking-list',
   imports: [],
-  templateUrl: './order-list-client.component.html',
-  styleUrl: './order-list-client.component.scss'
+  templateUrl: './order-tracking-list.component.html',
+  styleUrl: './order-tracking-list.component.scss'
 })
-export class OrderListClientComponent implements OnInit {
+export class OrderTrackingListComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private orderService: OrderService = inject(OrderService);
   private authService: AuthenticationService = inject(AuthenticationService);
-  private redirect: Router = inject(Router);
 
   orderList = signal<Order[]>([]);
 
@@ -24,7 +23,13 @@ export class OrderListClientComponent implements OnInit {
 
     this.orderService.getOrders(shopId, clientId).subscribe({
       next: (res) => {
-        this.orderList.set(res.data ?? []);        
+        const result = res.data ?? [];
+        result.forEach(o => {
+          if(o.status === "IN_PROGRESS_DELIVERY"){
+            this.orderList().push(o);
+          }
+        });
+        console.log(this.orderList())
       },
       error: (err) => console.error('Erreur chargement commandes', err)
     });
@@ -32,15 +37,5 @@ export class OrderListClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOrders();
-  }
-
-  onCancel(id: string): void{
-    this.orderService.cancelOrder(id).subscribe(res => {
-      alert(res.message);
-      this.loadOrders();
-    });
-  }
-  onSeeDetail(id: string): void{
-    this.redirect.navigateByUrl(`my-orders/${id}`);
   }
 }
