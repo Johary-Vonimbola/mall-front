@@ -15,6 +15,7 @@ export class OrderListClientComponent implements OnInit {
   private router: Router = inject(Router);
   private orderService: OrderService = inject(OrderService);
   private authService: AuthenticationService = inject(AuthenticationService);
+  private redirect: Router = inject(Router);
 
   orderList = signal<Order[]>([]);
 
@@ -34,6 +35,14 @@ export class OrderListClientComponent implements OnInit {
     this.loadOrders();
   }
 
+  onCancel(id: string): void{
+    this.orderService.cancelOrder(id).subscribe(res => {
+      alert(res.message);
+      this.loadOrders();
+    });
+  }
+  onSeeDetail(id: string): void{
+    this.redirect.navigateByUrl(`my-orders/${id}`);
   returnToListProduct() : void{
     const shopId = this.route.snapshot.params['shopId'];    
     this.router.navigate(['/shops', shopId]);

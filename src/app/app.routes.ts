@@ -34,6 +34,7 @@ import { StockProductComponent } from './pages/stock-management/stock-product/st
 import { StockProductMoveComponent } from './pages/stock-management/stock-product-move/stock-product-move.component';
 import { StockProductThresholdComponent } from './pages/stock-management/stock-product-threshold/stock-product-threshold.component';
 import { OrderListClientComponent } from './pages/client/order-list-client/order-list-client.component';
+import { OrderDetailsComponent } from './pages/client/order-details/order-details.component';
 
 export const routes: Routes = [
     {
@@ -59,6 +60,10 @@ export const routes: Routes = [
             {
                 path: 'shops/:shopId/orders/:clientId',
                 component: OrderListClientComponent
+            },
+            {
+                path: 'my-orders/:orderId',
+                component: OrderDetailsComponent
             }
         ]
     },{

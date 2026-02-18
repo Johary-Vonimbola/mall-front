@@ -36,15 +36,15 @@ export class OrderService {
     );
   }
 
-  cancelOrder(): Observable<ApiReponse<Order>> {
-    return this.http.put<ApiReponse<Order>>(this.apiUrl, {status : "CANCELED"});
+  cancelOrder(id: string): Observable<ApiReponse<Order>> {
+    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status : "CANCELED"});
   }
 
-  deliverOrder(): Observable<ApiReponse<Order>> {
-    return this.http.put<ApiReponse<Order>>(this.apiUrl, {status: "DELIVERED"});
+  deliverOrder(id: string): Observable<ApiReponse<Order>> {
+    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status: "DELIVERED"});
   }
 
-  putInProgressOrder(): Observable<ApiReponse<Order>> {
-    return this.http.put<ApiReponse<Order>>(this.apiUrl, {status: "IN PROGRESS DELIVERY"});
+  putInProgressOrder(id: string): Observable<ApiReponse<Order>> {
+    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status: "IN PROGRESS DELIVERY"});
   }
 };
