@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Order } from '../../../models/Order';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-list-client',
@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class OrderListClientComponent implements OnInit {
   private route: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
   private orderService: OrderService = inject(OrderService);
   private authService: AuthenticationService = inject(AuthenticationService);
 
@@ -31,5 +32,10 @@ export class OrderListClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOrders();
+  }
+
+  returnToListProduct() : void{
+    const shopId = this.route.snapshot.params['shopId'];    
+    this.router.navigate(['/shops', shopId]);
   }
 }
