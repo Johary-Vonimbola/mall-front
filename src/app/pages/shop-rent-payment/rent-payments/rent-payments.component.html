@@ -1,0 +1,31 @@
+<h2>Vos loyer</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Annee</th>
+            <th>Mois</th>
+            <th>Montant</th>
+            <th>Paye le</th>
+            <th>Paie par</th>
+            <th>Status</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (rent of rents(); track rent._id) {
+            <tr>
+                <td>{{ rent.year }}</td>
+                <td>{{ rent.month }}</td>
+                <td>{{ rent.amount }}</td>
+                <td>{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
+                <td>{{ rent.paidBy }}</td>
+                <td>{{ rent.status }}</td>
+                <td>
+                    @if(shouldPay(rent)){
+                        <button (click)="onPay(rent._id)">Payer</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

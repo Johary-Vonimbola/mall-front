@@ -1,0 +1,19 @@
+<form>
+    <div class="input-group">
+        <label for="month">Mois</label>
+        <select id="month">
+            @for(m of months; track m; let i = $index){
+                <option [value]="i">{{ m }}</option>
+            }
+        </select>
+    </div>
+    <div class="input-group">
+        <label for="year">Annee</label>
+        <select id="year">
+            @for(y of years; track y; let i = $index){
+                <option [value]="i">{{ y }}</option>
+            }
+        </select>
+    </div>
+    
+</form>

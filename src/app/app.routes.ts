@@ -38,6 +38,7 @@ import { OrderDetailsComponent } from './pages/client/order-details/order-detail
 import { OrderListComponent } from './pages/shop-order-management/order-list/order-list.component';
 import { OrderDetailComponent } from './pages/shop-order-management/order-detail/order-detail.component';
 import { PaymentOrderComponent } from './pages/client/payment-order/payment-order.component';
+import { RentPaymentsComponent } from './pages/shop-rent-payment/rent-payments/rent-payments.component';
 
 export const routes: Routes = [
     {
@@ -203,7 +204,11 @@ export const routes: Routes = [
             {
                 path: 'orders/:orderId',
                 component: OrderDetailComponent,
-            }
+            },
+            {
+                path: 'shop-rent-payments',
+                component: RentPaymentsComponent
+            },
         ]
     },
     {
