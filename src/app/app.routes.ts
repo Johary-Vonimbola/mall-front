@@ -154,7 +154,7 @@ export const routes: Routes = [
                 component: ProductCategoryFormComponent
             },
             {
-                path: 'product-categories-list',
+                path: 'product-category-list',
                 component: ProductCategoryListComponent
             },
             {

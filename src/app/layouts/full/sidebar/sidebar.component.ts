@@ -18,6 +18,7 @@ export class SidebarComponent {
   shopCategoriesOpen = false;
   rentOpen = false;
   productOpen = false;
+  productCategoryOpen = false;
   stockOpen = false;
   saleOpen = false;
   
@@ -41,6 +42,10 @@ export class SidebarComponent {
 
   toggleProduct(): void{
     this.productOpen = !this.productOpen;
+  }
+
+  toggleProductCategory(): void{
+    this.productCategoryOpen = !this.productCategoryOpen;
   }
 
   toggleStock(): void{

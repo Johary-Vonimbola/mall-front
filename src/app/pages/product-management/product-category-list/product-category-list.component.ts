@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductCategory } from '../../../models/product';
 import { ProductService } from '../../../services/product.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-product-category-list',
@@ -12,6 +13,9 @@ import { Router } from '@angular/router';
 export class ProductCategoryListComponent implements OnInit{
   private router : Router = inject(Router);
   private productService: ProductService = inject(ProductService);
+  private authService: AuthenticationService = inject(AuthenticationService);
+
+  currentShopId = this.authService.currentShop()?.id  ?? "";
 
   productCategories = signal<ProductCategory[]>([]);
   ngOnInit(): void {
@@ -19,7 +23,7 @@ export class ProductCategoryListComponent implements OnInit{
   }
 
   loadProductCategories(): void {
-    this.productService.getAllProductCategory().subscribe({
+    this.productService.getAllProductCategory(this.currentShopId).subscribe({
       next: (productCategories) => {
         this.productCategories.set(productCategories);
       },

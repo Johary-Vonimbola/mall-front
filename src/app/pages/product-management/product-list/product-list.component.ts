@@ -4,6 +4,7 @@ import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product, ProductCategory } from '../../../models/product';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-product-list',
@@ -18,6 +19,9 @@ export class ProductListComponent implements OnInit {
 
   private productService: ProductService = inject(ProductService);
   private router: Router = inject(Router);
+  private authService: AuthenticationService = inject(AuthenticationService);
+
+  currentShopId = this.authService.currentShop()?.id  ?? "";
 
   products = signal<Product[]>([]);
   filteredProducts = signal<Product[]>([]);
@@ -28,6 +32,7 @@ export class ProductListComponent implements OnInit {
     inactive: new FormControl(false),
     category: new FormControl('')
   });
+
 
   ngOnInit(): void {
     this.loadProducts();
@@ -46,7 +51,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadCategories(): void {
-    this.productService.getAllProductCategory().subscribe(categories => {
+    this.productService.getAllProductCategory(this.currentShopId).subscribe(categories => {
       this.categories.set(categories);
     });
   }

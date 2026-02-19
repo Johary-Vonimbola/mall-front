@@ -6,6 +6,7 @@ import { isInvalid } from '../../../utils/form';
 import { ProductService } from '../../../services/product.service';
 import { UomService } from '../../../services/uom.service';
 import { ProductCategory } from '../../../models/product';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-product-update-form',
@@ -22,6 +23,9 @@ export class ProductUpdateFormComponent implements OnInit {
   private uomService: UomService = inject(UomService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
+  private authService: AuthenticationService = inject(AuthenticationService);
+
+  currentShopId = this.authService.currentShop()?.id  ?? "";
 
   isInvalid = isInvalid;
 
@@ -46,7 +50,7 @@ export class ProductUpdateFormComponent implements OnInit {
       this.uoms.set(res);
     });
 
-    this.productService.getAllProductCategory().subscribe(res => {
+    this.productService.getAllProductCategory(this.currentShopId).subscribe(res => {
       this.categories.set(res);
     });
 

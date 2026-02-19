@@ -34,7 +34,7 @@ export class ProductCategoryFormComponent {
     this.productService.saveProductCategory({...formValue, shopId: this.authService.currentShop()?.id}).subscribe({
       next: res => {
         alert(res.message);
-        this.router.navigateByUrl('admin/product-categories-list');
+        this.router.navigateByUrl('admin-shop/product-category-list');
       },
       error: res => {
         this.errors.set(res.error.errors);
