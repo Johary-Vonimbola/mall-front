@@ -23,11 +23,12 @@
                 <p><strong>Total : </strong>  <span class="total">{{ order.total }}</span></p>
                 <p><strong>Status : </strong>  <span class="status">{{ order.status }}</span></p>
 
+                <button (click)="onSeeDetail(order._id)">Detail</button>
+
                 @if (order.status === STATUS_ORDER.UNPAID) {
                   <button (click)="onCancel(order._id)">Annuler</button>
+                  <button (click)="payOrder(order._id)">Faire un Paiement</button>
                 }
-                <button (click)="onSeeDetail(order._id)">Detail</button>
-                <button (click)="payOrder(order._id)">Faire un Paiement</button>
             </div>
         </div>
     }

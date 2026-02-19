@@ -43,28 +43,39 @@ export class PaymentOrderComponent {
   stripe: any;
   cardElement: any;
   currentShopId = this.authService.currentShop()?.id;
-
+  currentClientId = this.authService.currentUser()?.id;
   showDeliveryModal = signal(false);
   
   loadOrder(id: string): void{
-    this.orderService.getById(id).subscribe(res => {
+    this.orderService.getById(id).subscribe( async res => {
       if(res){
         this.order.set(res);
+
+        if(res.status === STATUS_ORDER.UNPAID){
+          await this.mountStripe();
+        }
       }
     });
+  }
+
+  async mountStripe(){
+    if(!this.stripe){
+      this.stripe = await loadStripe(environment.stripePublicKey);
+
+      const elements = this.stripe.elements();
+
+      this.cardElement = elements.create('card');
+
+      setTimeout(() => {
+        this.cardElement.mount('#card-element');
+      });
+
+    }
   }
 
   async ngOnInit() {
     const id = this.activatedRouter.snapshot.params["orderId"];
     this.loadOrder(id);
-
-    this.stripe = await loadStripe(environment.stripePublicKey);
-
-    const elements = this.stripe.elements();
-
-    this.cardElement = elements.create('card');
-
-    this.cardElement.mount('#card-element');
   }
 
   async pay() {

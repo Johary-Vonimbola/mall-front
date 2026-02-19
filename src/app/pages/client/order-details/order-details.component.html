@@ -1,3 +1,5 @@
+<app-back [link]="'shops/'+currentShopId+'/orders/'+currentClientId" />
+
 <h2>Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}</h2>
 <p>Status: {{ order()?.status }}</p>
 <p>Total: {{ order()?.total }}</p>
@@ -25,3 +27,12 @@
         }
     </tbody>
 </table>
+
+@if(order()?.address){
+    <fieldset>
+    <h2>Information de Livraison</h2>
+        <p><b>Address : </b>{{ order()?.address }}</p>
+        <p><b>Contact : </b>{{ order()?.contact }}</p>
+        <p><b>Email : </b>{{ order()?.email }}</p>
+    </fieldset>
+}    
