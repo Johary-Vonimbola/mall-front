@@ -7,6 +7,7 @@ import { OrderService } from '../../../services/order.service';
 import { Order, OrderDetail } from '../../../models/Order';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { BackComponent } from "../../../components/back/back.component";
+import { STATUS_ORDER } from '../../../models/DataStatus';
 
 @Component({
   selector: 'app-cart-detail',
@@ -150,7 +151,7 @@ export class CartDetailComponent implements OnInit {
         cart.shopId,
         cart.total,
         cart.nbArticles,
-        "UNPAID",
+        STATUS_ORDER.UNPAID,
         [],
         cart.date,
         cart.date

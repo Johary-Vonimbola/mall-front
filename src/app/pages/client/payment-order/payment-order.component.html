@@ -1,6 +1,16 @@
-<h2>Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}</h2>
+<app-back [link]="'shops/'+currentShopId" />
+
+<h2>
+  @if (order()?.status === STATUS_ORDER.PAID) {
+    Mode de récupération
+  } @else {
+    Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}
+  }
+</h2>
+
 <p>Status: {{ order()?.status }}</p>
 <p>Total: {{ order()?.total }}</p>
+
 <table border="1">
     <thead>
         <tr>
@@ -25,6 +35,66 @@
         }
     </tbody>
 </table>
-<div id="card-element"></div>
 
-<button (click)="pay()">Payer</button>
+<!-- Bloc paiement ou récupération -->
+@if (order()?.status === STATUS_ORDER.UNPAID) {
+    <div id="card-element"></div>
+    <button (click)="pay()">Payer</button>
+} @else if (order()?.status === STATUS_ORDER.PAID) {
+    <button (click)="receive()">Récupérer</button>
+    <button (click)="openDeliveryModal()">Livrer</button>
+}
+
+@if(showDeliveryModal()) {
+    <div>
+        <form [formGroup]="form" (ngSubmit)="confirmDelivery()">
+            <div class="main-form">
+
+                <!-- erreurs backend -->
+                <div class="errors">
+                @for (err of errors(); track err) {
+                    <p class="header-error">{{ err }}</p>
+                }
+                </div>
+
+                <!-- Address -->
+                <div class="input-group">
+                    <label for="address">Addresse</label>
+                    <input placeholder="Addresse" formControlName="address" type="text" id="address" [ngClass]="{ 'is-invalid': isInvalid(form.controls.address) }">
+                    <p *ngIf="isInvalid(form.controls.address) && form.controls.address.hasError('required')" class="error">
+                        Addresse is required
+                    </p>
+                </div>
+
+                <!-- Contact -->
+                <div class="input-group">
+                    <label for="contact">Contact</label>
+                    <input placeholder="033/034/038 .. ... .." formControlName="contact" type="text" id="contact" [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }">
+                    <p *ngIf="isInvalid(form.controls.contact) && form.controls.contact.hasError('required')" class="error">
+                        Contact is required
+                    </p>
+                </div>
+
+                <!-- Email -->
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input placeholder="john@gmail.com" formControlName="email" type="email" id="email" [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }">
+                    <p *ngIf="isInvalid(form.controls.email) && form.controls.email.hasError('required')" class="error">
+                        Email is required
+                    </p>
+                    <p *ngIf="form.controls.email.hasError('email')" class="error">
+                        Invalid Format
+                    </p>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="input-group">
+                    <button [disabled]="form.invalid" type="submit">Valider</button>
+                </div>
+
+                <button type="button" (click)="showDeliveryModal.set(false)">Annuler</button>
+
+            </div>
+        </form>
+    </div>
+}
