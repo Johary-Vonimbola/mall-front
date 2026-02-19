@@ -1,0 +1,30 @@
+<h2>Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}</h2>
+<p>Status: {{ order()?.status }}</p>
+<p>Total: {{ order()?.total }}</p>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantite</th>
+            <th>Prix unitaire</th>
+            <th>Categorie</th>
+            <th>Image</th>
+            <th>Sous-total</th>
+        </tr>    
+    </thead>
+    <tbody>
+        @for (detail of order()?.details; track $index) {
+            <tr>
+                <td>{{ detail.productName }}</td>
+                <td>{{ detail.quantity }} {{ detail.productUom }}</td>
+                <td>{{ detail.price }}</td>
+                <td>{{ detail.productCategory }}</td>
+                <td>{{ detail.productPicture }}</td>
+                <td>{{ detail.price * detail.quantity }}</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="card-element"></div>
+
+<button (click)="pay()">Payer</button>

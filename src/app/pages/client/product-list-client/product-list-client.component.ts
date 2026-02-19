@@ -7,13 +7,15 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { get, remove, set } from '../../../utils/localStorage';
 import { CartService } from '../../../services/cart.service';
 import { Cart } from '../../../models/Cart';
+import { BackComponent } from "../../../components/back/back.component";
 
 @Component({
   selector: 'app-product-list-client',
   imports: [
     DecimalPipe,
-    NgIf
-  ],
+    NgIf,
+    BackComponent
+],
   templateUrl: './product-list-client.component.html',
   styleUrl: './product-list-client.component.scss'
 })
@@ -50,11 +52,6 @@ export class ProductListClientComponent implements OnInit {
       error: () =>
         console.error('Erreur lors du chargement des produits')
     });
-  }
-
-  returnToListShop() : void{
-    this.autheService.currentShop.set(null);
-    this.router.navigate(['/shops']);
   }
 
   viewCart() : void{

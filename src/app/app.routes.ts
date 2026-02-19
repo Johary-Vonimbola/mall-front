@@ -37,6 +37,7 @@ import { OrderListClientComponent } from './pages/client/order-list-client/order
 import { OrderDetailsComponent } from './pages/client/order-details/order-details.component';
 import { OrderListComponent } from './pages/shop-order-management/order-list/order-list.component';
 import { OrderDetailComponent } from './pages/shop-order-management/order-detail/order-detail.component';
+import { PaymentOrderComponent } from './pages/client/payment-order/payment-order.component';
 
 export const routes: Routes = [
     {
@@ -66,6 +67,10 @@ export const routes: Routes = [
             {
                 path: 'my-orders/:orderId',
                 component: OrderDetailsComponent
+            },
+            {
+                path: 'my-orders/:orderId/payment',
+                component: PaymentOrderComponent
             }
         ]
     },{

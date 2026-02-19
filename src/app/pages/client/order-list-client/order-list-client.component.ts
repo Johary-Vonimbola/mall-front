@@ -68,7 +68,13 @@ export class OrderListClientComponent implements OnInit {
       this.loadOrders();
     });
   }
+
   onSeeDetail(id: string): void{
-    this.redirect.navigateByUrl(`my-orders/${id}`);
+    this.router.navigate([`my-orders/${ id }`]);
+    // this.redirect.navigateByUrl(`my-orders/${id}`);
+  }
+
+  payOrder(id: string): void{
+    this.router.navigate([`my-orders/${ id }/payment`]);
   }
 }

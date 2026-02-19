@@ -21,6 +21,7 @@ export class OrderDetailsComponent implements OnInit{
   ngOnInit(): void {
     const id = this.activatedRouter.snapshot.params["orderId"];
     this.orderService.getById(id).subscribe(res => {
+      
       if(res){
         this.order.set(res);
       }
