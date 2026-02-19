@@ -60,31 +60,41 @@
             </li>
           </ul>
         </li>
+      }
 
         <!-- RENT -->
         <li class="menu-item has-children" [class.open]="rentOpen">
           <div class="menu-link" (click)="toggleRent()">
             <img class="icon" src="/assets/icons/rent.png" alt="Icon Shop Rent">
-            <span>Rent</span>
+            <span>Loyer</span>
           </div>
 
           <ul class="submenu">
-            <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="shop-rent-list">
-                <img class="icon" src="/assets/icons/list.png" alt="">
-                <span>List</span>
-              </a>
-            </li>
+            @if(isAdmin()){
+              <li class="submenu-item" routerLinkActive="active">
+                <a routerLink="shop-rent-list">
+                  <img class="icon" src="/assets/icons/list.png" alt="">
+                  <span>Liste</span>
+                </a>
+              </li>
 
-            <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="shop-rent-form">
-                <img class="icon" src="/assets/icons/form.png" alt="">
-                <span>New</span>
-              </a>
-            </li>
+              <li class="submenu-item" routerLinkActive="active">
+                <a routerLink="shop-rent-form">
+                  <img class="icon" src="/assets/icons/form.png" alt="">
+                  <span>Nouveau</span>
+                </a>
+              </li>
+            }
+            @if(isAdminShop()){
+              <li class="submenu-item" routerLinkActive="active">
+                <a routerLink="shop-rent-payments">
+                  <img class="icon" src="/assets/icons/form.png" alt="">
+                  <span>Mes loyers</span>
+                </a>
+              </li>
+            }
           </ul>
         </li>
-      }
 
       <!-- PRODUCTS -->
       <li class="menu-item has-children" [class.open]="productOpen">
