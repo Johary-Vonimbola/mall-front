@@ -6,10 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../../../services/order.service';
 import { Order, OrderDetail } from '../../../models/Order';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { BackComponent } from "../../../components/back/back.component";
 
 @Component({
   selector: 'app-cart-detail',
-  imports: [],
+  imports: [BackComponent],
   templateUrl: './cart-detail.component.html',
   styleUrl: './cart-detail.component.scss'
 })
@@ -20,7 +21,7 @@ export class CartDetailComponent implements OnInit {
   private authService = inject(AuthenticationService);
   private orderService = inject(OrderService);
 
-  shopId !: String;
+  currentShopId = this.authService.currentShop()?.id;
   cart = signal<Cart | undefined>(undefined);
 
   ngOnInit(): void {
@@ -33,11 +34,6 @@ export class CartDetailComponent implements OnInit {
         error: (err) => console.error('Erreur chargement panier', err)
       });
     }
-  }
-
-  returnToListProduct() : void{
-    this.shopId = this.route.snapshot.paramMap.get('id')!;
-    this.router.navigate(['/shops', this.shopId]);
   }
 
   removeProduct(productId: string): void {
