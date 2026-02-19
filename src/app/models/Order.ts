@@ -34,7 +34,10 @@ export class Order extends AuditField {
         public status: string,
         public details: OrderDetail[],
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
+        public contact?: string,
+        public address?: string,
+        public email?: string
     ){
         super(createdAt, updatedAt);
     }
