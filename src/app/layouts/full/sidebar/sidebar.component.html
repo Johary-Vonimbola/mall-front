@@ -113,6 +113,32 @@
       </li>
 
       @if(isAdminShop()){
+        <!-- PRODUCTS CATEGORY -->
+        <li class="menu-item has-children" [class.open]="productCategoryOpen">
+          <div class="menu-link" (click)="toggleProductCategory()">
+            <img class="icon" src="/assets/icons/categorization.png" alt="Icon Product Category">
+            <span>Category Produit</span>
+          </div>
+
+          <ul class="submenu">
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="product-category-list">
+                <img class="icon" src="/assets/icons/list.png" alt="">
+                <span>Liste</span>
+              </a>
+            </li>
+
+            <li class="submenu-item" routerLinkActive="active">
+              <a routerLink="product-category">
+                <img class="icon" src="/assets/icons/form.png" alt="">
+                <span>Nouveau</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      }
+
+      @if(isAdminShop()){
         <!-- VENTE -->
         <li class="menu-item has-children" [class.open]="saleOpen">
           <div class="menu-link" (click)="toogleSale()">

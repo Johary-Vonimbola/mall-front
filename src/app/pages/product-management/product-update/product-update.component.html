@@ -9,7 +9,7 @@
 
     <div class="input-group">
       <label for="name">Nom du produit</label>
-      <input type="text" formControlName="name">
+      <input id="name" type="text" formControlName="name">
       <p class="error" *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')">
         Le nom est obligatoire
       </p>
@@ -17,7 +17,7 @@
 
     <div class="input-group">
       <label for="price">Prix</label>
-      <input type="number" formControlName="price">
+      <input id="price" type="number" formControlName="price">
       <p class="error" *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('required')">
         Le prix est obligatoire
       </p>
@@ -25,7 +25,7 @@
 
     <div class="input-group">
       <label for="uom">Unite</label>
-      <select formControlName="uomId">
+      <select id="uom" formControlName="uomId">
         @for (u of uoms(); track u._id) {
           <option [value]="u._id">{{ u.name }}</option>
         }
@@ -37,7 +37,7 @@
 
     <div class="input-group">
       <label for="category">Categorie</label>
-      <select formControlName="categoryId">
+      <select id="category" formControlName="categoryId">
         @for (c of categories(); track c._id) {
           <option [value]="c._id">{{ c.name }}</option>
         }

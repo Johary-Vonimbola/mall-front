@@ -19,8 +19,8 @@ export class ProductService {
     return this.http.post<ApiReponse<Product>>(this.productCategoryUrl, data);
   }
 
-  getAllProductCategory(): Observable<ProductCategory[]>{
-    return this.http.get<ApiReponse<ProductCategory[]>>(this.productCategoryUrl).pipe(
+  getAllProductCategory(shopId: string): Observable<ProductCategory[]>{
+    return this.http.get<ApiReponse<ProductCategory[]>>(`${this.productCategoryUrl}/shops/${shopId}`).pipe(
       map(response => {
         return response.data ?? [];
       })

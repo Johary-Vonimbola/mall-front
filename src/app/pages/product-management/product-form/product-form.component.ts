@@ -37,12 +37,14 @@ private router: Router = inject(Router);
   uomName = '';
   categoryName = '';
   selectedFile = '';
+  currentShopId = this.authService.currentShop()?.id  ?? "";
+
 
   ngOnInit(): void {
     this.uomService.getAll().subscribe(res => {
       this.uoms.set(res);
     });
-    this.productService.getAllProductCategory().subscribe(res => {
+    this.productService.getAllProductCategory(this.currentShopId).subscribe(res => {
       this.categories.set(res);
     });
 
