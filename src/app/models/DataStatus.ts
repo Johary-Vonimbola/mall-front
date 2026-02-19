@@ -1,0 +1,9 @@
+export const STATUS_ORDER = {
+    UNPAID: "UNPAID",
+    PAID: "PAID",
+    IN_PROGRESS_DELIVERY: "IN_PROGRESS_DELIVERY",
+    DELIVERED: "DELIVERED",
+    CANCELED: "CANCELED"
+};
+
+export const STATUS_ORDER_ENUM = Object.values(STATUS_ORDER);

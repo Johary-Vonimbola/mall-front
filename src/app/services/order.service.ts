@@ -4,6 +4,7 @@ import { environment } from '../../environment';
 import { map, Observable } from 'rxjs';
 import { ApiReponse } from '../models/apiReponse';
 import { Order, OrderResponse } from '../models/Order';
+import { STATUS_ORDER } from '../models/DataStatus';
 
 @Injectable({
   providedIn: 'root'
@@ -41,14 +42,15 @@ export class OrderService {
   }
 
   cancelOrder(id: string): Observable<ApiReponse<Order>> {
-    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status : "CANCELED"});
+    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status : STATUS_ORDER.CANCELED});
   }
 
   deliverOrder(id: string): Observable<ApiReponse<Order>> {
-    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status: "DELIVERED"});
+    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status: STATUS_ORDER.DELIVERED});
   }
 
-  putInProgressOrder(id: string): Observable<ApiReponse<Order>> {
-    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, {status: "IN PROGRESS DELIVERY"});
+  putInProgressOrder(id: string, data: any): Observable<ApiReponse<Order>> {
+    data.status = STATUS_ORDER.IN_PROGRESS_DELIVERY
+    return this.http.put<ApiReponse<Order>>(`${this.apiUrl}/${id}`, data);
   }
 };

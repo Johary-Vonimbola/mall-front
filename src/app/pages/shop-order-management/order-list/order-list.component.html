@@ -22,10 +22,10 @@
                 <p><strong>Total : </strong>  <span class="total">{{ order.total }}</span></p>
                 <p><strong>Status : </strong>  <span class="status">{{ order.status }}</span></p>
 
-                @if (order.status === 'UNPAID') {
+                @if (order.status === STATUS_ORDER.UNPAID) {
                   <button (click)="onCancel(order._id)">Annuler</button>
                 }
-                @if (order.status === 'IN_PROGRESS_DELIVERY') {
+                @if (order.status === STATUS_ORDER.IN_PROGRESS_DELIVERY) {
                   <button (click)="onValidate(order._id)">Valider la livraison</button>
                 }
                 <button (click)="onSeeDetail(order._id)">Detail</button>

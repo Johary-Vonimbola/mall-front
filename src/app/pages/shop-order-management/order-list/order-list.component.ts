@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Order } from '../../../models/Order';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { DatePipe } from '@angular/common';
+import { STATUS_ORDER, STATUS_ORDER_ENUM } from '../../../models/DataStatus';
 
 @Component({
   selector: 'app-order-list',
@@ -21,12 +22,9 @@ export class OrderListComponent implements OnInit {
 
   allOrders = signal<Order[]>([]);
 
-  statuses: string[] = [
-    'UNPAID',
-    'IN_PROGRESS_DELIVERY',
-    'DELIVERED',
-    'CANCELED'
-  ];
+  STATUS_ORDER = STATUS_ORDER;
+
+  statuses: string[] = STATUS_ORDER_ENUM;
 
   selectedStatuses = signal<string[]>([]);
 

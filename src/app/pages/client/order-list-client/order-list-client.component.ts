@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { Order } from '../../../models/Order';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackComponent } from '../../../components/back/back.component';
+import { STATUS_ORDER, STATUS_ORDER_ENUM } from '../../../models/DataStatus';
 
 @Component({
   selector: 'app-order-list-client',
@@ -21,7 +22,9 @@ export class OrderListClientComponent implements OnInit {
   private redirect: Router = inject(Router);
   currentShopId = this.authService.currentShop()?.id;
 
-  statuses = ["UNPAID", "IN_PROGRESS_DELIVERY", "DELIVERED", "CANCELED"];
+  statuses = STATUS_ORDER_ENUM;
+
+  STATUS_ORDER = STATUS_ORDER;
 
   allOrders = signal<Order[]>([]);
 

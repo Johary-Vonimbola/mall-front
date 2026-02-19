@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderService } from '../../../services/order.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Order } from '../../../models/Order';
+import { STATUS_ORDER } from '../../../models/DataStatus';
 
 @Component({
   selector: 'app-order-tracking-list',
@@ -25,7 +26,7 @@ export class OrderTrackingListComponent {
       next: (res) => {
         const result = res.data ?? [];
         result.forEach(o => {
-          if(o.status === "IN_PROGRESS_DELIVERY"){
+          if(o.status === STATUS_ORDER.IN_PROGRESS_DELIVERY){
             this.orderList().push(o);
           }
         });
