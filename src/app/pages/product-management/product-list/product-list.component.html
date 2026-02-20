@@ -24,6 +24,8 @@
         <th>Nom</th>
         <th>Unite</th>
         <th>Prix</th>
+        <th>Stock Actuelle</th>
+        <th>Stock Reserve</th>
         <th>Categorie</th>
         <th>Statut</th>
         <th colspan="2">Option</th>
@@ -37,6 +39,8 @@
           <td>{{ product.name }}</td>
           <td>{{ product.uom }}</td>
           <td>{{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+          <td>{{ product.reservedStock }}</td>
           <td>{{ product.category }}</td>
           <td>
             <span [ngClass]="{'is-active': product.isActive}">

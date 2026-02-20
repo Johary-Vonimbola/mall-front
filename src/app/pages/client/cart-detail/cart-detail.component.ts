@@ -173,16 +173,22 @@ export class CartDetailComponent implements OnInit {
           )
         );
       });
-
+      
       this.orderService.save(order).subscribe({
         next: (res) => {
           alert(res.message);
           remove('cart_id');
-          this.router.navigate([`/shops/${ cart.shopId }/orders/${ this.authService.currentUser()?.id }`]);
+          this.router.navigate([`/shops/${cart.shopId}/orders/${this.authService.currentUser()?.id}`]);
         },
         error: (err) => {
-          console.error('Erreur lors de la suppression d\'un produit', err);
-          alert(err?.error?.message || 'Erreur lors de la suppression d\'un produit');
+          console.error("Erreur lors de l'enregistrement d'une commande", err);
+
+          if (err?.error?.errors && Array.isArray(err.error.errors) && err.error.errors.length > 0) {
+            const messages = err.error.errors.join('\n');
+            alert(messages);
+          } else {
+            alert(err?.error?.message || "Erreur lors de l'enregistrement d'une commande");
+          }
         }
       });
     }
