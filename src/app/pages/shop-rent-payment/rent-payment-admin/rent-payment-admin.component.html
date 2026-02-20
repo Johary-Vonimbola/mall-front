@@ -37,24 +37,24 @@
     <thead>
         <tr>
             <th>Boutique</th>
-            <th>Annee</th>
-            <th>Mois</th>
+            <th>Mois - Annee</th>
             <th>Montant</th>
             <th>Paye le</th>
             <th>Paie par</th>
             <th>Status</th>
+            <th>Echeance</th>
         </tr>
     </thead>
     <tbody>
         @for (rent of filteredRents(); track rent._id) {
             <tr>
                 <td>{{ rent.shopId?.name }}</td>
-                <td>{{ rent.year }}</td>
-                <td>{{ months[rent.month-1] }}</td>
+                <td>{{ months[rent.month-1] }} {{ rent.year }}</td>
                 <td>{{ rent.amount }}</td>
                 <td>{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
                 <td>{{ rent.paidBy }}</td>
                 <td>{{ rent.status }}</td>
+                <td>{{ rent.dueDate | date: "dd MMMM YYYY" }}</td>
             </tr>
         }
     </tbody>
