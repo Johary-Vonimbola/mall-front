@@ -5,6 +5,7 @@ export interface ShopResponse {
     category: string;
     categoryId: string;
     logo?: string;
+    _id?: string;
 }
 
 export interface ShopCategoryResponse{

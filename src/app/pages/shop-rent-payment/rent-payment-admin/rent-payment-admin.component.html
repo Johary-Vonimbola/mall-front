@@ -1,0 +1,61 @@
+<h2>Liste de tous les payements de loyer</h2>
+<div>
+    <h4>Filtrer par boutique</h4>
+    @for (shop of shops(); track shop.id) {
+        <label>
+            <input type="checkbox"
+                   [value]="shop.id"
+                   (change)="onShopToggle($event)">
+            {{ shop.name }}
+        </label>
+    }
+
+    <h4>Filtrer par mois</h4>
+    <select (change)="onMonthChange($event)">
+        <option value="">Tous</option>
+        @for (m of months; track m; let i = $index) {
+            <option [value]="i+1">{{ m }}</option>
+        }
+    </select>
+
+    <h4>Filtrer par année</h4>
+    <select (change)="onYearChange($event)">
+        <option value="">Toutes</option>
+        @for (y of years; track y) {
+            <option [value]="y">{{ y }}</option>
+        }
+    </select>
+
+    <h4>Filtrer par status</h4>
+    <select (change)="onStatusChange($event)">
+        <option value="">Tous</option>
+        <option value="PAID">PAID</option>
+        <option value="UNPAID">UNPAID</option>
+    </select>
+</div>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Boutique</th>
+            <th>Annee</th>
+            <th>Mois</th>
+            <th>Montant</th>
+            <th>Paye le</th>
+            <th>Paie par</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (rent of filteredRents(); track rent._id) {
+            <tr>
+                <td>{{ rent.shopId?.name }}</td>
+                <td>{{ rent.year }}</td>
+                <td>{{ months[rent.month-1] }}</td>
+                <td>{{ rent.amount }}</td>
+                <td>{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
+                <td>{{ rent.paidBy }}</td>
+                <td>{{ rent.status }}</td>
+            </tr>
+        }
+    </tbody>
+</table>
