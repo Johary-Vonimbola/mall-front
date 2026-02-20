@@ -32,6 +32,7 @@ export class ShopRentPayment extends AuditField{
         public status: string,
         createdAt: Date,
         updatedAt: Date,
+        public dueDate: Date,
         public shopId?: ShopResponse,
     ){
         super(createdAt, updatedAt);
