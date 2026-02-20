@@ -39,6 +39,7 @@ import { OrderListComponent } from './pages/shop-order-management/order-list/ord
 import { OrderDetailComponent } from './pages/shop-order-management/order-detail/order-detail.component';
 import { PaymentOrderComponent } from './pages/client/payment-order/payment-order.component';
 import { RentPaymentsComponent } from './pages/shop-rent-payment/rent-payments/rent-payments.component';
+import { RentPaymentAdminComponent } from './pages/shop-rent-payment/rent-payment-admin/rent-payment-admin.component';
 
 export const routes: Routes = [
     {
@@ -142,6 +143,10 @@ export const routes: Routes = [
             {
                 path: 'uom-update/:id',
                 component: UomUpdateFormComponent
+            },
+            {
+                path: 'rent-payments',
+                component: RentPaymentAdminComponent
             }
         ]
     },

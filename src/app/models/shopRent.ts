@@ -1,4 +1,5 @@
 import { AuditField } from "./AuditField";
+import { ShopResponse } from "./shop";
 
 export class ShopRent extends AuditField{
 
@@ -30,7 +31,8 @@ export class ShopRentPayment extends AuditField{
         public paidBy: string,
         public status: string,
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
+        public shopId?: ShopResponse,
     ){
         super(createdAt, updatedAt);
     }

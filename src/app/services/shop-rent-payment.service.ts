@@ -25,6 +25,14 @@ export class ShopRentPaymentService {
     );
   }
 
+  getAllRentPayments(): Observable<ShopRentPayment[]>{
+    return this.http.get<ApiReponse<ShopRentPayment[]>>(this.apiUrl).pipe(
+      map(res => {
+        return res.data ?? []
+      })
+    );
+  }
+
   create(data: any): Observable<ApiReponse<ShopRentPayment>>{
     return this.http.post<ApiReponse<ShopRentPayment>>(this.apiUrl, data);
   }
