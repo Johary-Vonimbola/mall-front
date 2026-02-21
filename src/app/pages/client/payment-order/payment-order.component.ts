@@ -86,23 +86,41 @@ export class PaymentOrderComponent {
 
       this.paymentService.createPaymentIntent(orderId)
         .subscribe(async (res: any) => {
+
           const clientSecret = res.data.clientSecret;
 
           const result = await this.stripe.confirmCardPayment(clientSecret, {
             payment_method: {
-              card: this.cardElement
+              card: this.cardElement!
             }
           });
 
-          if (result.paymentIntent?.status === "succeeded") {
-            alert("Paiement réussi !");
-
-            this.loadOrder(orderId);
+          if (result.error) {
+            alert("Paiement échoué !");
+          } else {
+            alert("Paiement en cours de validation...");
+            this.waitForPayment(orderId);
           }
         });
     }
   }
 
+  waitForPayment(orderId: string) {
+
+    const interval = setInterval(() => {
+
+      this.orderService.getById(orderId).subscribe(res => {
+
+        if (res?.status === 'PAID') {
+          clearInterval(interval);
+          alert("Paiement confirmé !");
+          this.loadOrder(orderId);
+        }
+
+      });
+
+    }, 2000);
+  }
 
   receive(): void{
     const order = this.order();

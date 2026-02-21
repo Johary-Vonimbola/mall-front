@@ -21,41 +21,43 @@
     <div class="product-grid">
       @for (product of productList(); track product._id) {
 
-        <div class="product-card">
+        @if (product.isActive) {
+          <div class="product-card">
 
-          <div class="image-container">
-            <img [src]="product.picture" alt="image">
-          </div>
-
-          <div class="product-info">
-            <h3 class="product-name">
-              {{ product.name }}
-            </h3>
-
-            <p class="category">
-              {{ product.category }}
-            </p>
-
-            <div class="price-section">
-              {{ product.price | number:'1.0-0' }} Ar
+            <div class="image-container">
+              <img [src]="product.picture" alt="image">
             </div>
 
-            <div class="quantity-input">
-              <label for="qty-{{ product._id }}">Quantité:</label>
-              <input
-                id="qty-{{ product._id }}"
-                type="number"
-                min="1"
-                [value]="1"
-                #qtyInput
-              />
-            </div>
-          </div>
+            <div class="product-info">
+              <h3 class="product-name">
+                {{ product.name }}
+              </h3>
 
-          <button type="button" (click)="addToBasket(product._id, qtyInput.value)">
-            Commander
-          </button>
-        </div>
+              <p class="category">
+                {{ product.category }}
+              </p>
+
+              <div class="price-section">
+                {{ product.price | number:'1.0-0' }} Ar
+              </div>
+
+              <div class="quantity-input">
+                <label for="qty-{{ product._id }}">Quantité:</label>
+                <input
+                  id="qty-{{ product._id }}"
+                  type="number"
+                  min="1"
+                  [value]="1"
+                  #qtyInput
+                />
+              </div>
+            </div>
+
+            <button type="button" (click)="addToBasket(product._id, qtyInput.value)">
+              Commander
+            </button>
+          </div>
+        }
       }
     </div>
   }
