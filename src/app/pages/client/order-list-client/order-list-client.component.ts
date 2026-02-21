@@ -19,7 +19,6 @@ export class OrderListClientComponent implements OnInit {
   private router: Router = inject(Router);
   private orderService: OrderService = inject(OrderService);
   private authService: AuthenticationService = inject(AuthenticationService);
-  private redirect: Router = inject(Router);
   currentShopId = this.authService.currentShop()?.id;
 
   statuses = STATUS_ORDER_ENUM;
