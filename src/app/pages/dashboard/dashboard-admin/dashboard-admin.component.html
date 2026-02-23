@@ -28,6 +28,8 @@
 
   <div class="mt-4 p-1 flex justify-center items-center">
     <input class="bg-[var(--color-card)] p-3 rounded-md text-[var(--color-text-primary)] indent-4 outline-none transition-all duration-75 focus:outline-indigo-500" id="year" type="number" [(ngModel)]="selectedYear" (change)="onYearChange()" />
+    <label for="year">Select Year :</label>
+    <input id="year" type="number" [(ngModel)]="selectedYear" (change)="onYearChange()" />
   </div>
 
   <div class="mt-4 bg-[var(--color-card)] p-4">
