@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  isSidebarOpen = false;
+  @Output() clickHamburger = new EventEmitter<boolean>();
 
+  toogleSidebar(){
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.clickHamburger.emit(this.isSidebarOpen);
+  }
 }

@@ -7,21 +7,21 @@
     <div class="col">
       <div class="card p-3">
         <h5>Nombre total de boutique</h5>
-        <h3>{{dashboard.stats.totalShops}}</h3>
+        <h3>{{dashboard()?.stats?.totalShops}}</h3>
       </div>
     </div>
 
     <div class="col">
       <div class="card p-3">
         <h5>Nombre de boutique active</h5>
-        <h3>{{dashboard.stats.activeShops}}</h3>
+        <h3>{{dashboard()?.stats?.activeShops}}</h3>
       </div>
     </div>
 
     <div class="col">
       <div class="card p-3">
         <h5>Nombre total des utilisateurs</h5>
-        <h3>{{dashboard.stats.totalUsers}}</h3>
+        <h3>{{dashboard()?.stats?.totalUsers}}</h3>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody>
-        @for(shop of dashboard.shopSummary; track shop.shopId){
+        @for(shop of dashboard()?.shopSummary; track shop.shopId){
             <tr>
             <td>{{shop.shopName}}</td>
             <td>{{shop.totalPaid}}</td>
