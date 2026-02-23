@@ -1,68 +1,67 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { AdminDashboard } from '../../../models/adminDashboard';
+import { AdminDashboardService } from '../../../services/admin-dashboard.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard-admin',
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   standalone: true,
   templateUrl: './dashboard-admin.component.html',
   styleUrl: './dashboard-admin.component.scss'
 })
-export class DashboardAdminComponent implements AfterViewInit {
+export class DashboardAdminComponent implements OnInit {
+  dashboard!: AdminDashboard;
+  selectedYear: number = new Date().getFullYear();
+  chart: any;
+  dashboardService = inject(AdminDashboardService);
 
-  totalShops = 12;
-  totalCategories = 5;
-
-
-  ngAfterViewInit(): void {
-    this.createShopsByCategoryChart();
-    this.createRevenueChart();
-    this.createCAChart();
+  ngOnInit(): void {
+    this.loadDashboard();
   }
 
-  createShopsByCategoryChart(): void {
-    new Chart('shopsByCategory', {
-      type: 'pie',
-      data: {
-        labels: ['Alimentation', 'Vêtements', 'Électronique', 'Services'],
-        datasets: [{
-          data: [5, 3, 2, 2],
-          backgroundColor: [
-            '#6366f1',
-            '#22c55e',
-            '#f59e0b',
-            '#ef4444'
-          ]
-        }]
-      }
-    });
+  loadDashboard(){
+    this.dashboardService.getDashboard(this.selectedYear)
+      .subscribe(res => {
+        if(res.data){
+          this.dashboard = res.data;
+          this.createChart();
+        }
+      });
   }
 
-  createRevenueChart(): void {
-    new Chart('revenueChart', {
+  createChart(){
+
+    const months = this.dashboard.monthlyRent.map(m => `M${m.month}`);
+    const paid = this.dashboard.monthlyRent.map(m => m.paid);
+    const unpaid = this.dashboard.monthlyRent.map(m => m.unpaid);
+
+    if(this.chart){
+      this.chart.destroy();
+    }
+
+    this.chart = new Chart('rentChart', {
       type: 'bar',
       data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
-        datasets: [{
-          label: 'Revenus (Ar)',
-          data: [1200000, 900000, 1500000, 1800000, 1600000],
-          backgroundColor: '#4f46e5'
-        }]
+        labels: months,
+        datasets: [
+          {
+            label: 'Paid',
+            data: paid
+          },
+          {
+            label: 'Unpaid',
+            data: unpaid
+          }
+        ]
       }
     });
   }
 
-  createCAChart(): void {
-    new Chart('ca', {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai'],
-        datasets: [{
-          label: 'Revenus (Ar)',
-          data: [1200000, 900000, 1500000, 1800000, 1600000],
-          backgroundColor: '#4f46e5'
-        }]
-      }
-    });
+  onYearChange(){
+    this.loadDashboard();
   }
 }
