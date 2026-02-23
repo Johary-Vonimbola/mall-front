@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { AdminDashboard } from '../../../models/adminDashboard';
 import { AdminDashboardService } from '../../../services/admin-dashboard.service';
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard-admin.component.scss'
 })
 export class DashboardAdminComponent implements OnInit {
-  dashboard!: AdminDashboard;
+  dashboard = signal<AdminDashboard | undefined>(undefined);
   selectedYear: number = new Date().getFullYear();
   chart: any;
   dashboardService = inject(AdminDashboardService);
@@ -27,7 +27,7 @@ export class DashboardAdminComponent implements OnInit {
     this.dashboardService.getDashboard(this.selectedYear)
       .subscribe(res => {
         if(res.data){
-          this.dashboard = res.data;
+          this.dashboard.set(res.data);
           this.createChart();
         }
       });
@@ -35,9 +35,9 @@ export class DashboardAdminComponent implements OnInit {
 
   createChart(){
 
-    const months = this.dashboard.monthlyRent.map(m => `M${m.month}`);
-    const paid = this.dashboard.monthlyRent.map(m => m.paid);
-    const unpaid = this.dashboard.monthlyRent.map(m => m.unpaid);
+    const months = this.dashboard()?.monthlyRent.map(m => `M${m.month}`);
+    const paid = this.dashboard()?.monthlyRent.map(m => m.paid);
+    const unpaid = this.dashboard()?.monthlyRent.map(m => m.unpaid);
 
     if(this.chart){
       this.chart.destroy();

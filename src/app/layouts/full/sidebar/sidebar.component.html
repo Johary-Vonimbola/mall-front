@@ -1,12 +1,12 @@
-<aside>
+<aside class="border-[var(--color-border)] p-4 z-10 transition-all duration-75" [ngClass]="{ 'max-h-0 opacity-0': open }">
   <nav>
-    <ul class="menu">
+    <ul class="menu flex flex-col relative gap-5 text-[var(--color-text-primary)]">
 
       <!-- DASHBOARD -->
       <li class="menu-item">
         <a routerLink="dashboard">
-          <div class="menu-link">
-            <img class="icon" src="/assets/icons/dashboard.png" alt="Icon Dashboard">
+          <div class="menu-link flex gap-5 pb-3">
+            <img class="invert w-6" src="/assets/icons/dashboard.png" alt="Icon Dashboard">
             <span>Dashboard</span>
           </div>
         </a>
@@ -15,23 +15,23 @@
       @if (isAdmin()) {
         <!-- SHOPS -->
         <li class="menu-item has-children" [class.open]="shopsOpen">
-          <div class="menu-link" (click)="toggleShops()">
-            <img class="icon" src="/assets/icons/store.png" alt="Icon Shop">
+          <div class="menu-link flex gap-5 pb-3" (click)="toggleShops()">
+            <img class="invert w-6" src="/assets/icons/store.png" alt="Icon Shop">
             <span>Shops</span>
           </div>
 
-          <ul class="submenu">
+          <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': shopsOpen, 'opacity-0 max-h-0': !shopsOpen }">
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="shops">
-                <img class="icon" src="/assets/icons/list.png" alt="">
-                <span>List</span>
+              <a class="flex gap-5 items-center" routerLink="shops">
+                <img class="invert w-3 h-3 icon" src="/assets/icons/list.png" alt="">
+                <span>Liste</span>
               </a>
             </li>
 
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="shop-form">
-                <img class="icon" src="/assets/icons/form.png" alt="">
-                <span>New</span>
+              <a class="flex gap-5 items-center" routerLink="shop-form">
+                <img class="invert w-3 h-3 icon" src="/assets/icons/form.png" alt="">
+                <span>Nouveau</span>
               </a>
             </li>
           </ul>
@@ -39,23 +39,23 @@
 
         <!-- SHOPS CATEGORIES -->
         <li class="menu-item has-children" [class.open]="shopCategoriesOpen">
-          <div class="menu-link" (click)="toggleShopCategories()">
-            <img class="icon" src="/assets/icons/categorization.png" alt="Icon Shop Categories">
+          <div class="menu-link flex gap-5 pb-3" (click)="toggleShopCategories()">
+            <img class="invert w-6 icon" src="/assets/icons/categorization.png" alt="Icon Shop Categories">
             <span>Shop Categories</span>
           </div>
 
-          <ul class="submenu">
+          <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': shopCategoriesOpen, 'opacity-0 max-h-0': !shopCategoriesOpen }">
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="shop-categories">
-                <img class="icon" src="/assets/icons/list.png" alt="">
-                <span>List</span>
+              <a class="flex gap-5 items-center" routerLink="shop-categories">
+                <img class="invert w-3 h-3 icon" src="/assets/icons/list.png" alt="">
+                <span>Liste</span>
               </a>
             </li>
 
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="shop-category-form">
-                <img class="icon" src="/assets/icons/form.png" alt="">
-                <span>New</span>
+              <a class="flex gap-5 items-center" routerLink="shop-category-form">
+                <img class="invert w-3 h-3 icon" src="/assets/icons/form.png" alt="">
+                <span>Nouveau</span>
               </a>
             </li>
           </ul>
@@ -64,38 +64,38 @@
 
         <!-- RENT -->
         <li class="menu-item has-children" [class.open]="rentOpen">
-          <div class="menu-link" (click)="toggleRent()">
-            <img class="icon" src="/assets/icons/rent.png" alt="Icon Shop Rent">
+          <div class="menu-link flex gap-5 pb-3" (click)="toggleRent()">
+            <img class="invert w-6 icon" src="/assets/icons/rent.png" alt="Icon Shop Rent">
             <span>Loyer</span>
           </div>
 
-          <ul class="submenu">
+          <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': rentOpen, 'opacity-0 max-h-0': !rentOpen }">
             @if(isAdmin()){
               <li class="submenu-item" routerLinkActive="active">
-                <a routerLink="shop-rent-list">
-                  <img class="icon" src="/assets/icons/list.png" alt="">
+                <a class="flex gap-5 items-center" routerLink="shop-rent-list">
+                  <img class="invert w-3 h-3 icon" src="/assets/icons/list.png" alt="">
                   <span>Liste</span>
                 </a>
               </li>
 
               <li class="submenu-item" routerLinkActive="active">
-                <a routerLink="shop-rent-form">
-                  <img class="icon" src="/assets/icons/form.png" alt="">
+                <a class="flex gap-5 items-center" routerLink="shop-rent-form">
+                  <img class="invert w-3 h-3 icon" src="/assets/icons/form.png" alt="">
                   <span>Configuration</span>
                 </a>
               </li>
 
               <li class="submenu-item" routerLinkActive="active">
-                <a routerLink="rent-payments">
-                  <img class="icon" src="/assets/icons/money.png" alt="">
+                <a class="flex gap-5 items-center" routerLink="rent-payments">
+                  <img class="invert w-3 h-3 icon" src="/assets/icons/money.png" alt="">
                   <span>Payements</span>
                 </a>
               </li>
             }
             @if(isAdminShop()){
               <li class="submenu-item" routerLinkActive="active">
-                <a routerLink="shop-rent-payments">
-                  <img class="icon" src="/assets/icons/form.png" alt="">
+                <a class="flex gap-5" routerLink="shop-rent-payments">
+                  <img class="invert icon" src="/assets/icons/form.png" alt="">
                   <span>Mes loyers</span>
                 </a>
               </li>
@@ -105,23 +105,23 @@
 
       <!-- PRODUCTS -->
       <li class="menu-item has-children" [class.open]="productOpen">
-        <div class="menu-link" (click)="toggleProduct()">
-          <img class="icon" src="/assets/icons/product.png" alt="Icon Product">
+        <div class="menu-link flex gap-5 pb-3" (click)="toggleProduct()">
+          <img class="invert w-6 icon" src="/assets/icons/product.png" alt="Icon Product">
           <span>Produit</span>
         </div>
 
-        <ul class="submenu">
+        <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': productOpen, 'opacity-0 max-h-0': !productOpen }">
           <li class="submenu-item" routerLinkActive="active">
-            <a routerLink="products">
-              <img class="icon" src="/assets/icons/list.png" alt="">
+            <a class="flex gap-5 items-center" routerLink="products">
+              <img class="invert w-3 h-3 icon" src="/assets/icons/list.png" alt="">
               <span>Liste</span>
             </a>
           </li>
 
           @if(isAdminShop()){
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="product-form">
-                <img class="icon" src="/assets/icons/form.png" alt="">
+              <a class="flex ga items-centerp-5" router items-centerLink="product-form">
+                <img class="invert w--3 h3 w-3 h-3 icon" src="/assets/icons/form.png" alt="">
                 <span>Nouveau</span>
               </a>
             </li>
@@ -132,22 +132,22 @@
       @if(isAdminShop()){
         <!-- PRODUCTS CATEGORY -->
         <li class="menu-item has-children" [class.open]="productCategoryOpen">
-          <div class="menu-link" (click)="toggleProductCategory()">
-            <img class="icon" src="/assets/icons/categorization.png" alt="Icon Product Category">
+          <div class="menu-link flex gap-5 pb-3" (click)="toggleProductCategory()">
+            <img class="invert w-6 icon" src="/assets/icons/categorization.png" alt="Icon Product Category">
             <span>Category Produit</span>
           </div>
 
-          <ul class="submenu">
+          <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': productCategoryOpen, 'opacity-0 max-h-0': !productCategoryOpen }" >
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="product-category-list">
-                <img class="icon" src="/assets/icons/list.png" alt="">
+              <a class="flex gap-5 items-center" routerLink="product-category-list">
+                <img class="invert w-3 h-3 icon" src="/assets/icons/list.png" alt="">
                 <span>Liste</span>
               </a>
             </li>
 
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="product-category">
-                <img class="icon" src="/assets/icons/form.png" alt="">
+              <a class="flex ga items-centerp-5" router items-centerLink="product-category">
+                <img class="invert w--3 h3 w-3 h-3 icon" src="/assets/icons/form.png" alt="">
                 <span>Nouveau</span>
               </a>
             </li>
@@ -158,15 +158,15 @@
       @if(isAdminShop()){
         <!-- VENTE -->
         <li class="menu-item has-children" [class.open]="saleOpen">
-          <div class="menu-link" (click)="toogleSale()">
-            <img class="icon" src="/assets/icons/sale.png" alt="Icon Sale">
+          <div class="menu-link flex gap-5 pb-3" (click)="toogleSale()">
+            <img class="invert w-6 icon" src="/assets/icons/sale.png" alt="Icon Sale">
             <span>Vente</span>
           </div>
 
-          <ul class="submenu">
+          <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': saleOpen, 'opacity-0 max-h-0': !saleOpen }" >
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="orders">
-                <img class="icon" src="/assets/icons/list.png" alt="">
+              <a class="flex gap-5" routerLink="orders">
+                <img class="invert icon" src="/assets/icons/list.png" alt="">
                 <span>Commande</span>
               </a>
             </li>
@@ -176,29 +176,29 @@
       @if(isAdminShop()){
         <!-- STOCK -->
         <li class="menu-item has-children" [class.open]="stockOpen">
-          <div class="menu-link" (click)="toggleStock()">
-            <img class="icon" src="/assets/icons/stock.png" alt="Icon Stock">
+          <div class="menu-link flex gap-5 pb-3" (click)="toggleStock()">
+            <img class="invert w-6 icon" src="/assets/icons/stock.png" alt="Icon Stock">
             <span>Stock</span>
           </div>
 
-          <ul class="submenu">
+          <ul class="submenu flex flex-col gap-2 ml-5 overflow-hidden transition-all duration-100 ease-in-out bg-[var(--color-card)] border rounded" [ngClass]="{ 'h-auto p-3': stockOpen, 'opacity-0 max-h-0': !stockOpen }" >
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="stock-moves">
-                <img class="icon" src="/assets/icons/list.png" alt="">
+              <a class="flex gap-5" routerLink="stock-moves">
+                <img class="invert icon" src="/assets/icons/list.png" alt="">
                 <span>Mouvement</span>
               </a>
             </li>
 
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="stock-move-form">
-                <img class="icon" src="/assets/icons/form.png" alt="">
+              <a class="flex gap-5" routerLink="stock-move-form">
+                <img class="invert icon" src="/assets/icons/form.png" alt="">
                 <span>Reajustation</span>
               </a>
             </li>
 
             <li class="submenu-item" routerLinkActive="active">
-              <a routerLink="stock-thresholds">
-                <img class="icon" src="/assets/icons/setting.png" alt="">
+              <a class="flex gap-5" routerLink="stock-thresholds">
+                <img class="invert icon" src="/assets/icons/setting.png" alt="">
                 <span>Seuil de stock</span>
               </a>
             </li>
@@ -208,8 +208,8 @@
 
       <!-- LOGOUT -->
       <li class="menu-item logout" (click)="logout()">
-        <div class="menu-link">
-          <img class="icon" src="/assets/icons/logout.png" alt="Icon logout">
+        <div class="menu-link flex gap-5 pb-3">
+          <img class="invert w-6 icon" src="/assets/icons/logout.png" alt="Icon logout">
           <span>Logout</span>
         </div>
       </li>

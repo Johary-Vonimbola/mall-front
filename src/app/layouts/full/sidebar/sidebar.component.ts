@@ -1,12 +1,14 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
   imports: [
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgClass
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
@@ -21,6 +23,8 @@ export class SidebarComponent {
   productCategoryOpen = false;
   stockOpen = false;
   saleOpen = false;
+
+  @Input() open = false;
   
   isAdminShop = computed(() => {
     return this.authService.currentUser()?.role === 'SHOP_ADMIN';
