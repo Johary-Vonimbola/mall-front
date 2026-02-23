@@ -5,6 +5,7 @@ import { ShopManagementService } from '../../../services/shop-management.service
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { get, remove, set } from '../../../utils/localStorage';
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-shop-list-client',
@@ -15,6 +16,7 @@ import { get, remove, set } from '../../../utils/localStorage';
 export class ShopListClientComponent implements OnInit {
   private router: Router = inject(Router);
   shops = signal<ShopResponse[]>([]);
+  environment = environment.apiUrl + "/" ;
 
   private autheService : AuthenticationService = inject(AuthenticationService);
   private shopManagementService = inject(ShopManagementService);

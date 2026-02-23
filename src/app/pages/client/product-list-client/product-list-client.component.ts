@@ -8,12 +8,12 @@ import { get, remove, set } from '../../../utils/localStorage';
 import { CartService } from '../../../services/cart.service';
 import { Cart } from '../../../models/Cart';
 import { BackComponent } from "../../../components/back/back.component";
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-product-list-client',
   imports: [
     DecimalPipe,
-    NgIf,
     BackComponent
 ],
   templateUrl: './product-list-client.component.html',
@@ -26,6 +26,7 @@ export class ProductListClientComponent implements OnInit {
   private autheService : AuthenticationService = inject(AuthenticationService);
   private cartService: CartService = inject(CartService);
 
+  environment = environment.apiUrl + "/" ;
   shopId !: String;
   productList = signal<Product[]>([]);
   cart = signal<Cart | undefined>(undefined);
