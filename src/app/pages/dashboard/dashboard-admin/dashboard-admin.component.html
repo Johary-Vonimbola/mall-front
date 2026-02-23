@@ -1,36 +1,61 @@
-<main>
-    <section class="dashboard">
-        <h1>Dashboard</h1>
+<div class="container mt-4">
 
-        <!-- CARTES -->
-        <div class="stats">
-            <div class="card">
-            <h3>Boutiques</h3>
-            <p>{{ totalShops }}</p>
-            </div>
+  <h2>Tableau de bord</h2>
 
-            <div class="card">
-            <h3>Catégories</h3>
-            <p>{{ totalCategories }}</p>
-            </div>
-        </div>
+  <!-- STATS -->
+  <div class="row mt-4">
+    <div class="col">
+      <div class="card p-3">
+        <h5>Nombre total de boutique</h5>
+        <h3>{{dashboard.stats.totalShops}}</h3>
+      </div>
+    </div>
 
-        <!-- GRAPHIQUES -->
-        <div class="charts">
-            <div class="chart-card">
-            <h3>Boutiques par catégorie</h3>
-            <canvas id="shopsByCategory"></canvas>
-            </div>
+    <div class="col">
+      <div class="card p-3">
+        <h5>Nombre de boutique active</h5>
+        <h3>{{dashboard.stats.activeShops}}</h3>
+      </div>
+    </div>
 
-            <div class="chart-card">
-            <h3>Revenus mensuels</h3>
-            <canvas id="revenueChart"></canvas>
-            </div>
+    <div class="col">
+      <div class="card p-3">
+        <h5>Nombre total des utilisateurs</h5>
+        <h3>{{dashboard.stats.totalUsers}}</h3>
+      </div>
+    </div>
+  </div>
 
-            <div class="chart-card">
-            <h3>Revenus mensuels</h3>
-            <canvas id="ca"></canvas>
-            </div>
-        </div>
-    </section>
-</main>
+  <div class="mt-4">
+    <label>Select Year :</label>
+    <input type="number" [(ngModel)]="selectedYear" (change)="onYearChange()" />
+  </div>
+
+  <div class="mt-4">
+    <canvas id="rentChart"></canvas>
+  </div>
+
+  <div class="mt-4">
+    <h4>Details de paiement par boutique</h4>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Shop</th>
+          <th>Total Paid</th>
+          <th>Total Unpaid</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(shop of dashboard.shopSummary; track shop.shopId){
+            <tr>
+            <td>{{shop.shopName}}</td>
+            <td>{{shop.totalPaid}}</td>
+            <td>{{shop.totalUnpaid}}</td>
+            </tr>
+        }   
+      </tbody>
+    </table>
+  </div>
+
+</div>
