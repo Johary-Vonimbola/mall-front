@@ -1,65 +1,51 @@
 <app-back link="shops"></app-back>
-
 <button (click)="viewCart()" type="button">Voir Panier</button>
-
 <button (click)="viewOrders()" type="button">Voir Tout les commandes</button>
 
-<div *ngIf="cart() as c">
-  <p>Nombre d'articles : {{ c.nbArticles }}</p>
-  <p>Total : {{ c.total | number }}</p>
-</div>
+@if (cart()) {
+  <p>Nombre d'articles : {{ cart()?.nbArticles }}</p>
+  <p>Total : {{ cart()?.total | number }}</p>
+}
 
-<div class="product-container">
-
-  @if (productList().length === 0) {
-    <div class="empty-state">
-      Aucun produit disponible
-    </div>
+@if (productList().length === 0) {
+  <div class="mt-10 flex justify-center text-gray-600 text-2xl font-bold">
+    Aucun produit disponible
+  </div>
   }
 
-  @if (productList().length > 0) {
-    <div class="product-grid">
-      @for (product of productList(); track product._id) {
+@else if (productList().length > 0) {
 
-        @if (product.isActive) {
-          <div class="product-card">
+<span class="mt-2 flex items-center justify-center text-2xl font-bold">Liste Produit</span>
+<div class="m-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
+  @for (product of productList(); track product._id; let first = $first) {
+    @if (product.isActive) {
+      <div class="max-w-96 m-4 p-4 border-2 border-black rounded bg-[var(--color-card)]">
 
-            <div class="image-container">
-              <img [src]="product.picture" alt="image">
-            </div>
+        <img class="" [src]="environment+product.picture" [alt]="environment+product.picture">
 
-            <div class="product-info">
-              <h3 class="product-name">
-                {{ product.name }}
-              </h3>
+        <div class="bg-slate-500 flex p-1 rounded-b">
+          <label class="w-full text-xl font-bold">{{ product.name }}</label>
+          <label class="flex justify-end text-sm">{{ product.category }}</label>
+        </div>
 
-              <p class="category">
-                {{ product.category }}
-              </p>
+        <div class="my-2 flex justify-center text-[var(--color-accent)] font-bold text-2xl">{{ product.price | number:'1.0-0' }} Ar</div>
 
-              <div class="price-section">
-                {{ product.price | number:'1.0-0' }} Ar
-              </div>
+        <div class="flex">
+          <input
+            class="p-1 rounded-md w-20 text-center text-2xl font-semibold"
+            id="qty-{{ product._id }}"
+            type="number"
+            min="1"
+            [value]="1"
+            #qtyInput
+          />
+          <button class="ml-2 w-full h-10 bg-[var(--color-success)] rounded-md text-xl font-semibold hover:bg-[var(--color-accent)]" type="button" (click)="addToBasket(product._id, qtyInput.value)">
+            Commander
+          </button>
+        </div>
 
-              <div class="quantity-input">
-                <label for="qty-{{ product._id }}">Quantité:</label>
-                <input
-                  id="qty-{{ product._id }}"
-                  type="number"
-                  min="1"
-                  [value]="1"
-                  #qtyInput
-                />
-              </div>
-            </div>
-
-            <button type="button" (click)="addToBasket(product._id, qtyInput.value)">
-              Commander
-            </button>
-          </div>
-        }
-      }
-    </div>
+      </div>
+    }
   }
-
 </div>
+}

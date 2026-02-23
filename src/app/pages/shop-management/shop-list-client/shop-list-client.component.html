@@ -1,35 +1,20 @@
-<div class="cart">
-  <div class="shop-list">
+<span class="mt-2 flex items-center justify-center text-2xl font-bold">Liste Boutique</span>
+<div class="m-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
+  @for (shop of shops(); track shop.id; let first = $first) {
+    @if (shop.isActive) {
+      <div class="max-w-96 m-4 p-4 border-2 border-black rounded bg-[var(--color-card)]">
 
-    @for (shop of shops(); track shop.id; let first = $first) {
-
-      @if (shop.isActive) {
-        <div
-          class="shop-item"
-          [class.border-top]="!first"
-        >
-
-          <!-- LEFT -->
-          <div class="shop-info">
-            <span class="category">{{ shop.category }}</span>
-            <span class="name">{{ shop.name }}</span>
-          </div>
-
-          <!-- RIGHT -->
-          <div class="actions">
-            <span class="status active">ACTIVE</span>
-
-            <button
-              type="button"
-              class="btn btn-success"
-              (click)="visit(shop.id)"
-            >
-              Visiter
-            </button>
-          </div>
-
+        <div class="bg-slate-500 flex p-1 rounded-t">
+          <label class="w-full text-2xl font-bold">{{ shop.name }}</label>
+          <label class="flex justify-end text-sm">{{ shop.category }}</label>
         </div>
-      }
+
+        <img class="" [src]="environment+shop.logo" [alt]="environment+shop.logo">
+
+        <button class="w-full h-10 bg-[var(--color-success)] rounded-b text-xl font-semibold hover:bg-[var(--color-accent)]" type="button" (click)="visit(shop.id)">
+          Visiter
+        </button>
+      </div>
     }
-  </div>
+  }
 </div>
