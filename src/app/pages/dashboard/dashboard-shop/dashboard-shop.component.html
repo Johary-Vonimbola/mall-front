@@ -1,1 +1,36 @@
-<p>dashboard-shop works!</p>
+<!-- dashboard-shop.component.html -->
+<div *ngIf="dashboard" class="container mt-4">
+
+  <h2>Tableau de bord Boutique</h2>
+
+  <div class="row mt-4">
+
+    <div class="col">
+      <div class="card p-3">
+        <h5>Chiffre d'affaire</h5>
+        <h3>{{dashboard.chiffreAffaire}} Ar</h3>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card p-3">
+        <h5>Loyer</h5>
+        <h3>{{dashboard.rent}} Ar</h3>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card p-3">
+        <h5>Bénéfice</h5>
+        <h3>{{dashboard.profit}} Ar</h3>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 📊 GRAPH -->
+  <div class="mt-5">
+    <canvas #salesChart></canvas> <!-- Remplacer id par # -->
+  </div>
+
+</div>
