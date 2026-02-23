@@ -1,59 +1,58 @@
-<div class="container mt-4">
+<div>
 
-  <h2>Tableau de bord</h2>
+  <h2 class="text-center font-bold text-2xl text-[var(--color-text-primary)]">Tableau de bord</h2>
 
   <!-- STATS -->
-  <div class="row mt-4">
-    <div class="col">
+  <div class="mt-4 p-1">
+    <div class="col border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5>Nombre total de boutique</h5>
-        <h3>{{dashboard()?.stats?.totalShops}}</h3>
+        <h5 class="text-base text-[var(--color-text-secondary)] text-center">Nombre total de boutique</h5>
+        <h3 class="text-center text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.totalShops}}</h3>
       </div>
     </div>
 
-    <div class="col">
+    <div class="col border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5>Nombre de boutique active</h5>
-        <h3>{{dashboard()?.stats?.activeShops}}</h3>
+        <h5 class="text-base text-[var(--color-text-secondary)] text-center">Nombre de boutique active</h5>
+        <h3 class="text-center text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.activeShops}}</h3>
       </div>
     </div>
 
-    <div class="col">
+    <div class="col border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5>Nombre total des utilisateurs</h5>
-        <h3>{{dashboard()?.stats?.totalUsers}}</h3>
+        <h5 class="text-base text-[var(--color-text-secondary)] text-center">Nombre total des utilisateurs</h5>
+        <h3 class="text-center text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.totalUsers}}</h3>
       </div>
     </div>
   </div>
 
-  <div class="mt-4">
-    <label>Select Year :</label>
-    <input type="number" [(ngModel)]="selectedYear" (change)="onYearChange()" />
+  <div class="mt-4 p-1 flex justify-center items-center">
+    <input class="bg-[var(--color-card)] p-3 rounded-md text-[var(--color-text-primary)] indent-4 outline-none transition-all duration-75 focus:outline-indigo-500" id="year" type="number" [(ngModel)]="selectedYear" (change)="onYearChange()" />
   </div>
 
-  <div class="mt-4">
-    <canvas id="rentChart"></canvas>
+  <div class="mt-4 bg-[var(--color-card)] p-4">
+    <canvas id="rentChart" class="w-full"></canvas>
   </div>
 
-  <div class="mt-4">
-    <h4>Details de paiement par boutique</h4>
+  <div class="mt-4 p-2">
+    <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Details de paiement par boutique</h4>
 
-    <table class="table table-bordered">
+    <table class="table border-1 rounded-md p-5">
       <thead>
         <tr>
-          <th>Shop</th>
-          <th>Total Paid</th>
-          <th>Total Unpaid</th>
+          <th class="text-center">Boutique</th>
+          <th class="text-center">Total Payee</th>
+          <th class="text-center">Total Impayee</th>
         </tr>
       </thead>
       <tbody>
         @for(shop of dashboard()?.shopSummary; track shop.shopId){
             <tr>
-            <td>{{shop.shopName}}</td>
-            <td>{{shop.totalPaid}}</td>
-            <td>{{shop.totalUnpaid}}</td>
+              <td>{{shop.shopName}}</td>
+              <td class="text-center text-base">{{shop.totalPaid}}</td>
+              <td class="text-center text-base">{{shop.totalUnpaid}}</td>
             </tr>
-        }   
+        }
       </tbody>
     </table>
   </div>

@@ -1,32 +1,20 @@
-.dashboard {
-  padding: 24px;
-}
+.table{
+  @apply min-w-full border-gray-300 text-left text-sm bg-[var(--color-card)];
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
-}
 
-.cart {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
+  thead{
+    @apply text-[var(--color-text-primary)] p-3;
+  }
 
-.charts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
+  tbody{
+    @apply text-[var(--color-text-secondary)] p-3;
+    
+    tr{
+      @apply border-b-2;
 
-.chart-cart {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-canvas {
-  max-width: 100%;
+      td{
+        @apply p-3;
+      }
+    }
+  }
 }
