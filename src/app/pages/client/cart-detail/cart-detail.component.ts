@@ -8,6 +8,7 @@ import { Order, OrderDetail } from '../../../models/Order';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { BackComponent } from "../../../components/back/back.component";
 import { STATUS_ORDER } from '../../../models/DataStatus';
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-cart-detail',
@@ -17,21 +18,18 @@ import { STATUS_ORDER } from '../../../models/DataStatus';
 })
 export class CartDetailComponent implements OnInit {
   private router: Router = inject(Router);
-  private route: ActivatedRoute = inject(ActivatedRoute);
   private cartService = inject(CartService);
   private authService = inject(AuthenticationService);
   private orderService = inject(OrderService);
 
   currentShopId = this.authService.currentShop()?.id;
-  cart = signal<Cart | undefined>(undefined);
+  cart = this.cartService.cart;
+  environment = environment.apiUrl + "/" ;
 
   ngOnInit(): void {
     const cartId = get('cart_id');
     if (cartId) {
       this.cartService.getCart(cartId).subscribe({
-        next: (res) => {
-          this.cart.set(res.data);
-        },
         error: (err) => console.error('Erreur chargement panier', err)
       });
     }
@@ -42,9 +40,6 @@ export class CartDetailComponent implements OnInit {
 
     if (cartId) {
       this.cartService.removeProduct(cartId, productId).subscribe({
-        next: (res) => {
-          this.cart.set(res.data);
-        },
         error: (err) => {
           console.error('Erreur lors de la suppression d\'un produit', err);
           alert(err?.error?.message || 'Erreur lors de la suppression d\'un produit');
@@ -64,10 +59,6 @@ export class CartDetailComponent implements OnInit {
       }
 
       this.cartService.updateQuantity(cartId, productId,{ quantity: 1, price: product.price }).subscribe({
-        next: (res) => {
-          this.cart.set(res.data);
-          // alert('Quantité du produit mise à jour !');
-        },
         error: (err) => {
           console.error('Erreur mise à jour quantité', err);
           alert(err?.error?.message || 'Erreur mise à jour quantité');
@@ -92,10 +83,6 @@ export class CartDetailComponent implements OnInit {
       }
 
       this.cartService.updateQuantity(cartId, productId,{ quantity: -1, price: product.price }).subscribe({
-        next: (res) => {
-          this.cart.set(res.data);
-          // alert('Quantité du produit mise à jour !');
-        },
         error: (err) => {
           console.error('Erreur mise à jour quantité', err);
           alert(err?.error?.message || 'Erreur mise à jour quantité');
@@ -131,9 +118,6 @@ export class CartDetailComponent implements OnInit {
       quantity: diff,
       price: product.price
     }).subscribe({
-      next: (res) => {
-        this.cart.set(res.data);
-      },
       error: (err) => {
         console.error('Erreur update quantity', err);
         alert(err?.error?.message || 'Erreur update quantity');

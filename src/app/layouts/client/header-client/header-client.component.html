@@ -1,4 +1,4 @@
-<header class="fixed w-full bg-[var(--color-bg)] text-[var(--color-text-primary)]">
+<header class="bg-[var(--color-card)] fixed w-full text-[var(--color-text-primary)]">
     <div class="flex h-12 md:h-16 border-b-2 border-gray-50">
         <div class="ml-1 md:ml-2 mt-1 flex justify-center">
             <img src="/assets/icons/mall-logo.png" alt="Logo" class="h-10 md:h-12 w-auto">
@@ -6,29 +6,32 @@
 
         <div class="hidden md:flex w-full">
             <nav class="hidden md:flex w-full items-center justify-center">
-                <ul class="flex items-center justify-center gap-10">
-                    <li><a >Commande(s)</a></li>
-                    <li><a >Livraison(s)</a></li>
-                </ul>
+                @if (hasEnteredInShop()) {
+                    <ul class="flex items-center justify-center gap-10">
+                        <li>
+                            <button class="text-xl font-bold" (click)="viewOrders()"> Commande(s) </button>
+                        <li>
+                    </ul>
+                }
             </nav>
 
             <div class="flex items-center justify-center">
-                <button class="bg-slate-400 flex justify-center items-center w-32 h-12 rounded-full">
-                    <span class="bg-[var(--color-warning)] flex items-center justify-center rounded-full w-10 h-8  -ml-7 -mt-5">100</span>
+                <button (click)="viewCart()" class="bg-[var(--color-border)] flex justify-center items-center w-32 h-12 rounded-full">
+                    <span class="bg-[var(--color-warning)] flex items-center justify-center rounded-full w-10 h-8  -ml-7 -mt-5">{{ nbArticle() }}</span>
                     <img src="/assets/icons/cart.png" alt="Icon Panier" class="h-8 w-auto mr-2 ml-1">
                     <span >Panier</span>
                 </button>
             </div>
 
             <div class="flex flex-col items-start justify-center w-32 mx-10">
-                <div class="flex gap-1">
-                    <img class="h-5 w-auto invert" src="/assets/icons/profil.png" alt="Profil" >
-                    <span class="flex items-center">Kanto</span>
-                </div>
-                <div class="flex gap-1">
-                    <img class="h-5 w-auto invert" src="/assets/icons/logout.png" alt="Deconnexion" >
-                    <span class="flex items-center">Deconnexion</span>
-                </div>
+                <button class="bg-[var(--color-border)] px-4 flex gap-1 rounded-full mb-1">
+                    <img class="mt-1 h-5 w-auto invert" src="/assets/icons/profil.png" alt="Profil" >
+                    <span class="mt-1 flex items-center">{{ currentUser?.name }}</span>
+                </button>
+                <button (click)="logout()" class="bg-red-200 px-4 flex gap-1 rounded-full">
+                    <img class="mt-1 h-5 w-auto" src="/assets/icons/logout.png" alt="Deconnexion" >
+                    <span class="mt-1 pr-4 flex items-center text-black">Deconnexion</span>
+                </button>
             </div>
         </div>
             
@@ -43,30 +46,33 @@
         <div class="md:hidden bg-slate-700">
             <nav class="md:hidden w-full items-center justify-center">
                 <ul class="flex flex-col">
-                    <li class="bg-slate-600 h-12 flex items-center border-b-2 border-gray-500">
-                        <img class="h-8 w-auto invert ml-10" src="/assets/icons/order.png" alt="Commande" >
-                        <span class="ml-3">Commande(s)</span>
-                        <span class="w-full flex justify-end mr-10 text-2xl">></span>
-                    </li>
-                    <li class="bg-slate-600 h-12 flex items-center border-b-2 border-gray-500">
-                        <img class="h-8 w-auto invert ml-10" src="/assets/icons/delivery.png" alt="Livraison" >
-                        <span class="ml-3">Livraison(s)</span>
-                        <span class="w-full flex justify-end mr-10 text-2xl">></span>
-                    </li>
-                    <li class="bg-slate-600 h-12 flex items-center border-b-2 border-gray-500">
-                        <img class="h-8 w-auto invert ml-10" src="/assets/icons/cart.png" alt="Panier" >
-                        <span class="ml-3">Panier(100)</span>
-                        <span class="w-full flex justify-end mr-10 text-2xl">></span>
-                    </li>
+                    @if (hasEnteredInShop()) {
+                        <li class="bg-slate-600 h-12 border-b-2 border-gray-500">
+                            <button (click)="viewOrders()" class="h-full w-full flex items-center ">
+                                <img class="h-8 w-auto invert ml-10" src="/assets/icons/order.png" alt="Commande" >
+                                <span class="ml-3">Commande(s)</span>
+                                <span class="w-full flex justify-end mr-10 text-2xl">></span>
+                            </button>
+                        </li>
+                        <li class="bg-slate-600 h-12 border-b-2 border-gray-500">
+                            <button (click)="viewCart()" class="h-full w-full flex items-center ">
+                                <img class="h-8 w-auto invert ml-10" src="/assets/icons/cart.png" alt="Panier" >
+                                <span class="ml-3">Panier({{ nbArticle() }})</span>
+                                <span class="w-full flex justify-end mr-10 text-2xl">></span>
+                            </button>
+                        </li>
+                    }
                     <li class="bg-slate-600 h-12 flex items-center border-b-2 border-gray-500">
                         <img class="h-8 w-auto invert ml-10" src="/assets/icons/profil.png" alt="Profil" >
                         <span class="ml-3">Profil</span>
                         <span class="w-full flex justify-end mr-10 text-2xl">></span>
                     </li>
-                    <li class="bg-slate-600 h-12 flex items-center border-b-2 border-gray-500">
-                        <img class="h-8 w-auto invert ml-10" src="/assets/icons/logout.png" alt="Deconnexion" >
-                        <span class="ml-3">Deconnexion</span>
-                        <span class="w-full flex justify-end mr-10 text-2xl">></span>
+                    <li class="bg-slate-600 h-12 border-b-2 border-gray-500">
+                        <button (click)="logout()" class="h-full w-full flex items-center ">
+                            <img class="h-8 w-auto invert ml-10" src="/assets/icons/logout.png" alt="Deconnexion" >
+                            <span class="ml-3">Deconnexion</span>
+                            <span class="w-full flex justify-end mr-10 text-2xl">></span>
+                        </button>
                     </li>
                 </ul>
             </nav>

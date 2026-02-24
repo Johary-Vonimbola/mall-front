@@ -5,6 +5,7 @@ import { Order } from '../../../models/Order';
 import { DatePipe } from '@angular/common';
 import { BackComponent } from "../../../components/back/back.component";
 import { AuthenticationService } from '../../../services/authentication.service';
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-order-details',
@@ -22,7 +23,7 @@ export class OrderDetailsComponent implements OnInit{
 
   currentShopId = this.authService.currentShop()?.id;
   currentClientId = this.authService.currentUser()?.id;
-
+  environment = environment.apiUrl + "/" ;
   order = signal<Order | null>(null);
 
   ngOnInit(): void {
