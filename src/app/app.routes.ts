@@ -40,6 +40,7 @@ import { OrderDetailComponent } from './pages/shop-order-management/order-detail
 import { PaymentOrderComponent } from './pages/client/payment-order/payment-order.component';
 import { RentPaymentsComponent } from './pages/shop-rent-payment/rent-payments/rent-payments.component';
 import { RentPaymentAdminComponent } from './pages/shop-rent-payment/rent-payment-admin/rent-payment-admin.component';
+import { DashboardShopComponent } from './pages/dashboard/dashboard-shop/dashboard-shop.component';
 
 export const routes: Routes = [
     {
@@ -154,6 +155,10 @@ export const routes: Routes = [
         path: 'admin-shop',
         component: FullComponent,
         children: [
+            {
+                path: 'dashboard',
+                component: DashboardShopComponent
+            },
             {
                 path: 'product-category',
                 component: ProductCategoryFormComponent
