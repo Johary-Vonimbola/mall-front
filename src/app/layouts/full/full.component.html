@@ -1,14 +1,12 @@
-<div class="layout bg-[var(--color-bg)] min-h-screen">
+<div class="layout bg-[var(--color-bg)]">
 
   <app-header (clickHamburger)="toogleSidebar($event)"></app-header>
 
-  <div class="bg-[var(--color-bg)] flex flex-col flex-1]">
-    <app-sidebar (closeSidebar)="toogleSidebar($event)" [open]="isSidebarOpen()"></app-sidebar>
+  <app-sidebar (closeSidebar)="toogleSidebar($event)" [open]="isSidebarOpen()"></app-sidebar>
 
-    <main class="flex-1 bg-[var(--color-bg)] overflow-y-auto overflow-x-hidden container" [ngClass]="{ 'pointer-events-none opacity-5': isSidebarOpen() }">
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+  <main class="flex-1 bg-[var(--color-bg)] overflow-y-auto lg:overflow-y-scroll overflow-x-hidden lg:mt-5" [ngClass]="{ 'pointer-events-none opacity-5': isSidebarOpen() }">
+    <router-outlet></router-outlet>
+  </main>
 
   <app-footer></app-footer>
 

@@ -1,33 +1,72 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="main-form">
+<div class="px-4 py-8 flex justify-center">
 
-    <!-- erreurs backend -->
-    <div class="errors">
-      @for (err of errors(); track err) {
-        <p class="header-error">{{ err }}</p>
-      }
-    </div>
+  <div class="w-full max-w-xl bg-[var(--color-card)] 
+              border border-[var(--color-border)] 
+              rounded-2xl p-6 shadow-lg">
 
-    <!-- NAME -->
-    <div class="input-group">
-      <label for="name">Nom du Categorie</label>
-      <input
-        id="name"
-        type="text"
-        placeholder="Nom du categorie"
-        formControlName="name"
-        [ngClass]="{'is-invalid': isInvalid(form.controls.name)}"
-      />
+    <h2 class="title">
+      Modifier une catégorie de boutique
+    </h2>
 
-      <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error">
-        Le nom est obligatoire
-      </p>
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
 
-    <!-- SUBMIT -->
-    <div class="input-group">
-        <button [disabled]="form.invalid" type="submit">Valisder</button>
-    </div>
+      <!-- ERREURS BACKEND -->
+      <div class="errors">
+        @for (err of errors(); track err) {
+          <p class="bg-[var(--color-danger)]/10 
+                    border border-[var(--color-danger)] 
+                    text-[var(--color-danger)] 
+                    p-4 rounded-xl text-sm">
+            {{ err }}
+          </p>
+        }
+      </div>
 
+      <!-- NAME -->
+      <div class="input-group flex flex-col gap-2">
+        <label class="text-sm text-[var(--color-text-secondary)]" for="name">
+          Nom du Categorie
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Nom du categorie"
+          formControlName="name"
+          class="w-full px-4 py-3 rounded-xl
+                 bg-[var(--color-bg)]
+                 border border-[var(--color-border)]
+                 text-[var(--color-text-primary)]
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-[var(--color-accent)]
+                 transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]': isInvalid(form.controls.name)
+          }"
+        />
+
+        <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')"
+           class="text-sm text-[var(--color-danger)]">
+          Le nom est obligatoire
+        </p>
+      </div>
+
+      <!-- SUBMIT -->
+      <div class="input-group mt-4">
+        <button type="submit" 
+                [disabled]="form.invalid"
+                class="w-full py-3 rounded-xl font-semibold
+                       bg-[var(--color-accent)]
+                       text-white
+                       transition
+                       hover:bg-[var(--color-accent-hover)]
+                       disabled:opacity-50
+                       disabled:cursor-not-allowed">
+          Valider
+        </button>
+      </div>
+
+    </form>
   </div>
-</form>
+</div>
