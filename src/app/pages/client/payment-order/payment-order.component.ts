@@ -38,6 +38,7 @@ export class PaymentOrderComponent {
   });
   errors = signal<String[]>([]);
 
+  environment = environment.apiUrl + "/" ;
   STATUS_ORDER = STATUS_ORDER;
   order = signal<Order | null>(null);
   stripe: any;
@@ -60,11 +61,27 @@ export class PaymentOrderComponent {
 
   async mountStripe(){
     if(!this.stripe){
+
       this.stripe = await loadStripe(environment.stripePublicKey);
 
       const elements = this.stripe.elements();
 
-      this.cardElement = elements.create('card');
+      const style = {
+        base: {
+          color: '#F1F5F9',
+          fontSize: '16px',
+          fontFamily: 'Inter, sans-serif',
+          backgroundColor: '#0F172A',
+          '::placeholder': {
+            color: '#94A3B8'
+          }
+        },
+        invalid: {
+          color: '#F43F5E'
+        }
+      };
+
+      this.cardElement = elements.create('card', { style });
 
       setTimeout(() => {
         this.cardElement.mount('#card-element');

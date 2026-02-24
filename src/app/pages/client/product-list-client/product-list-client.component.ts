@@ -29,7 +29,7 @@ export class ProductListClientComponent implements OnInit {
   environment = environment.apiUrl + "/" ;
   shopId !: String;
   productList = signal<Product[]>([]);
-  cart = signal<Cart | undefined>(undefined);
+  cart = this.cartService.cart;
 
   ngOnInit(): void {
     this.shopId = this.route.snapshot.paramMap.get('id')!;
@@ -38,9 +38,6 @@ export class ProductListClientComponent implements OnInit {
     const cartId = get('cart_id');
     if (cartId) {
       this.cartService.getCart(cartId).subscribe({
-        next: (res) => {
-          this.cart.set(res.data);
-        },
         error: (err) => console.error('Erreur chargement panier', err)
       });
     }
@@ -53,14 +50,6 @@ export class ProductListClientComponent implements OnInit {
       error: () =>
         console.error('Erreur lors du chargement des produits')
     });
-  }
-
-  viewCart() : void{
-    this.router.navigate([`/shops/${ this.shopId }/cart-detail`]);
-  }
-
-  viewOrders() : void{
-    this.router.navigate([`/shops/${ this.shopId }/orders/${ this.autheService.currentUser()?.id }`]);
   }
 
   addToBasket(productId: string, quantityStr: string): void {
@@ -90,7 +79,6 @@ export class ProductListClientComponent implements OnInit {
       if (existing) {
         this.cartService.updateQuantity(cartId, product._id,{ quantity: quantity, price: product.price }).subscribe({
           next: (res) => {
-            this.cart.set(res.data);
             alert('Quantité du produit mise à jour !');
           },
           error: (err) => {
@@ -101,7 +89,6 @@ export class ProductListClientComponent implements OnInit {
       } else {
         this.cartService.addProduct(cartId, cartDetail).subscribe({
           next: (res) => {
-            this.cart.set(res.data);
             alert(res.message);
           },
           error: (err) => {
@@ -125,7 +112,6 @@ export class ProductListClientComponent implements OnInit {
           alert(res.message);
           if (res.data) {
             set('cart_id', res.data._id);
-            this.cart.set(res.data);
           }
         },
         error: (err) => {

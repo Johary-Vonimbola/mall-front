@@ -6,6 +6,7 @@ export function getUser(): User | null{
     const token = get('access_token');
     const payload = token?.split('.')[1];
     if(payload){
+        
         const content = JSON.parse(atob(payload));
         return new User(content.id, content.name, content.role);
     }

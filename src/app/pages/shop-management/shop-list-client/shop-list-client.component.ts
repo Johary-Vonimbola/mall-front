@@ -26,6 +26,10 @@ export class ShopListClientComponent implements OnInit {
   }
 
   loadShops(): void {
+    remove('current_shop');
+    remove('cart_id');
+    this.autheService.currentShop.set(null);
+    
     this.shopManagementService.getAllShop().subscribe({
       next: (shops) => this.shops.set(shops),
       error: () =>
@@ -37,17 +41,6 @@ export class ShopListClientComponent implements OnInit {
     const shop = this.shops().find(s => s.id === id);
 
     if (shop) {
-      const storedShop = get('current_shop');
-
-      if (storedShop) {
-        const parsedShop = JSON.parse(storedShop);
-
-        if (parsedShop.id !== shop.id) {
-          remove('current_shop');
-          remove('cart_id');
-        }
-      }
-
       set('current_shop', JSON.stringify(shop));
       this.autheService.currentShop.set(shop);
       this.router.navigate(['/shops', id]);

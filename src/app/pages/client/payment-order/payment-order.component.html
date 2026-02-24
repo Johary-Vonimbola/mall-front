@@ -1,55 +1,50 @@
 <app-back [link]="'shops/'+currentShopId+'/orders/'+currentClientId" />
 
-<h2>
-  @if (order()?.status === STATUS_ORDER.PAID) {
-    Mode de récupération
-  } @else {
-    Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}
-  }
-</h2>
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center border-b border-[var(--color-border)] pb-4 gap-3">
+        <div>
+        <h2 class="flex items-center justify-center mb-5 text-[var(--color-text-primary)] text-3xl font-extrabold underline">Payement</h2>
 
-<p>Status: {{ order()?.status }}</p>
-<p>Total: {{ order()?.total }}</p>
+        <h2 class="text-lg md:text-xl font-semibold text-[var(--color-text-primary)]">
+            Commande {{ order()?._id }}
+        </h2>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Produit</th>
-            <th>Quantite</th>
-            <th>Prix unitaire</th>
-            <th>Categorie</th>
-            <th>Image</th>
-            <th>Sous-total</th>
-        </tr>    
-    </thead>
-    <tbody>
-        @for (detail of order()?.details; track $index) {
-            <tr>
-                <td>{{ detail.productName }}</td>
-                <td>{{ detail.quantity }} {{ detail.productUom }}</td>
-                <td>{{ detail.price }}</td>
-                <td>{{ detail.productCategory }}</td>
-                <td>{{ detail.productPicture }}</td>
-                <td>{{ detail.price * detail.quantity }}</td>
-            </tr>
+        <p class="text-sm text-[var(--color-text-secondary)] text-center">
+            {{ order()?.date | date: "dd MMMM yyyy" }}
+        </p>
+        </div>
+
+        <span class="px-4 py-1 text-xs font-semibold rounded-full w-fit bg-[var(--color-warning)] text-black">
+        {{ order()?.status }}
+        </span>
+    
+        <div>
+            <p class="text-sm text-[var(--color-text-secondary)]">
+                Total de la commande
+            </p>
+            <p class="text-2xl font-bold text-[var(--color-accent)]">
+                {{ order()?.total }} Ar
+            </p>
+        </div>
+    </div>
+
+    <div class="pb-4 border-b border-[var(--color-border)]">
+        @if (order()?.status === STATUS_ORDER.UNPAID) {
+            <div class="pb-4" id="card-element"></div>
+            <div class="flex justify-center md:justify-start">
+                <button class="px-4 py-0.5 bg-[var(--color-success)] rounded-md ml-2" (click)="pay()">Payer</button>
+            </div>
+        } @else if (order()?.status === STATUS_ORDER.PAID) {
+            <div class="flex justify-center">
+                <button class="px-4 py-0.5 bg-[var(--color-accent)] rounded-md ml-2" (click)="receive()">Récupérer</button>
+                <button class="px-4 py-0.5 bg-[var(--color-warning)] rounded-md ml-2" (click)="openDeliveryModal()">Livrer</button>
+            </div>
         }
-    </tbody>
-</table>
 
-<!-- Bloc paiement ou récupération -->
-@if (order()?.status === STATUS_ORDER.UNPAID) {
-    <div id="card-element"></div>
-    <button (click)="pay()">Payer</button>
-} @else if (order()?.status === STATUS_ORDER.PAID) {
-    <button (click)="receive()">Récupérer</button>
-    <button (click)="openDeliveryModal()">Livrer</button>
-}
-
-@if(showDeliveryModal()) {
-    <div>
-        <form [formGroup]="form" (ngSubmit)="confirmDelivery()">
-            <div class="main-form">
-
+        @if(showDeliveryModal()) {
+            <form class=" flex flex-col justify-center items-center gap-4 p-4 rounded-xl mt-2
+                  bg-[var(--color-border)] border border-[var(--color-border)] hover:border-[var(--color-accent)] 
+            " [formGroup]="form" (ngSubmit)="confirmDelivery()">
                 <!-- erreurs backend -->
                 <div class="errors">
                 @for (err of errors(); track err) {
@@ -58,43 +53,103 @@
                 </div>
 
                 <!-- Address -->
-                <div class="input-group">
-                    <label for="address">Addresse</label>
-                    <input placeholder="Addresse" formControlName="address" type="text" id="address" [ngClass]="{ 'is-invalid': isInvalid(form.controls.address) }">
-                    <p *ngIf="isInvalid(form.controls.address) && form.controls.address.hasError('required')" class="error">
+                <div class="flex flex-col">
+                    <div class="flex flex-col md:p-3 md:flex-row">
+                        <label class="font-extrabold mr-4 text-xl" for="address">Addresse</label>
+                        <input class="p-1 rounded-sm" placeholder="Addresse" formControlName="address" type="text" id="address" [ngClass]="{ 'is-invalid': isInvalid(form.controls.address) }">
+                    </div>
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="isInvalid(form.controls.address) && form.controls.address.hasError('required')">
                         Addresse is required
                     </p>
                 </div>
 
                 <!-- Contact -->
-                <div class="input-group">
-                    <label for="contact">Contact</label>
-                    <input placeholder="033/034/038 .. ... .." formControlName="contact" type="text" id="contact" [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }">
-                    <p *ngIf="isInvalid(form.controls.contact) && form.controls.contact.hasError('required')" class="error">
+                <div class="flex flex-col">
+                    <div class="flex flex-col md:p-3 md:flex-row">
+                        <label class="font-extrabold mr-4 text-xl" for="contact">Contact</label>
+                        <input class="p-1 rounded-sm" placeholder="033/034/038 .. ... .." formControlName="contact" type="text" id="contact" [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }">
+                    </div>
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="isInvalid(form.controls.contact) && form.controls.contact.hasError('required')">
                         Contact is required
                     </p>
                 </div>
 
                 <!-- Email -->
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input placeholder="john@gmail.com" formControlName="email" type="email" id="email" [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }">
-                    <p *ngIf="isInvalid(form.controls.email) && form.controls.email.hasError('required')" class="error">
+                <div class="flex flex-col">
+                    <div class="flex flex-col md:p-3 md:flex-row">
+                        <label class="font-extrabold mr-4 text-xl" for="email">Email</label>
+                        <input class="p-1 rounded-sm" placeholder="john@gmail.com" formControlName="email" type="email" id="email" [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }">
+                    </div>
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="isInvalid(form.controls.email) && form.controls.email.hasError('required')">
                         Email is required
                     </p>
-                    <p *ngIf="form.controls.email.hasError('email')" class="error">
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="form.controls.email.hasError('email')">
                         Invalid Format
                     </p>
                 </div>
 
                 <!-- SUBMIT -->
-                <div class="input-group">
-                    <button [disabled]="form.invalid" type="submit">Valider</button>
+                <div class="flex">
+                    <button class="px-2 py-0.5 bg-[var(--color-success)] rounded-md ml-2" [disabled]="form.invalid" type="submit">Valider</button>
+                    <button class="px-2 py-0.5 bg-[var(--color-danger)] rounded-md ml-2" (click)="showDeliveryModal.set(false)" type="submit">Annuler</button>
                 </div>
 
-                <button type="button" (click)="showDeliveryModal.set(false)">Annuler</button>
-
-            </div>
-        </form>
+            </form>
+        }
     </div>
-}
+
+
+    <div class="space-y-4">
+
+    <h3 class="text-sm font-semibold text-[var(--color-text-primary)]">
+      Produits
+    </h3>
+
+    @for (detail of order()?.details; track $index) {
+
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl 
+                  bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)] 
+                  transition duration-300">
+
+        <div class="flex items-center gap-4">
+
+          <div class="w-16 h-16 bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden">
+            <img 
+              [src]="environment + detail.productPicture" 
+              alt="Produit"
+              class="object-cover w-full h-full"
+            >
+          </div>
+
+          <div>
+            <p class="font-medium text-[var(--color-text-primary)]">
+              {{ detail.productName }}
+            </p>
+
+            <p class="text-xs text-[var(--color-text-secondary)]">
+              {{ detail.quantity }} {{ detail.productUom }} 
+              x {{ detail.price }} Ar
+            </p>
+
+            <p class="text-xs text-[var(--color-text-secondary)]">
+              Catégorie : {{ detail.productCategory }}
+            </p>
+          </div>
+
+        </div>
+
+        <div class="text-right">
+          <p class="text-sm text-[var(--color-text-secondary)]">
+            Sous-total
+          </p>
+          <p class="font-semibold text-[var(--color-success)]">
+            {{ detail.price * detail.quantity }} Ar
+          </p>
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+</div>

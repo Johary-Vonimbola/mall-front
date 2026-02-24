@@ -2,35 +2,45 @@
 
 @if(cart()){
 
-  <p>Total : {{ cart()?.total }}</p>
-  <p>Nombre d'articles : {{ cart()?.nbArticles }}</p>
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+  <div class="flex flex-col items-center border-b border-gray-100 pb-4">
+    <h2 class="text-[var(--color-text-secondary)] text-3xl font-extrabold underline">Detail Panier</h2>
+    <p class="text-xl font-bold text-[var(--color-text-primary)]">Total : <span class="text-2xl text-[var(--color-accent)]">{{ cart()?.total }} Ar</span></p>
+    <p class="text-lg font-bold text-[var(--color-text-primary)]">Nombre d'articles : <span class="text-xl text-[var(--color-text-secondary)]">{{ cart()?.nbArticles }}</span></p>
+    <button class="bg-[var(--color-success)] p-3 rounded-2xl m-2" (click)="order()" type="button">Commander</button>
+  </div>
 
   @for(product of cart()?.details; track product.productId){
-
-    <div>
-      {{ product.productName }}
-      {{ product.quantity }}
-      {{ product.price }}
-
-    
-      <label for="qty-{{ product.productId }}">Quantité:</label>
-      <input
-        id="qty-{{ product.productId }}"
-        type="number"
-        min="1"
-        [value]="product.quantity"
-        (change)="changeQuantity(product.productId, $event)"
-        required
-      />
-
-    </div>
-
-    <div>
-      <button type="button" (click)="removeProduct(product.productId)">Supprimer</button>
-      <button type="button" (click)="increment(product.productId)">Incrementer +1</button>
-      <button type="button" (click)="decrement(product.productId)">Decrementer -1</button>
+    <div class="bg-[var(--color-bg)] rounded-xl p-3">
+      <span class="flex w-full justify-end">
+        <button class=" bg-[var(--color-danger)] w-10 rounded-full text-xl font-bold m-2" type="button" (click)="removeProduct(product.productId)">X</button>
+      </span>
+      <p class="text-[var(--color-text-primary)] text-xl font-bold">{{ product.productName }}</p>
+      <div class="flex flex-col md:flex-row">
+        <p class="flex items-center justify-start md:w-1/2 text-[var(--color-text-secondary)] text-lg font-semibold">
+          <span class="mr-1">
+            {{ product.price }} Ar ({{ product.productUom }}) x  
+          </span>
+          <span class="block">
+            <button class="bg-slate-700 p-1 w-10 text-center text-xl font-semibold rounded-l-xl" type="button" (click)="decrement(product.productId)">-</button>
+            <input
+              class="p-1 w-10 text-center text-xl font-semibold bg-[var(--color-text-secondary)] text-black"
+              id="qty-{{ product.productId }}"
+              type="number"
+              min="1"
+              [value]="product.quantity"
+              (change)="changeQuantity(product.productId, $event)"
+              required
+            />
+            <button class="bg-slate-700 p-1 w-10 text-center text-xl font-semibold rounded-r-xl" type="button" (click)="increment(product.productId)">+</button>
+          </span>
+        </p>
+        <p class="md:w-1/2 flex md:justify-end">
+          <span class="text-[var(--color-text-secondary)] text-lg mr-1">Sous-total : </span>
+          <span class="text-[var(--color-success)] text-xl font-bold">{{ product.price * product.quantity }} Ar</span>
+        </p>
+      </div>
     </div>
   }
-
-  <button (click)="order()" type="button">Commander</button>
+</div>
 }

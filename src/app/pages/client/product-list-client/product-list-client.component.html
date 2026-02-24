@@ -1,11 +1,4 @@
 <app-back link="shops"></app-back>
-<button (click)="viewCart()" type="button">Voir Panier</button>
-<button (click)="viewOrders()" type="button">Voir Tout les commandes</button>
-
-@if (cart()) {
-  <p>Nombre d'articles : {{ cart()?.nbArticles }}</p>
-  <p>Total : {{ cart()?.total | number }}</p>
-}
 
 @if (productList().length === 0) {
   <div class="mt-10 flex justify-center text-gray-600 text-2xl font-bold">
@@ -15,8 +8,8 @@
 
 @else if (productList().length > 0) {
 
-<span class="mt-2 flex items-center justify-center text-2xl font-bold">Liste Produit</span>
-<div class="m-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
+<span class="mt-2 flex items-center justify-center text-3xl underline font-bold text-[var(--color-text-primary)]">Liste Produit</span>
+<div class="mx-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
   @for (product of productList(); track product._id; let first = $first) {
     @if (product.isActive) {
       <div class="max-w-96 m-4 p-4 border-2 border-black rounded bg-[var(--color-card)]">
