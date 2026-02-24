@@ -1,25 +1,30 @@
 <div class="category-list">
-  @for (shopCategory of shopCategories; track shopCategory.id) {
-    <div class="category-item">
-      <span class="category-name">
-        {{ shopCategory.name }}
-      </span>
+  <h2 class="title">
+    Categories de boutique
+  </h2>
+  <div class="flex gap-3 px-3">
+    @for (shopCategory of shopCategories; track shopCategory.id) {
+      <div class="w-full category-item bg-[var(--color-card)] px-3 py-5 mt-5 rounded-lg border-[var(--color-border)] border-2 flex justify-between items-center">
+        <span class="category-name font-bold text-[var(--color-text-primary)]">
+          {{ shopCategory.name }}
+        </span>
 
-      <button
-        type="button"
-        class="btn-delete"
-        (click)="deleteCategory(shopCategory.id)"
-      >
-        Supprimer
-      </button>
+        <button
+          type="button"
+          class="btn-danger"
+          (click)="deleteCategory(shopCategory.id)"
+        >
+          Supprimer
+        </button>
 
-      <button
-        type="button"
-        class="btn-primary"
-        (click)="update(shopCategory.id)"
-      >
-        Modifier
-      </button>
-    </div>
-  }
+        <button
+          type="button"
+          class="btn-default"
+          (click)="update(shopCategory.id)"
+        >
+          Modifier
+        </button>
+      </div>
+    }
+  </div>
 </div>
