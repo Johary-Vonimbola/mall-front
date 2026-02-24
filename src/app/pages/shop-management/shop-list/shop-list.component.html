@@ -1,33 +1,39 @@
-<div class="cart">
-  <div class="shop-list">
+<div class="cart px-2">
+  <h2 class="title">Liste des boutiques</h2>
+  <div class="shop-list flex flex-col gap-y-5 overflow-y-scroll">
 
     @for (shop of shops(); track shop.id) {
       <div
-        class="shop-item"
+        class="shop-item bg-[var(--color-card)] px-3 py-5 mt-5 rounded-lg border-[var(--color-border)] border-2"
       >
 
         <!-- LEFT -->
         <div class="shop-info">
-          <span class="category">
-            {{ shop.category }}
-          </span>
-
-          <span class="name">
-            {{ shop.name }}
-          </span>
+          <div class="flex justify-between items-center">
+            <span class="category text-[var(--color-text-secondary)]">
+              {{ shop.category }}
+            </span>
+            <img class="w-10 rounded-lg" [src]="serverUrl+'/'+shop.logo" alt="Logo">
+          </div>
+          <div class="flex gap-3 items-center pb-2">
+            <span class="name font-bold text-[var(--color-text-primary)]">
+              {{ shop.name | uppercase}}
+            </span>
+            <!-- STATUS -->
+            <span
+              class="status border-2 rounded-lg px-3 py-1 opacity-80 font-bold"
+              [class.active]="shop.isActive"
+              [class.inactive]="!shop.isActive"
+              [ngClass]="{ 'border-[var(--color-success)] text-[var(--color-success)]': shop.isActive, 'border-[var(--color-warning)] text-[var(--color-warning)]': !shop.isActive}"
+            >
+              {{ shop.isActive ? 'active' : 'inactive' }}
+            </span>
+          </div>
         </div>
 
         <!-- RIGHT -->
-        <div class="actions">
+        <div class="actions flex justify-between">
 
-          <!-- STATUS -->
-          <span
-            class="status"
-            [class.active]="shop.isActive"
-            [class.inactive]="!shop.isActive"
-          >
-            {{ shop.isActive ? 'ACTIVE' : 'INACTIVE' }}
-          </span>
 
           <!-- ACTIONS -->
           @if (!shop.isActive) {
@@ -63,30 +69,39 @@
             class="btn btn-success"
             (click)="openModal(shop.id)"
           >
-            Upload
+            Importer
           </button>
 
           <!-- MODAL UPLOAD -->
-          @if (activeUploadShopId === shop.id) {
-            <div class="modal">
-              <div class="modal-content">
-                <span class="close" (click)="closeModal()">&times;</span>
-                <h2>Upload Logo</h2>
+           @if (activeUploadShopId === shop.id) {
+            <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
 
-                <form (submit)="upload(); $event.preventDefault()">
-                  <label for="logoInput">Logo :</label>
+              <div class="bg-[var(--color-card)] w-full max-w-md rounded-xl p-6 border border-[var(--color-border)]">
+
+                <div class="flex justify-between items-center mb-4">
+                  <h2 class="text-lg font-semibold text-[var(--color-text-primary)]">Importer un logo pour {{ shop.name }}</h2>
+                  <button class="text-xl text-[var(--color-text-primary)]" (click)="closeModal()">&times;</button>
+                </div>
+
+                <form (submit)="upload(); $event.preventDefault()" class="space-y-4">
 
                   <input
-                    id="logoInput"
                     type="file"
                     accept="image/*"
                     (change)="onFileSelected($event)"
+                    class="w-full text-sm"
                   />
 
-                  <button type="submit" [disabled]="!selectedFile">
-                    Upload
+                  <button
+                    type="submit"
+                    [disabled]="!selectedFile"
+                    class="btn-accent w-full"
+                  >
+                    Importer
                   </button>
+
                 </form>
+
               </div>
             </div>
           }

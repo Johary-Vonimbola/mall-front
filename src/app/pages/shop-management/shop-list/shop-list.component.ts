@@ -3,10 +3,15 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ShopResponse } from '../../../models/shop';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { Router } from '@angular/router';
+import { NgClass, UpperCasePipe } from '@angular/common';
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-shop-list',
-  imports: [ ],
+  imports: [ 
+    NgClass,
+    UpperCasePipe
+  ],
   templateUrl: './shop-list.component.html',
   styleUrl: './shop-list.component.scss'
 })
@@ -16,6 +21,7 @@ export class ShopListComponent implements OnInit {
 
   private shopManagementService = inject(ShopManagementService);
 
+  serverUrl = environment.apiUrl;
   activeUploadShopId: string | null = null;
   selectedFile: File | null = null;
 

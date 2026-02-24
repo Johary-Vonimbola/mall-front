@@ -2,7 +2,7 @@
 
   <app-header (clickHamburger)="toogleSidebar($event)"></app-header>
 
-  <div class="flex flex-col flex-1]">
+  <div class="bg-[var(--color-bg)] flex flex-col flex-1]">
     <app-sidebar (closeSidebar)="toogleSidebar($event)" [open]="isSidebarOpen()"></app-sidebar>
 
     <main class="flex-1 bg-[var(--color-bg)] overflow-y-auto overflow-x-hidden container" [ngClass]="{ 'pointer-events-none opacity-5': isSidebarOpen() }">
