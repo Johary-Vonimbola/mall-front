@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ShopRentPaymentService } from '../../../services/shop-rent-payment.service';
 import { ShopRentPayment } from '../../../models/shopRent';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { ShopResponse } from '../../../models/shop';
 import { MONTHS, YEARS } from '../../../models/month';
@@ -9,7 +9,8 @@ import { MONTHS, YEARS } from '../../../models/month';
 @Component({
   selector: 'app-rent-payment-admin',
   imports: [
-    DatePipe
+    DatePipe,
+    NgClass
   ],
   templateUrl: './rent-payment-admin.component.html',
   styleUrl: './rent-payment-admin.component.scss'

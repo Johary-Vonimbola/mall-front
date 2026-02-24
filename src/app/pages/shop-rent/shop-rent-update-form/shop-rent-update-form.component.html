@@ -1,48 +1,146 @@
-<div>
-    <h2>Modifier une configuration de loyer</h2>
-    @for (err of errors(); track err) {
-        <p class="error">{{ err }}</p>
-    }
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="input-group">
-            <label for="shop">Choisir une boutique</label>
-            <select formControlName="shopId">
-                @for (shop of shops(); track shop.id) {
-                    <option [value]="shop.id">{{ shop.name }}</option>
-                }
-            </select>
-            <p class="error" *ngIf="isInvalid(form.controls.shopId) && form.controls.shopId.hasError('required')">
-                La boutique est obligatoire
-            </p>
-        </div>
-        <div class="input-group">
-            <label for="frequency">Frequence</label>
-            <select formControlName="frequencyString">
-                @for (fq of frequencies(); track fq) {
-                    <option [value]="fq">{{ fq }}</option>
-                }
-            </select>
-            <p class="error" *ngIf="isInvalid(form.controls.frequencyString) && form.controls.frequencyString.hasError('required')">
-                La frequence est obligatoire
-            </p>
-        </div>
-        <div class="input-group">
-            <label for="amount">Montant</label>
-            <input type="number" formControlName="amount">
-            <p class="error" *ngIf="isInvalid(form.controls.amount) && form.controls.amount.hasError('required')">
-                Le montant est obligatoire
-            </p>
-        </div>
-        <div class="input-group">
-            <label for="dueDate">Echeance</label>
-            <input type="number" formControlName="dueDate">
-            <p class="error" *ngIf="isInvalid(form.controls.amount) && (form.controls.dueDate.hasError('min') || form.controls.dueDate.hasError('max'))">
-                Le jour d'echeance doit etre entre 1 et 25
-            </p>
-        </div>
+<div class="px-4 py-8 flex justify-center">
 
-        <div class="input-group">
-            <button type="submit">Modifier</button>
+  <div class="w-full max-w-xl bg-[var(--color-card)] 
+              border border-[var(--color-border)] 
+              rounded-2xl p-6 shadow-lg">
+
+    <h2 class="title">
+      Modifier une configuration de loyer
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+
+      <!-- ERREURS BACKEND -->
+      @if (errors().length > 0) {
+        <div class="bg-[var(--color-danger)]/10 
+                    border border-[var(--color-danger)] 
+                    text-[var(--color-danger)] 
+                    p-4 rounded-xl text-sm space-y-1">
+          @for (err of errors(); track err) {
+            <p>{{ err }}</p>
+          }
         </div>
+      }
+
+      <!-- BOUTIQUE -->
+      <div class="space-y-2">
+        <label for="shop" class="text-sm text-[var(--color-text-secondary)]">
+          Choisir une boutique
+        </label>
+        <select id="shop" formControlName="shopId"
+                class="w-full px-4 py-3 rounded-xl
+                       bg-[var(--color-bg)]
+                       border border-[var(--color-border)]
+                       text-[var(--color-text-primary)]
+                       focus:outline-none
+                       focus:ring-2
+                       focus:ring-[var(--color-accent)]
+                       transition"
+                [ngClass]="{
+                  'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+                  isInvalid(form.controls.shopId)
+                }">
+          @for (shop of shops(); track shop.id) {
+            <option [value]="shop.id">{{ shop.name }}</option>
+          }
+        </select>
+        <p *ngIf="isInvalid(form.controls.shopId) && form.controls.shopId.hasError('required')"
+           class="text-sm text-[var(--color-danger)]">
+          La boutique est obligatoire
+        </p>
+      </div>
+
+      <!-- FREQUENCE -->
+      <div class="space-y-2">
+        <label for="frequency" class="text-sm text-[var(--color-text-secondary)]">
+          Fréquence
+        </label>
+        <select id="frequency" formControlName="frequencyString"
+                class="w-full px-4 py-3 rounded-xl
+                       bg-[var(--color-bg)]
+                       border border-[var(--color-border)]
+                       text-[var(--color-text-primary)]
+                       focus:outline-none
+                       focus:ring-2
+                       focus:ring-[var(--color-accent)]
+                       transition"
+                [ngClass]="{
+                  'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+                  isInvalid(form.controls.frequencyString)
+                }">
+          @for (fq of frequencies(); track fq) {
+            <option [value]="fq">{{ fq }}</option>
+          }
+        </select>
+        <p *ngIf="isInvalid(form.controls.frequencyString) && form.controls.frequencyString.hasError('required')"
+           class="text-sm text-[var(--color-danger)]">
+          La fréquence est obligatoire
+        </p>
+      </div>
+
+      <!-- MONTANT -->
+      <div class="space-y-2">
+        <label for="amount" class="text-sm text-[var(--color-text-secondary)]">
+          Montant
+        </label>
+        <input id="amount" type="number" formControlName="amount"
+               class="w-full px-4 py-3 rounded-xl
+                      bg-[var(--color-bg)]
+                      border border-[var(--color-border)]
+                      text-[var(--color-text-primary)]
+                      focus:outline-none
+                      focus:ring-2
+                      focus:ring-[var(--color-accent)]
+                      transition"
+               [ngClass]="{
+                 'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+                 isInvalid(form.controls.amount)
+               }"/>
+        <p *ngIf="isInvalid(form.controls.amount) && form.controls.amount.hasError('required')"
+           class="text-sm text-[var(--color-danger)]">
+          Le montant est obligatoire
+        </p>
+      </div>
+
+      <!-- ECHEANCE -->
+      <div class="space-y-2">
+        <label for="dueDate" class="text-sm text-[var(--color-text-secondary)]">
+          Échéance (1-25)
+        </label>
+        <input id="dueDate" type="number" formControlName="dueDate" min="1" max="25"
+               class="w-full px-4 py-3 rounded-xl
+                      bg-[var(--color-bg)]
+                      border border-[var(--color-border)]
+                      text-[var(--color-text-primary)]
+                      focus:outline-none
+                      focus:ring-2
+                      focus:ring-[var(--color-accent)]
+                      transition"
+               [ngClass]="{
+                 'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+                 isInvalid(form.controls.dueDate)
+               }"/>
+        <p *ngIf="isInvalid(form.controls.dueDate) && (form.controls.dueDate.hasError('min') || form.controls.dueDate.hasError('max'))"
+           class="text-sm text-[var(--color-danger)]">
+          Le jour d'échéance doit être entre 1 et 25
+        </p>
+      </div>
+
+      <!-- BOUTON -->
+      <div>
+        <button type="submit" [disabled]="form.invalid"
+                class="w-full py-3 rounded-xl font-semibold
+                       bg-[var(--color-accent)]
+                       text-white
+                       transition
+                       hover:bg-[var(--color-accent-hover)]
+                       disabled:opacity-50
+                       disabled:cursor-not-allowed">
+          Modifier
+        </button>
+      </div>
+
     </form>
+
+  </div>
 </div>

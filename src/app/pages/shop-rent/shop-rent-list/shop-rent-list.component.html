@@ -1,62 +1,97 @@
-<div class="container">
-    <form [formGroup]="form">
-        <label for="active">ACTIVE</label>
-        <input type="checkbox" id="active" formControlName="active">
+<div>
+    
+    <h2 class="title">Liste des onfiguration de loyer</h2>
 
-        <label for="inactive">INACTIVE</label>
-        <input type="checkbox" id="inactive" formControlName="inactive">
-
-        <label for="frequencies">Frequence</label>
-        <select id="frequencies" formControlName="frequency">
-            @for(fr of frequencies(); track fr){
-                <option [value]="fr">{{ fr }}</option>
-            }
-        </select>
-    </form>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Boutique</th>
-                <th>Montant</th>
-                <th>Frequence de paiement</th>
-                <th>Jour d'echeance</th>
-                <th>Cree le</th>
-                <th>Mis a jour le</th>
-                <th>Status</th>
-                <th colspan="2">Option</th>
-            </tr>    
-        </thead>
-        <tbody>
-            @for(shopRent of filterRents(); track shopRent._id){
-                <tr>
-                    <td>{{ shopRent._id }}</td>
-                    <td>{{ shopRent.shopName }}</td>
-                    <td>{{ shopRent.amount }}</td>
-                    <td>{{ shopRent.frequencyString }}</td>
-                    <td>{{ shopRent.dueDate }}</td>
-                    <td>{{ shopRent.createdAt | date : 'dd MMMM YYYY'}}</td>
-                    <td>{{ shopRent.updatedAt | date : 'dd MMMM YYYY'}}</td>
-                    <td>
-                        <span [ngClass]="{'is-active': shopRent.isActive}">
-                            @if (shopRent.isActive) {
-                                <p>ACTIVE</p>
-                            }@else {
-                                <p>INACTIVE</p>
-                            }
-                        </span>
-                    </td>
-                    <td><button (click)="onUpdate(shopRent)">Modifier</button></td>
-                    <td>
-                        @if (shopRent.isActive) {
-                            <button (click)="onDeactivate(shopRent)">Desactiver</button>
-                        }@else {
-                            <button (click)="onActivate(shopRent)">Activer</button>
+    <div class="pt-5 px-3">
+        <form [formGroup]="form">
+            <div class="flex flex-col justify-between bg-[var(--color-card)] px-3 py-4 rounded-md border-2 border-[var(--color-border)]">
+                <div>
+                    <label class="text-[var(--color-text-primary)]" for="active">ACTIVE</label>
+                    <input class="
+                        bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]
+                        transition ml-2" type="checkbox" id="active" formControlName="active">
+                </div>
+                <div>
+                    <label class="text-[var(--color-text-primary)]" for="inactive">INACTIVE</label>
+                    <input class="
+                        bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]
+                        transition ml-2" type="checkbox" id="inactive" formControlName="inactive">
+                </div>
+                <div>
+                    <label class="text-[var(--color-text-primary)]" for="frequencies">Frequence</label>
+                    <select class="bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        px-3 py-2
+                        rounded-lg
+                        ml-3
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]" id="frequencies" formControlName="frequency">
+                        @for(fr of frequencies(); track fr){
+                            <option [value]="fr">{{ fr }}</option>
                         }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <div class="w-[25.5rem] overflow-x-scroll pt-5">
+            <table class="bg-[var(--color-card)] min-w-full text-left border-collapse border border-[var(--color-border)] text-base">
+                <thead>
+                    <tr>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Id</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Boutique</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Montant</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Frequence de paiement</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Jour d'echeance</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Cree le</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Mis a jour le</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">Status</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]" colspan="2">Option</th>
+                    </tr>    
+                </thead>
+                <tbody>
+                    @for(shopRent of filterRents(); track shopRent._id){
+                        <tr>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent._id }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.shopName }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.amount }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.frequencyString }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.dueDate }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.createdAt | date : 'dd MMMM YYYY'}}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.updatedAt | date : 'dd MMMM YYYY'}}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">
+                                <span [ngClass]="{'is-active': shopRent.isActive}">
+                                    @if (shopRent.isActive) {
+                                        <p class="border-[var(--color-success)] text-[var(--color-success)]">ACTIVE</p>
+                                    }@else {
+                                        <p class="border-[var(--color-warning)] text-[var(--color-warning)]">INACTIVE</p>
+                                    }
+                                </span>
+                            </td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]"><button class="btn-default" (click)="onUpdate(shopRent)">Modifier</button></td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">
+                                @if (shopRent.isActive) {
+                                    <button class="btn-warning" (click)="onDeactivate(shopRent)">Desactiver</button>
+                                }@else {
+                                    <button class="btn-success" (click)="onActivate(shopRent)">Activer</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

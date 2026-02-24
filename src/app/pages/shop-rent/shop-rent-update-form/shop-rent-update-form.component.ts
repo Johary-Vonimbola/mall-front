@@ -5,13 +5,14 @@ import { ShopRentService } from '../../../services/shop-rent.service';
 import { isInvalid } from '../../../utils/form';
 import { ShopResponse } from '../../../models/shop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-shop-rent-update-form',
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './shop-rent-update-form.component.html',
   styleUrl: './shop-rent-update-form.component.scss'

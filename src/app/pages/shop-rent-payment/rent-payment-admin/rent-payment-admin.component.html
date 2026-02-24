@@ -1,61 +1,112 @@
-<h2>Liste de tous les payements de loyer</h2>
-<div>
-    <h4>Filtrer par boutique</h4>
-    @for (shop of shops(); track shop.id) {
-        <label>
+<div class="px-4 py-8">
+
+  <h2 class="title">Paiements de loyer</h2>
+
+  <div class="space-y-2 w-full">
+
+    <div class="flex flex-col bg-[var(--color-card)] px-4 py-3 rounded-md border-2 border-[var(--color-border)] space-y-2">
+      <h4 class="text-[var(--color-text-primary)] font-semibold">Filtrer par boutique</h4>
+      <div class="flex flex-wrap gap-3">
+        @for (shop of shops(); track shop.id) {
+          <label class="flex items-center text-[var(--color-text-primary)] cursor-pointer">
             <input type="checkbox"
                    [value]="shop.id"
-                   (change)="onShopToggle($event)">
+                   (change)="onShopToggle($event)"
+                   class="mr-2 w-4 h-4
+                          bg-[var(--color-bg)]
+                          border border-[var(--color-border)]
+                          rounded
+                          focus:ring-2 focus:ring-[var(--color-accent)]
+                          transition">
             {{ shop.name }}
-        </label>
-    }
+          </label>
+        }
+      </div>
+    </div>
 
-    <h4>Filtrer par mois</h4>
-    <select (change)="onMonthChange($event)">
+    <div class="flex flex-col bg-[var(--color-card)] px-4 py-3 rounded-md border-2 border-[var(--color-border)] space-y-2">
+      <h4 class="text-[var(--color-text-primary)] font-semibold">Filtrer par mois</h4>
+      <select (change)="onMonthChange($event)"
+              class="bg-[var(--color-bg)]
+                     border border-[var(--color-border)]
+                     text-[var(--color-text-primary)]
+                     px-3 py-2
+                     rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]
+                     transition">
         <option value="">Tous</option>
         @for (m of months; track m; let i = $index) {
-            <option [value]="i+1">{{ m }}</option>
+          <option [value]="i+1">{{ m }}</option>
         }
-    </select>
+      </select>
+    </div>
 
-    <h4>Filtrer par année</h4>
-    <select (change)="onYearChange($event)">
+    <div class="flex flex-col bg-[var(--color-card)] px-4 py-3 rounded-md border-2 border-[var(--color-border)] space-y-2">
+      <h4 class="text-[var(--color-text-primary)] font-semibold">Filtrer par année</h4>
+      <select (change)="onYearChange($event)"
+              class="bg-[var(--color-bg)]
+                     border border-[var(--color-border)]
+                     text-[var(--color-text-primary)]
+                     px-3 py-2
+                     rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]
+                     transition">
         <option value="">Toutes</option>
         @for (y of years; track y) {
-            <option [value]="y">{{ y }}</option>
+          <option [value]="y">{{ y }}</option>
         }
-    </select>
+      </select>
+    </div>
 
-    <h4>Filtrer par status</h4>
-    <select (change)="onStatusChange($event)">
+    <div class="flex flex-col bg-[var(--color-card)] px-4 py-3 rounded-md border-2 border-[var(--color-border)] space-y-2">
+      <h4 class="text-[var(--color-text-primary)] font-semibold">Filtrer par status</h4>
+      <select (change)="onStatusChange($event)"
+              class="bg-[var(--color-bg)]
+                     border border-[var(--color-border)]
+                     text-[var(--color-text-primary)]
+                     px-3 py-2
+                     rounded-lg
+                     focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]
+                     transition">
         <option value="">Tous</option>
         <option value="PAID">PAID</option>
         <option value="UNPAID">UNPAID</option>
-    </select>
-</div>
-<table border="1">
-    <thead>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="w-[24rem] overflow-x-scroll pt-5">
+    <table class="min-w-full bg-[var(--color-card)] border border-[var(--color-border)] text-left text-sm md:text-base">
+      <thead>
         <tr>
-            <th>Boutique</th>
-            <th>Mois - Annee</th>
-            <th>Montant</th>
-            <th>Paye le</th>
-            <th>Paie par</th>
-            <th>Status</th>
-            <th>Echeance</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Boutique</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Mois - Année</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Montant</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Payé le</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Payé par</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Status</th>
+          <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">Échéance</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
         @for (rent of filteredRents(); track rent._id) {
-            <tr>
-                <td>{{ rent.shopId?.name }}</td>
-                <td>{{ months[rent.month-1] }} {{ rent.year }}</td>
-                <td>{{ rent.amount }}</td>
-                <td>{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
-                <td>{{ rent.paidBy }}</td>
-                <td>{{ rent.status }}</td>
-                <td>{{ rent.dueDate | date: "dd MMMM YYYY" }}</td>
-            </tr>
+          <tr class="hover:bg-[var(--color-border)] transition">
+            <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{ rent.shopId?.name }}</td>
+            <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{ months[rent.month-1] }} {{ rent.year }}</td>
+            <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{ rent.amount }}</td>
+            <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
+            <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{ rent.paidBy }}</td>
+            <td class="p-2 border border-[var(--color-border)]">
+              <span [ngClass]="{'text-[var(--color-success)]': rent.status==='PAID', 'text-[var(--color-warning)]': rent.status==='UNPAID'}">
+                {{ rent.status }}
+              </span>
+            </td>
+            <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{ rent.dueDate | date: "dd MMMM YYYY" }}</td>
+          </tr>
         }
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+
+</div>
