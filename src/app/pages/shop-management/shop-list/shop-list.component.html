@@ -1,6 +1,6 @@
 <div class="cart px-2">
   <h2 class="title">Liste des boutiques</h2>
-  <div class="shop-list flex flex-col gap-y-5 overflow-y-scroll">
+  <div class="shop-list flex flex-col gap-y-5 lg:gap-y-2 lg:mb-4">
 
     @for (shop of shops(); track shop.id) {
       <div
@@ -13,7 +13,7 @@
             <span class="category text-[var(--color-text-secondary)]">
               {{ shop.category }}
             </span>
-            <img class="w-10 rounded-lg" [src]="serverUrl+'/'+shop.logo" alt="Logo">
+            <img class="w-10 rounded-lg lg:w-20" [src]="serverUrl+'/'+shop.logo" alt="Logo">
           </div>
           <div class="flex gap-3 items-center pb-2">
             <span class="name font-bold text-[var(--color-text-primary)]">
@@ -32,7 +32,7 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="actions flex justify-between">
+        <div class="actions flex justify-between lg:justify-end lg:gap-4">
 
 
           <!-- ACTIONS -->

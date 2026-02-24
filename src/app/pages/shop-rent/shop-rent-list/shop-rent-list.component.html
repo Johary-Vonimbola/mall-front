@@ -1,10 +1,10 @@
 <div>
     
-    <h2 class="title">Liste des onfiguration de loyer</h2>
+    <h2 class="title">Liste des configuration de loyer</h2>
 
     <div class="pt-5 px-3">
         <form [formGroup]="form">
-            <div class="flex flex-col justify-between bg-[var(--color-card)] px-3 py-4 rounded-md border-2 border-[var(--color-border)]">
+            <div class="flex flex-col lg:flex-row lg:justify-start lg:gap-10 lg:items-center justify-between bg-[var(--color-card)] px-3 py-4 rounded-md border-2 border-[var(--color-border)]">
                 <div>
                     <label class="text-[var(--color-text-primary)]" for="active">ACTIVE</label>
                     <input class="
@@ -46,7 +46,7 @@
             </div>
         </form>
 
-        <div class="w-[25.5rem] overflow-x-scroll pt-5">
+        <div class="w-[25.5rem] overflow-x-scroll pt-5 lg:w-full lg:overflow-x-auto">
             <table class="bg-[var(--color-card)] min-w-full text-left border-collapse border border-[var(--color-border)] text-base">
                 <thead>
                     <tr>
@@ -63,7 +63,7 @@
                 </thead>
                 <tbody>
                     @for(shopRent of filterRents(); track shopRent._id){
-                        <tr>
+                        <tr class="hover:bg-[var(--color-border)] transition">
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent._id }}</td>
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.shopName }}</td>
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.amount }}</td>

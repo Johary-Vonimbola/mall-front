@@ -45,19 +45,57 @@ export class DashboardAdminComponent implements OnInit {
     }
 
     this.chart = new Chart('rentChart', {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: months,
         datasets: [
           {
-            label: 'Paid',
-            data: paid
+            label: 'Paye',
+            data: paid,
+            borderColor: 'rgba(16, 185, 129, 1)',
+            backgroundColor: 'rgba(16, 185, 129, 0.2)', 
+            fill: true,
+            tension: 0.4, 
+            pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+            pointRadius: 4,
           },
           {
-            label: 'Unpaid',
-            data: unpaid
+            label: 'Impaye',
+            data: unpaid,
+            borderColor: 'rgba(245, 158, 11, 1)',
+            backgroundColor: 'rgba(245, 158, 11, 0.2)',
+            fill: true,
+            tension: 0.4, 
+            pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+            pointRadius: 4,
           }
         ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#F1F5F9', // couleur texte légere
+              font: { size: 14 }
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(0,0,0,0.7)',
+            titleColor: '#fff',
+            bodyColor: '#fff',
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#94A3B8' },
+            grid: { color: 'rgba(148,163,184,0.1)' } 
+          },
+          y: {
+            ticks: { color: '#94A3B8' },
+            grid: { color: 'rgba(148,163,184,0.1)' }
+          }
+        }
       }
     });
   }

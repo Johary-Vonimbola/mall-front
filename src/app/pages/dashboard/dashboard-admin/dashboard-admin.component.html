@@ -1,27 +1,27 @@
-<div>
+<div class="lg:w-full lg:px-2">
 
   <h2 class="text-center font-bold text-2xl text-[var(--color-text-primary)]">Tableau de bord</h2>
 
   <!-- STATS -->
-  <div class="mt-4 p-1">
-    <div class="col border-2 mt-2 bg-[var(--color-card)] border-solid">
+  <div class="mt-4 p-1 lg:flex lg:gap-1">
+    <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5 class="text-base text-[var(--color-text-secondary)] text-center">Nombre total de boutique</h5>
-        <h3 class="text-center text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.totalShops}}</h3>
+        <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Nombre total de boutique</h5>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.totalShops}}</h3>
       </div>
     </div>
 
-    <div class="col border-2 mt-2 bg-[var(--color-card)] border-solid">
+    <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5 class="text-base text-[var(--color-text-secondary)] text-center">Nombre de boutique active</h5>
-        <h3 class="text-center text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.activeShops}}</h3>
+        <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Nombre de boutique active</h5>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.activeShops}}</h3>
       </div>
     </div>
 
-    <div class="col border-2 mt-2 bg-[var(--color-card)] border-solid">
+    <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5 class="text-base text-[var(--color-text-secondary)] text-center">Nombre total des utilisateurs</h5>
-        <h3 class="text-center text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.totalUsers}}</h3>
+        <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Nombre total des utilisateurs</h5>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard()?.stats?.totalUsers}}</h3>
       </div>
     </div>
   </div>
@@ -30,32 +30,33 @@
     <input class="bg-[var(--color-card)] p-3 rounded-md text-[var(--color-text-primary)] indent-4 outline-none transition-all duration-75 focus:outline-indigo-500" id="year" type="number" [(ngModel)]="selectedYear" (change)="onYearChange()" />
   </div>
 
-  <div class="mt-4 bg-[var(--color-card)] p-4">
-    <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Graphique de paiement de loyer</h4>
-    <canvas id="rentChart" class="w-full"></canvas>
+  <div class="flex flex-col lg:flex-row">
+    <div class="mt-4 bg-[var(--color-card)] p-4 lg:grow">
+      <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Graphique de paiement de loyer</h4>
+      <canvas id="rentChart" class="w-full"></canvas>
+    </div>
+
+    <div class="p-2 bg-[var(--color-bg)] lg:min-w-[45rem]">
+      <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Details de paiement par boutique</h4>
+
+      <table class="table border-1 rounded-md p-5">
+        <thead>
+          <tr>
+            <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)] text-center">Boutique</th>
+            <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)] text-center">Total Payee</th>
+            <th class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)] text-center">Total Impayee</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(shop of dashboard()?.shopSummary; track shop.shopId){
+              <tr>
+                <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)]">{{shop.shopName}}</td>
+                <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)] text-center text-base">{{shop.totalPaid}}</td>
+                <td class="p-2 border border-[var(--color-border)] text-[var(--color-text-primary)] text-center text-base">{{shop.totalUnpaid}}</td>
+              </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="p-2 bg-[var(--color-bg)]">
-    <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Details de paiement par boutique</h4>
-
-    <table class="table border-1 rounded-md p-5">
-      <thead>
-        <tr>
-          <th class="text-center">Boutique</th>
-          <th class="text-center">Total Payee</th>
-          <th class="text-center">Total Impayee</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for(shop of dashboard()?.shopSummary; track shop.shopId){
-            <tr>
-              <td>{{shop.shopName}}</td>
-              <td class="text-center text-base">{{shop.totalPaid}}</td>
-              <td class="text-center text-base">{{shop.totalUnpaid}}</td>
-            </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-
 </div>
