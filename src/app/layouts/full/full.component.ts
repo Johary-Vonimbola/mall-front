@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { FooterComponent } from "./footer/footer.component";
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-full',
@@ -10,7 +11,8 @@ import { FooterComponent } from "./footer/footer.component";
     RouterOutlet,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    NgClass
 ],
   templateUrl: './full.component.html',
   styleUrl: './full.component.scss'
