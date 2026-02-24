@@ -3,6 +3,7 @@ import Chart from 'chart.js/auto';
 import { AdminDashboard } from '../../../models/adminDashboard';
 import { AdminDashboardService } from '../../../services/admin-dashboard.service';
 import { FormsModule } from '@angular/forms';
+import { MONTHS } from '../../../models/month';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -35,7 +36,7 @@ export class DashboardAdminComponent implements OnInit {
 
   createChart(){
 
-    const months = this.dashboard()?.monthlyRent.map(m => `M${m.month}`);
+    const months = this.dashboard()?.monthlyRent.map(m => `${MONTHS[m.month-1]}`);
     const paid = this.dashboard()?.monthlyRent.map(m => m.paid);
     const unpaid = this.dashboard()?.monthlyRent.map(m => m.unpaid);
 

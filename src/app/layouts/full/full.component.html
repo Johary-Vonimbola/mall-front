@@ -2,10 +2,10 @@
 
   <app-header (clickHamburger)="toogleSidebar($event)"></app-header>
 
-  <div class="flex flex-col flex-1">
+  <div class="flex flex-col flex-1]">
     <app-sidebar (closeSidebar)="toogleSidebar($event)" [open]="isSidebarOpen()"></app-sidebar>
 
-    <main class="flex-1 bg-[var(--color-bg)] overflow-y-auto overflow-x-hidden container absolute top-[5.5rem]" [ngClass]="{ 'pointer-events-none opacity-5': isSidebarOpen() }">
+    <main class="flex-1 bg-[var(--color-bg)] overflow-y-auto overflow-x-hidden container -mt-[22rem]" [ngClass]="{ 'pointer-events-none opacity-5': isSidebarOpen() }">
       <router-outlet></router-outlet>
     </main>
   </div>
