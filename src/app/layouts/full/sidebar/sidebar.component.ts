@@ -45,6 +45,7 @@ export class SidebarComponent {
   });
 
   close(){
+    this.reinit();
     this.closeSidebar.emit(false);
   }
     
