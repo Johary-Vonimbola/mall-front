@@ -83,7 +83,7 @@ export class SidebarComponent {
   }
 
   logout(): void {
-    localStorage.clear();
+    this.authService.clear();
     this.router.navigate(['/login']);
   }
 
