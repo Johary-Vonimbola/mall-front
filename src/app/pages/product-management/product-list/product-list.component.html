@@ -1,68 +1,83 @@
-<div class="container">
-  <form [formGroup]="form">
+<h2 class="flex items-center justify-center mb-5 text-[var(--color-text-primary)] text-3xl font-extrabold underline">Liste Produit</h2>
 
-    <label for="active">ACTIVE</label>
+<form class="flex flex-col items-center justify-center md:flex-row m-4 gap-2 p-4 rounded-xl bg-[var(--color-card)]" [formGroup]="form">
+  <div>
     <input type="checkbox" id="active" formControlName="active">
+    <label class="text-sm font-bold text-[var(--color-text-secondary)] p-2" for="active">ACTIVE</label>
 
-    <label for="inactive">INACTIVE</label>
     <input type="checkbox" id="inactive" formControlName="inactive">
+    <label class="text-sm font-bold text-[var(--color-text-secondary)] p-2" for="inactive">INACTIVE</label>
+  </div>
 
-    <label for="category">Categorie</label>
-    <select id="category" formControlName="category">
+  <div>
+    <label class="text-sm font-bold text-[var(--color-text-secondary)] p-2" for="category">Categorie</label>
+    <select class="text-sm font-bold p-1 rounded-sm" id="category" formControlName="category">
       <option value="">Tous</option>
       @for(cat of categories(); track cat._id){
         <option [value]="cat.name">{{ cat.name }}</option>
       }
     </select>
+  </div>
+</form>
 
-  </form>
+<div class="flex flex-col">
+  @for(product of filteredProducts(); track product._id){
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between m-4 gap-4 p-4 rounded-xl bg-[var(--color-card)]">
 
-  <table border="1">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Unite</th>
-        <th>Prix</th>
-        <th>Stock Actuelle</th>
-        <th>Stock Reserve</th>
-        <th>Categorie</th>
-        <th>Statut</th>
-        <th colspan="2">Option</th>
-      </tr>
-    </thead>
+      <div class="flex items-center lg:justify-start gap-4">
+        <div class="w-16 h-16 bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden">
+          <img [src]="environment + product.picture" alt="Produit" class="object-cover w-full h-full">
+        </div>
 
-    <tbody>
-      @for(product of filteredProducts(); track product._id){
-        <tr>
-          <td>{{ product._id }}</td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.uom }}</td>
-          <td>{{ product.price }}</td>
-          <td>{{ product.stock }}</td>
-          <td>{{ product.reservedStock }}</td>
-          <td>{{ product.category }}</td>
-          <td>
-            <span [ngClass]="{'is-active': product.isActive}">
-              @if(product.isActive){
-                <p>ACTIVE</p>
-              }@else{
-                <p>INACTIVE</p>
-              }
-            </span>
-          </td>
-          <td>
-            <button (click)="onUpdate(product)">Modifier</button>
-          </td>
-          <td>
-            @if(product.isActive){
-              <button (click)="onDeactivate(product)">Desactiver</button>
-            }@else{
-              <button (click)="onActivate(product)">Activer</button>
-            }
-          </td>
-        </tr>
-      }
-    </tbody>
-  </table>
+        <div>
+          <p class="font-medium text-[var(--color-text-primary)]">
+            {{ product.name }}
+          </p>
+
+          <p class="text-xs text-[var(--color-text-secondary)]">
+            Catégorie : {{ product.category }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <p
+          class="px-2 py-0.5 rounded-md text-sm font-medium text-white"
+          [ngClass]="product.isActive ? 'bg-green-500' : 'bg-red-500'"  
+        >
+        
+        {{ product.isActive ? 'Active' : 'Desactive' }}
+        </p>
+      </div>
+
+      <div class="flex gap-4 lg:flex-col lg:justify-start">
+        <div>
+          <p class="font-medium text-[var(--color-text-primary)]">
+            Stock : {{ product.stock }}
+          </p>
+        </div>
+
+        <div>
+          <p class="font-medium text-[var(--color-accent)]">
+            Reserve : {{ product.reservedStock }}
+          </p>
+        </div>
+
+        <div>
+          <p class="font-medium text-[var(--color-success)]">
+            Disponible : {{ product.stock - product.reservedStock }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4 justify-evenly">
+        <button class="px-2 py-0.5 bg-[var(--color-accent)] rounded-md ml-2" (click)="onUpdate(product)">Modifier</button>
+        @if(product.isActive){
+          <button class="px-2 py-0.5 bg-[var(--color-danger)] rounded-md ml-2" (click)="onDeactivate(product)">Desactiver</button>
+        }@else{
+          <button class="px-2 py-0.5 bg-[var(--color-success)] rounded-md ml-2" (click)="onActivate(product)">Activer</button>
+        }
+      </div>
+    </div>
+  }
 </div>

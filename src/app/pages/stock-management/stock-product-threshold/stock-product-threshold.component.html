@@ -1,26 +1,61 @@
 <app-back link="admin-shop/stock-moves" />
-<div>
-    <h2>Configurer les seuils de stock</h2>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div formArrayName="thresholds">
+
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+
+    <h2 class="text-[var(--color-text-secondary)] text-3xl font-extrabold underline border-b border-[var(--color-border)] pb-4">
+        Configurer les seuils de stock
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+
+        <div formArrayName="thresholds" class="space-y-3">
+
             @for (thr of thresholds.controls; track $index; let i = $index) {
-                <div class="threshold-line" [formGroupName]="i" [ngClass]="{ 'is-checked': thresholds.at(i).get('checked')?.value}">
-                    <div class="input-group">
-                        <input type="checkbox" formControlName="checked">
-                    </div>
-                    <div class="input-group">
-                        <span>{{ getProductName(thresholds.at(i).get('productId')?.value) }}</span>
+
+                <div
+                    class="threshold-line flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] transition hover:bg-[var(--color-bg)]"
+                    [formGroupName]="i"
+                    [ngClass]="{ 
+                      'bg-[var(--color-bg)] border-[var(--color-accent)]': thresholds.at(i).get('checked')?.value 
+                    }"
+                >
+
+                    <div class="input-group flex items-center gap-3">
+                        <input
+                            type="checkbox"
+                            formControlName="checked"
+                            [id]="thresholds.at(i).get('productId')?.value"
+                            class="w-5 h-5 accent-[var(--color-accent)] cursor-pointer"
+                        >
+                        <label [for]="thresholds.at(i).get('productId')?.value" class="text-[var(--color-text-primary)] font-semibold">
+                            {{ getProductName(thresholds.at(i).get('productId')?.value) }}
+                        </label>
                         <input type="hidden" formControlName="productId">
                     </div>
-                    <div class="input-group">
-                        <label [for]="i">Seuil</label>
-                        <input [id]="i" type="number" formControlName="quantity">
+
+                    <div class="input-group flex items-center gap-3">
+                        <label [for]="i" class="text-[var(--color-text-secondary)]">
+                            Seuil
+                        </label>
+
+                        <input
+                            [id]="i"
+                            type="number"
+                            formControlName="quantity"
+                            class="w-24 p-2 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-accent)]"
+                        >
                     </div>
                 </div>
             }
-            <div class="input-group">
-                <button type="submit">Valider</button>
+
+            <div class="input-group flex justify-center pt-4 border-t border-[var(--color-border)]">
+                <button type="submit" class="px-6 py-2 bg-[var(--color-success)] rounded-xl text-white font-semibold hover:opacity-80 transition">
+                    Valider
+                </button>
             </div>
+
         </div>
+
     </form>
+
 </div>

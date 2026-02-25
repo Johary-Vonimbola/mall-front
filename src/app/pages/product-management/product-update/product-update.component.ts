@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { isInvalid } from '../../../utils/form';
 import { ProductService } from '../../../services/product.service';
 import { UomService } from '../../../services/uom.service';
@@ -12,7 +12,8 @@ import { AuthenticationService } from '../../../services/authentication.service'
   selector: 'app-product-update-form',
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './product-update.component.html',
   styleUrl: './product-update.component.scss'

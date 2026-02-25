@@ -1,53 +1,115 @@
 <app-back link="admin-shop/stock-moves" />
-<div>
-    <h2>Creer un mouvement de stock</h2>
 
-    @for (err of errors(); track err) {
-        <p class="error">{{ err }}</p>
-    }
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- HEADER -->
+  <div class="flex flex-col items-center border-b border-gray-100 pb-4">
+    <h2 class="text-[var(--color-text-secondary)] text-3xl font-extrabold underline">
+      Créer un mouvement de stock
+    </h2>
+  </div>
 
-        <div class="input-group">
-            <label>Date</label>
-            <input type="datetime-local" formControlName="date">
+  <!-- ERRORS -->
+  @for (err of errors(); track err) {
+    <p class="text-red-500 font-semibold text-center">{{ err }}</p>
+  }
+
+  <!-- FORM -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+
+    <!-- DATE -->
+    <div class="flex flex-col">
+      <label class="text-[var(--color-text-secondary)] font-semibold mb-1">Date</label>
+      <input
+        type="datetime-local"
+        formControlName="date"
+        class="text-[var(--color-text-secondary)] p-2 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] focus:outline-none"
+      />
+    </div>
+
+    <!-- LINES -->
+    <div formArrayName="lines" class="space-y-4">
+
+      @for (line of lines.controls; track $index; let i = $index) {
+        <div [formGroupName]="i" class="bg-[var(--color-bg)] rounded-xl p-4 shadow-md">
+
+          <div class="flex flex-col md:flex-row gap-4 items-center">
+
+            <!-- PRODUIT -->
+            <div class="flex flex-col w-full md:w-1/3">
+              <label class="text-[var(--color-text-secondary)] font-semibold mb-1">Produit</label>
+              <select
+                formControlName="productId"
+                (change)="onChangeProductName($event, i)"
+                class="text-[var(--color-text-secondary)] p-2 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)]"
+              >
+                @for(p of products(); track p){
+                  <option [value]="p._id">{{p.name}}</option>
+                }
+              </select>
+            </div>
+
+            <!-- TYPE -->
+            <div class="flex flex-col w-full md:w-1/3">
+              <label class="text-[var(--color-text-secondary)] font-semibold mb-1">Type</label>
+              <select
+                formControlName="type"
+                class="text-[var(--color-text-secondary)] p-2 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)]"
+              >
+                @for(t of types; track t){
+                  <option [value]="t">{{t}}</option>
+                }
+              </select>
+            </div>
+
+            <!-- QUANTITY -->
+            <div class="flex flex-col w-full md:w-1/4">
+              <label class="text-[var(--color-text-secondary)] font-semibold mb-1">Quantité</label>
+              <input
+                type="number"
+                formControlName="quantity"
+                class="text-[var(--color-text-secondary)] p-2 rounded-xl bg-[var(--color-card)] border border-[var(--color-border)]"
+              />
+            </div>
+
+            <!-- REMOVE -->
+            <div class="flex items-end">
+              <button
+                type="button"
+                class="bg-[var(--color-danger)] px-3 py-2 rounded-xl font-bold"
+                (click)="removeLine(i)"
+              >
+                X
+              </button>
+            </div>
+
+          </div>
+
         </div>
+      }
 
-        <div formArrayName="lines">
-            @for (line of lines.controls; track $index; let i = $index) {
-                <div [formGroupName]="i">
-                    <div class="product-line-form">
-                        <div class="input-group">
-                            <label for="productId">Produit</label>
-                            <select id="productId" formControlName="productId" (change)="onChangeProductName($event, i)">
-                                @for(p of products(); track p){
-                                    <option [value]="p._id">{{p.name}}</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="type">Type de mouvement</label>
-                            <select id="type" formControlName="type">
-                                @for(t of types; track t){
-                                    <option [value]="t">{{t}}</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="quantity">Quantite</label>
-                            <input id="quantity" type="number" formControlName="quantity">
-                        </div>
+    </div>
 
-                        <div class="input-group">
-                            <button type="button" (click)="removeLine(i)">Supprimer</button>
-                        </div>
-                        
-                    </div>
-                </div>
-            }
-        </div>
+    <!-- ACTIONS -->
+    <div class="flex justify-between mt-4">
 
-        <button type="button" (click)="addLine()">Ajouter ligne</button>
-        <button type="submit">Enregistrer</button>
-    </form>
+      <button
+        type="button"
+        class="bg-[var(--color-accent)] px-4 py-2 rounded-2xl font-semibold"
+        (click)="addLine()"
+      >
+        Ajouter ligne
+      </button>
+
+      <button
+        type="submit"
+        class="bg-[var(--color-success)] px-6 py-2 rounded-2xl font-bold"
+      >
+        Enregistrer
+      </button>
+
+    </div>
+
+  </form>
+
 </div>

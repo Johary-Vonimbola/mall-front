@@ -1,23 +1,58 @@
 <app-back link="admin-shop/stock-moves" />
-<h2>Details</h2>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Parent</th>
-      <th>Produit</th>
-      <th>Type</th>
-      <th>Quantite</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (move of stockMoveLines(); track move._id) {
-      <tr>
-        <td>{{ move.parentId }}</td>
-        <td>{{ move.productName }}</td>
-        <td>{{ move.type }}</td>
-        <td>{{ move.quantity }}</td>
-      </tr>
-    }
-  </tbody>
-</table>
+<div class="m-4 p-6 rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+
+  <!-- HEADER -->
+  <div class="flex flex-col items-center border-b border-gray-100 pb-4">
+    <h2 class="text-[var(--color-text-secondary)] text-3xl font-extrabold underline">
+      Détails du mouvement
+    </h2>
+  </div>
+
+  <!-- TABLE -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+
+      <thead>
+        <tr class="bg-[var(--color-bg)] text-[var(--color-text-secondary)]">
+          <th class="p-3">Produit</th>
+          <th class="p-3">Type</th>
+          <th class="p-3 rounded-tr-xl text-right">Quantité</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (move of stockMoveLines(); track move._id) {
+
+        <tr class="border-b border-[var(--color-border)] hover:bg-[var(--color-bg)] transition">
+          <!-- Produit -->
+          <td class="p-3 text-[var(--color-text-primary)] font-semibold">
+            {{ move.productName }}
+          </td>
+
+          <!-- Type -->
+          <td class="p-3">
+            <span
+              class="px-3 py-1 rounded-full text-sm font-semibold text-white"
+              [ngClass]="move.type === 'IN'
+                ? 'bg-[var(--color-success)]'
+                : 'bg-[var(--color-warning)]'"
+            >
+              {{ move.type }}
+            </span>
+          </td>
+
+          <!-- Quantité -->
+          <td class="p-3 text-right font-bold text-[var(--color-accent)]">
+            {{ move.quantity }}
+          </td>
+
+        </tr>
+
+        }
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

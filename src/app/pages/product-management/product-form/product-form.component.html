@@ -1,80 +1,190 @@
-<h2>Creer un produit</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-  <div class="main-form">
+<div class="px-4 py-8 flex justify-center">
+  <div class="w-full max-w-xl bg-[var(--color-card)] 
+              border border-[var(--color-border)] 
+              rounded-2xl p-6 shadow-lg">
 
-    <div class="errors">
-      @for (err of errors(); track err) {
-        <p class="header-error">{{ err }}</p>
-      }
-    </div>
+    <h2 class="title">
+      Creer un produit
+    </h2>
 
-    <div class="input-group">
-      <label for="picture">Image</label>
-      <input
-        id="picture"
-        type="file"
-        placeholder="Image du produit"
-        (change)="onFileChange($event)"
-      />
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
 
-    <div class="input-group">
-      <label for="name">Nom du produit</label>
-      <input
-        id="name"
-        type="text"
-        placeholder="Nom du produit"
-        formControlName="name"
-        [ngClass]="{'is-invalid': isInvalid(form.controls.name)}"
-      />
-      <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')">
-        Le nom est obligatoire
-      </p>
-    </div>
-
-    <div class="input-group">
-      <label for="uom">Unite de mesure</label>
-      <select id="uom" formControlName="uomId" [ngClass]="{'is-invalid': isInvalid(form.controls.uomId)}">
-        @for(u of uoms(); track u._id){
-            <option [value]="u._id">{{ u.name }}</option>
+    <!-- ERREURS BACKEND -->
+    @if (errors().length > 0) {
+      <div class="bg-[var(--color-danger)]
+                  border border-[var(--color-danger)] 
+                  text-[var(--color-danger)] 
+                  p-4 rounded-xl text-sm space-y-1">
+        @for (err of errors(); track err) {
+          <p>{{ err }}</p>
         }
-      </select>
-      <p *ngIf="isInvalid(form.controls.uomId) && form.controls.uomId.hasError('required')">
-        L'unite de mesure est obligatoire
-      </p>
-    </div>
+      </div>
+    }
 
-    <div class="input-group">
-      <label for="shop">Categorie</label>
-      <select id="shop" formControlName="categoryId" [ngClass]="{'is-invalid': isInvalid(form.controls.categoryId)}">
-        @for(c of categories(); track c._id){
-            <option [value]="c._id">{{ c.name }}</option>
-        }
-      </select>
-      <p *ngIf="isInvalid(form.controls.categoryId) && form.controls.categoryId.hasError('required')">
-        Le categorie est obligatoire
-      </p>
-    </div>
+      <!-- Image -->
+      <div class="space-y-2 m-3">      
+        <label for="picture" class="text-sm text-[var(--color-text-secondary)]">
+          Image
+        </label>
+        <input
+          id="picture"
+          type="file"
+          placeholder="Image du produit"
+          (change)="onFileChange($event)"
+          class="w-full px-4 py-3 rounded-xl
+                  bg-[var(--color-bg)]
+                  border border-[var(--color-border)]
+                  text-[var(--color-text-primary)]
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-[var(--color-accent)]
+                  transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+            isInvalid(form.controls.name)
+          }"
+        />
+      </div>
 
-    <div class="input-group">
-      <label for="price">Prix</label>
-      <input
-        id="price"
-        type="number"
-        placeholder="Prix"
-        formControlName="price"
-        [ngClass]="{'is-invalid': isInvalid(form.controls.price)}">
-      <p *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('required')">
-        Le prix est obligatoire
-      </p>
-      <p *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('min')">
-        Le prix ne peut pas etre inferieur a 0
-      </p>
-    </div>
+      <!-- NAME -->
+      <div class="space-y-2 m-3">
+        <label for="name" class="text-sm text-[var(--color-text-secondary)]">
+          Nom du produit
+        </label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Nom du produit"
+          formControlName="name"
+          class="w-full px-4 py-3 rounded-xl
+                  bg-[var(--color-bg)]
+                  border border-[var(--color-border)]
+                  text-[var(--color-text-primary)]
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-[var(--color-accent)]
+                  transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+            isInvalid(form.controls.name)
+          }"
+        />
+        <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')"
+          class="text-sm text-[var(--color-danger)]">
+          Le nom est obligatoire
+        </p>
+      </div>
 
-    <div class="input-group">
-        <button [disabled]="form.invalid" type="submit">Valider</button>
-    </div>
+      <!-- Unite de mesure -->
+      <div class="space-y-2 m-3">
+        <label for="uom" class="text-sm text-[var(--color-text-secondary)]">
+          Unite de mesure
+        </label>
 
+        <select id="uom" 
+          formControlName="uomId" 
+          class="w-full px-4 py-3 rounded-xl
+                 bg-[var(--color-bg)]
+                 border border-[var(--color-border)]
+                 text-[var(--color-text-primary)]
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-[var(--color-accent)]
+                 transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+            isInvalid(form.controls.name)
+          }"
+        >
+          @for(u of uoms(); track u._id){
+              <option [value]="u._id">{{ u.name }}</option>
+          }
+        </select>
+        <p *ngIf="isInvalid(form.controls.uomId) && form.controls.uomId.hasError('required')"
+          class="text-sm text-[var(--color-danger)]">
+          L'unite de mesure est obligatoire
+        </p>
+      </div>
+
+      <!-- Categorie -->
+      <div class="space-y-2 m-3">
+        <label for="shop" class="text-sm text-[var(--color-text-secondary)]">
+          Categorie
+        </label>
+        <select id="shop" formControlName="categoryId" 
+        class="w-full px-4 py-3 rounded-xl
+                 bg-[var(--color-bg)]
+                 border border-[var(--color-border)]
+                 text-[var(--color-text-primary)]
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-[var(--color-accent)]
+                 transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+            isInvalid(form.controls.name)
+          }"
+          >
+          @for(c of categories(); track c._id){
+              <option [value]="c._id">{{ c.name }}</option>
+          }
+        </select>
+        <p *ngIf="isInvalid(form.controls.categoryId) && form.controls.categoryId.hasError('required')"
+          class="text-sm text-[var(--color-danger)]">
+          Le categorie est obligatoire
+        </p>
+      </div>
+
+      <!-- Prix -->
+      <div class="space-y-2 m-3">
+        <label for="price" class="text-sm text-[var(--color-text-secondary)]">
+          Prix
+        </label>
+        <input
+          id="price"
+          type="number"
+          placeholder="Prix"
+          formControlName="price"
+          
+          class="w-full px-4 py-3 rounded-xl
+                 bg-[var(--color-bg)]
+                 border border-[var(--color-border)]
+                 text-[var(--color-text-primary)]
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-[var(--color-accent)]
+                 transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+            isInvalid(form.controls.name)
+          }"
+          >
+        
+          <p *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('required')"
+          class="text-sm text-[var(--color-danger)]">
+          Le prix est obligatoire
+        </p>
+        <p *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('min')"
+          class="text-sm text-[var(--color-danger)]">
+          Le prix ne peut pas etre inferieur a 0
+        </p>
+      </div>
+
+      <!-- SUBMIT -->
+      <div>
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="w-full py-3 rounded-xl font-semibold
+                  bg-[var(--color-accent)]
+                  text-white
+                  transition
+                  hover:bg-[var(--color-accent-hover)]
+                  disabled:opacity-50
+                  disabled:cursor-not-allowed">
+          Valider
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</div>

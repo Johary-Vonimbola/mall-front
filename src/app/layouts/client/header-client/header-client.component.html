@@ -16,11 +16,13 @@
             </nav>
 
             <div class="flex items-center justify-center">
-                <button (click)="viewCart()" class="bg-[var(--color-border)] flex justify-center items-center w-32 h-12 rounded-full">
-                    <span class="bg-[var(--color-warning)] flex items-center justify-center rounded-full w-10 h-8  -ml-7 -mt-5">{{ nbArticle() }}</span>
-                    <img src="/assets/icons/cart.png" alt="Icon Panier" class="h-8 w-auto mr-2 ml-1">
-                    <span >Panier</span>
-                </button>
+                @if (hasEnteredInShop()) {
+                    <button (click)="viewCart()" class="bg-[var(--color-border)] flex justify-center items-center w-32 h-12 rounded-full">
+                        <span class="bg-[var(--color-warning)] flex items-center justify-center rounded-full w-10 h-8  -ml-7 -mt-5">{{ nbArticle() }}</span>
+                        <img src="/assets/icons/cart.png" alt="Icon Panier" class="h-8 w-auto mr-2 ml-1">
+                        <span >Panier</span>
+                    </button>
+                }
             </div>
 
             <div class="flex flex-col items-start justify-center w-32 mx-10">
