@@ -1,31 +1,49 @@
-<h2>Vos loyer</h2>
-<table border="1">
-    <thead>
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+
+  <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--color-text-primary)] mb-4">Vos loyers</h2>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-[var(--color-border)] divide-y divide-[var(--color-border)] text-[var(--color-text-primary)]">
+      <thead class="bg-[var(--color-bg)] text-[var(--color-text-secondary)] text-left font-semibold">
         <tr>
-            <th>Annee</th>
-            <th>Mois</th>
-            <th>Montant</th>
-            <th>Paye le</th>
-            <th>Paie par</th>
-            <th>Status</th>
-            <th>Option</th>
+          <th class="px-4 py-2">Année</th>
+          <th class="px-4 py-2">Mois</th>
+          <th class="px-4 py-2">Montant</th>
+          <th class="px-4 py-2">Payé le</th>
+          <th class="px-4 py-2">Status</th>
+          <th class="px-4 py-2">Option</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody class="bg-[var(--color-card)] divide-y divide-[var(--color-border)]">
         @for (rent of rents(); track rent._id) {
-            <tr>
-                <td>{{ rent.year }}</td>
-                <td>{{ rent.month }}</td>
-                <td>{{ rent.amount }}</td>
-                <td>{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
-                <td>{{ rent.paidBy }}</td>
-                <td>{{ rent.status }}</td>
-                <td>
-                    @if(shouldPay(rent)){
-                        <button (click)="onPay(rent._id)">Payer</button>
-                    }
-                </td>
-            </tr>
+          <tr class="hover:bg-[var(--color-bg)] transition">
+            <td class="px-4 py-2">{{ rent.year }}</td>
+            <td class="px-4 py-2">{{ rent.month }}</td>
+            <td class="px-4 py-2">{{ rent.amount }} Ar</td>
+            <td class="px-4 py-2">{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
+            <td class="px-4 py-2">
+              <span 
+                class="px-2 py-1 rounded-md text-sm font-medium"
+                [ngClass]="{
+                  'bg-[var(--color-success)] text-white': rent.status === 'PAID',
+                  'bg-[var(--color-warning)] text-white': rent.status === 'PENDING',
+                  'bg-[var(--color-danger)] text-white': rent.status === 'OVERDUE'
+                }"
+              >
+                {{ rent.status }}
+              </span>
+            </td>
+            <td class="px-4 py-2">
+              @if(shouldPay(rent)){
+                <button class="px-3 py-1 bg-[var(--color-accent)] text-[var(--color-text-primary)] rounded-md hover:bg-[var(--color-accent-hover)] transition" (click)="onPay(rent._id)">
+                  Payer
+                </button>
+              }
+            </td>
+          </tr>
         }
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+
+</div>

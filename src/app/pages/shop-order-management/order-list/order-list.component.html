@@ -1,36 +1,57 @@
-<div class="cart">
-  <div class="filters">
-    <h3>Filtrer par status :</h3>
+<div class="cart p-4 md:p-6 space-y-6 bg-[var(--color-card)] rounded-2xl border border-[var(--color-border)] shadow-lg">
 
-    @for (status of statuses; track status) {
-      <label>
-        <input 
-          type="checkbox"
-          (change)="onStatusChange($event, status)"
-        />
-        {{ status }}
-      </label>
-    }
+  <!-- Filters -->
+  <div class="filters mb-4">
+    <h3 class="text-[var(--color-text-primary)] font-semibold mb-2">Filtrer par status :</h3>
+    <div class="flex flex-wrap gap-4">
+      @for (status of statuses; track status) {
+        <label class="flex items-center gap-2 bg-[var(--color-bg)] text-[var(--color-text-primary)] px-3 py-1 rounded-md cursor-pointer hover:bg-[var(--color-border)]">
+          <input 
+            type="checkbox"
+            (change)="onStatusChange($event, status)"
+            class="accent-[var(--color-accent)] w-4 h-4"
+          />
+          {{ status }}
+        </label>
+      }
+    </div>
   </div>
-  <div class="order-list">
 
+  <!-- Orders -->
+  <div class="order-list grid gap-4">
     @for (order of filteredOrders(); track order._id) {
-        <div class="order-item">
-            <div class="order-info">
-                <p><strong>DATE : </strong>  <span class="date">{{ order.date | date: 'dd MMMM YYYY HH:mm' }}</span></p>
-                <p><strong>Nb Article : </strong>  <span class="nbArticles">{{ order.nbArticles }}</span></p>
-                <p><strong>Total : </strong>  <span class="total">{{ order.total }}</span></p>
-                <p><strong>Status : </strong>  <span class="status">{{ order.status }}</span></p>
+      <div class="order-item bg-[var(--color-bg)] rounded-xl border border-[var(--color-border)] p-4 shadow-md hover:shadow-lg transition-shadow">
+        <div class="order-info space-y-2 text-[var(--color-text-primary)]">
 
-                @if (order.status === STATUS_ORDER.UNPAID) {
-                  <button (click)="onCancel(order._id)">Annuler</button>
-                }
-                @if (order.status === STATUS_ORDER.IN_PROGRESS_DELIVERY) {
-                  <button (click)="onValidate(order._id)">Valider la livraison</button>
-                }
-                <button (click)="onSeeDetail(order._id)">Detail</button>
-            </div>
+          <p><strong class="text-[var(--color-text-secondary)]">DATE :</strong> <span class="date font-semibold">{{ order.date | date: 'dd MMMM YYYY HH:mm' }}</span></p>
+          <p><strong class="text-[var(--color-text-secondary)]">Nb Article :</strong> <span class="nbArticles font-semibold">{{ order.nbArticles }}</span></p>
+          <p><strong class="text-[var(--color-text-secondary)]">Total :</strong> <span class="total font-bold text-[var(--color-accent)]">{{ order.total }} Ar</span></p>
+          <p><strong class="text-[var(--color-text-secondary)]">Status :</strong> 
+            <span 
+              class="status px-2 py-0.5 rounded-md font-medium"
+              [ngClass]="{
+                'bg-[var(--color-warning)] text-[var(--color-bg)]': order.status === STATUS_ORDER.UNPAID,
+                'bg-[var(--color-accent)] text-[var(--color-bg)]': order.status === STATUS_ORDER.IN_PROGRESS_DELIVERY,
+                'bg-[var(--color-success)] text-[var(--color-bg)]': order.status === STATUS_ORDER.DELIVERED
+              }"
+            >
+              {{ order.status }}
+            </span>
+          </p>
+
+          <div class="flex flex-wrap gap-2 mt-2">
+            @if (order.status === STATUS_ORDER.UNPAID) {
+              <button class="px-3 py-1 bg-[var(--color-danger)] text-[var(--color-bg)] rounded-md hover:bg-red-600 transition" (click)="onCancel(order._id)">Annuler</button>
+            }
+            @if (order.status === STATUS_ORDER.IN_PROGRESS_DELIVERY) {
+              <button class="px-3 py-1 bg-[var(--color-accent)] text-[var(--color-bg)] rounded-md hover:bg-blue-600 transition" (click)="onValidate(order._id)">Valider la livraison</button>
+            }
+            <button class="px-3 py-1 bg-[var(--color-success)] text-[var(--color-bg)] rounded-md hover:bg-green-600 transition" (click)="onSeeDetail(order._id)">Detail</button>
+          </div>
+
         </div>
+      </div>
     }
   </div>
+
 </div>

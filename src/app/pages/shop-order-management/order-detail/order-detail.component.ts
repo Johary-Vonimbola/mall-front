@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Order } from '../../../models/Order';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-detail',
   imports: [
-    DatePipe
+    DatePipe,
+    NgClass
   ],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
