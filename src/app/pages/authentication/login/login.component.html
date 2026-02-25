@@ -34,11 +34,11 @@
                         focus:ring-2
                         focus:ring-[var(--color-accent)]
                         transition" placeholder="john@gmail.com" formControlName="username" type="email" id="email" [ngClass]="{'is-invalid': isInvalid(form.controls.username)}">
-                    <p class="text-sm text-[var(--color-danger)]" *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')" class="error">
-                        Email is required
+                    <p class="text-sm text-[var(--color-danger)] mt-2 ml-1" *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')">
+                        Email est obligatoire
                     </p>
-                    <p class="text-sm text-[var(--color-danger)]" *ngIf="form.controls.username.hasError('email')" class="error">
-                        Invalid Format
+                    <p class="text-sm text-[var(--color-danger)] mt-2 ml-1" *ngIf="form.controls.username.hasError('email')">
+                        Format invalide
                     </p>
                 </div>
                 <div class="input-group">
@@ -51,8 +51,8 @@
                     focus:ring-2
                     focus:ring-[var(--color-accent)]
                     transition" placeholder="****" formControlName="password" type="password" id="password" [ngClass]="{'is-invalid': isInvalid(form.controls.password)}">
-                    <p *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')" class="error">
-                        Password is required
+                    <p class="text-sm text-[var(--color-danger)] mt-2 ml-1" *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')">
+                        Le mot de passe est obligatoire
                     </p>
                 </div>
                 <div class="input-group">
