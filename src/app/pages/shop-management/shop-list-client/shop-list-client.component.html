@@ -2,39 +2,44 @@
   Liste Boutique
 </span>
 
-<div class="p-4 md:p-6 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
+<div class="p-4 md:p-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8">
   @for (shop of shops(); track shop.id; let first = $first) {
     @if (shop.isActive) {
 
-      <div class="flex flex-col overflow-hidden border border-[var(--color-border)] rounded-2xl bg-[var(--color-card)] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      <div class="group relative overflow-hidden rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
 
-        <!-- Header -->
-        <div class="flex justify-between items-center px-4 py-2 border-b border-[var(--color-border)]">
-          <label class="text-lg font-bold text-[var(--color-text-primary)] truncate">
-            {{ shop.name }}
-          </label>
-          <span class="text-xs px-2 py-0.5 bg-[var(--color-accent)] text-white rounded-md">
-            {{ shop.category }}
-          </span>
-        </div>
-
-        <!-- Logo -->
-        <div class="h-40 flex items-center justify-center p-4 bg-white">
+        <!-- IMAGE FULL -->
+        <div class="relative h-56 overflow-hidden">
           <img 
-            class="max-h-full object-contain transition-transform duration-300 hover:scale-105"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             [src]="environment+shop.logo" 
             [alt]="environment+shop.logo"
           >
+
+          <!-- DARK GRADIENT OVERLAY -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-transparent opacity-80"></div>
+
+          <!-- CATEGORY BADGE -->
+          <span class="absolute top-3 right-3 text-xs px-3 py-1 bg-[var(--color-accent)] text-white rounded-full shadow-md">
+            {{ shop.category }}
+          </span>
+
+          <!-- SHOP NAME -->
+          <label class="absolute bottom-3 left-4 text-xl font-bold text-[var(--color-text-primary)] drop-shadow-lg">
+            {{ shop.name }}
+          </label>
         </div>
 
-        <!-- Footer -->
-        <button 
-          class="w-full py-2 text-lg font-semibold bg-[var(--color-success)] text-white hover:bg-[var(--color-accent)] transition-colors duration-300"
-          type="button" 
-          (click)="visit(shop.id)"
-        >
-          Visiter
-        </button>
+        <!-- ACTION -->
+        <div class="p-4">
+          <button 
+            class="w-full py-2 text-lg font-semibold bg-[var(--color-success)] text-white rounded-lg hover:bg-[var(--color-accent-hover)] transition-all duration-300"
+            type="button" 
+            (click)="visit(shop.id)"
+          >
+            Visiter
+          </button>
+        </div>
 
       </div>
 

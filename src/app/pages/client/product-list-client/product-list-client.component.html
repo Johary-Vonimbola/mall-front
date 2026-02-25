@@ -12,39 +12,42 @@
   Liste Produit
 </span>
 
-<div class="p-4 md:p-6 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+<div class="p-4 md:p-6 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8">
   @for (product of productList(); track product._id; let first = $first) {
     @if (product.isActive) {
 
-      <div class="max-w-sm flex flex-col overflow-hidden border border-[var(--color-border)] rounded-2xl bg-[var(--color-card)] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+      <div class="max-w-sm group relative overflow-hidden rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
 
-        <!-- Image -->
-        <div class="h-44 flex items-center justify-center p-3 bg-white">
+        <!-- IMAGE FULL -->
+        <div class="relative h-56 overflow-hidden">
           <img 
-            class="max-h-full object-contain transition-transform duration-300 hover:scale-105"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             [src]="environment+product.picture" 
             [alt]="environment+product.picture">
-        </div>
 
-        <!-- Nom + categorie -->
-        <div class="flex justify-between items-center px-4 py-2 bg-[var(--color-bg)] border-b border-[var(--color-border)]">
-          <label class="text-lg font-bold text-[var(--color-text-primary)] truncate">
-            {{ product.name }}
-          </label>
-          <span class="text-xs px-2 py-0.5 bg-[var(--color-accent)] text-white rounded-md">
+          <!-- OVERLAY DARK -->
+          <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-transparent opacity-80"></div>
+
+          <!-- CATEGORY BADGE -->
+          <span class="absolute top-2 right-2 text-xs px-3 py-1 bg-[var(--color-accent)] text-white rounded-full shadow-md">
             {{ product.category }}
           </span>
+
+          <!-- NAME -->
+          <label class="absolute bottom-2 left-3 text-lg font-bold text-[var(--color-text-primary)] drop-shadow-lg">
+            {{ product.name }}
+          </label>
         </div>
 
-        <!-- Prix -->
-        <div class="my-3 flex justify-center text-[var(--color-accent)] font-bold text-2xl">
+        <!-- PRICE -->
+        <div class="py-3 flex justify-center text-[var(--color-success)] font-bold text-2xl">
           {{ product.price | number:'1.0-0' }} Ar
         </div>
 
-        <!-- Commander -->
-        <div class="px-3 pb-3 flex items-center gap-2">
+        <!-- ACTION -->
+        <div class="px-3 pb-4 flex items-center gap-2">
           <input
-            class="w-20 p-1 text-center text-xl font-semibold border border-[var(--color-border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+            class="w-20 p-1 text-center text-lg font-semibold bg-[var(--color-bg)] text-[var(--color-text-primary)] border border-[var(--color-border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             id="qty-{{ product._id }}"
             type="number"
             min="1"
@@ -53,7 +56,7 @@
           />
 
           <button 
-            class="flex-1 py-2 text-lg font-semibold bg-[var(--color-success)] text-white rounded-md hover:bg-[var(--color-accent)] transition-colors duration-300"
+            class="flex-1 py-2 text-lg font-semibold bg-[var(--color-success)] text-white rounded-md hover:bg-[var(--color-accent-hover)] transition-all duration-300"
             type="button" 
             (click)="addToBasket(product._id, qtyInput.value)">
             Commander
