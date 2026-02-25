@@ -1,36 +1,67 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="header-form">
-        <img src="/assets/img/logo.webp" alt="Logo" class="logo">
-        <h2>Login</h2>
+<div class="flex flex-col gap-2">
+  <div class="absolute -top-32 -left-32 w-96 h-96 
+              bg-[radial-gradient(circle,_#6366f1_0%,_transparent_60%)] 
+              opacity-30 blur-3xl">
     </div>
-    <div class="main-form">
-        <div class="errors">
-            @for (err of errors(); track err) {
-                <p class="header-error">{{ err }}</p>
-            }
-        </div>
-        <div class="input-group">
-            <label for="email">Email</label>
-            <input placeholder="john@gmail.com" formControlName="username" type="email" id="email" [ngClass]="{'is-invalid': isInvalid(form.controls.username)}">
-            <p *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')" class="error">
-                Email is required
-            </p>
-            <p *ngIf="form.controls.username.hasError('email')" class="error">
-                Invalid Format
-            </p>
-        </div>
-        <div class="input-group">
-            <label for="password">Password</label>
-            <input placeholder="****" formControlName="password" type="password" id="password" [ngClass]="{'is-invalid': isInvalid(form.controls.password)}">
-            <p *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')" class="error">
-                Password is required
-            </p>
-        </div>
-        <div class="input-group">
-            <button [disabled]="form.invalid" type="submit">Connexion</button>
-        </div>
+
+    <div class="absolute bottom-0 right-0 w-80 h-80 
+                bg-[radial-gradient(circle,_#ec4899_0%,_transparent_60%)] 
+                opacity-30 blur-3xl">
     </div>
-    <div class="footer-form">
-        <p>Don't have account? <a (click)="onSignup()">Sign up</a></p>
+
+    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-center lg:min-h-screen lg:gap-24">
+        <div class="header-form lg:flex lg:flex-col lg:justify-center">
+            <img class="w-52 mx-auto lg:w-[25rem]" src="/assets/img/inter-logo.png" alt="Logo">
+            <h2 class="hidden lg:block text-center text-3xl text-[var(--color-text-secondary)]">Votre centre commercial en ligne</h2>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="bg-[var(--color-card)] border border-[var(--color-border)] px-3 mx-4 py-4 rounded-lg lg:w-[30rem] lg:py-10">
+            <h2 class="title">Login</h2>
+            <div class="main-form">
+                <div class="errors">
+                    @for (err of errors(); track err) {
+                        <p class="bg-[var(--color-danger)]/10 
+                        text-[var(--color-danger)] 
+                        p-4 rounded-xl text-sm">{{ err }}</p>
+                    }
+                </div>
+                <div class="input-group">
+                    <label class="text-sm text-[var(--color-text-secondary)]" for="email">Email</label>
+                    <input class="w-full px-4 py-3 rounded-xl
+                        bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]
+                        transition" placeholder="john@gmail.com" formControlName="username" type="email" id="email" [ngClass]="{'is-invalid': isInvalid(form.controls.username)}">
+                    <p class="text-sm text-[var(--color-danger)]" *ngIf="isInvalid(form.controls.username) && form.controls.username.hasError('required')" class="error">
+                        Email is required
+                    </p>
+                    <p class="text-sm text-[var(--color-danger)]" *ngIf="form.controls.username.hasError('email')" class="error">
+                        Invalid Format
+                    </p>
+                </div>
+                <div class="input-group">
+                    <label class="text-sm text-[var(--color-text-secondary)]" for="password">Password</label>
+                    <input class="w-full px-4 py-3 rounded-xl
+                    bg-[var(--color-bg)]
+                    border border-[var(--color-border)]
+                    text-[var(--color-text-primary)]
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-[var(--color-accent)]
+                    transition" placeholder="****" formControlName="password" type="password" id="password" [ngClass]="{'is-invalid': isInvalid(form.controls.password)}">
+                    <p *ngIf="isInvalid(form.controls.password) && form.controls.password.hasError('required')" class="error">
+                        Password is required
+                    </p>
+                </div>
+                <div class="input-group">
+                    <button class="w-full btn-accent mt-5 py-3 font-bold text-base" [disabled]="form.invalid" type="submit">Connexion</button>
+                </div>
+            </div>
+            <div class="footer-form" class="mt-5 text-center text-[var(--color-text-primary)]">
+                <p>Don't have account? <a (click)="onSignup()" class="underline">Sign up</a></p>
+            </div>
+        </form>
     </div>
-</form>
+</div>
