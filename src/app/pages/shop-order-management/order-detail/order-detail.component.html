@@ -1,27 +1,56 @@
-<h2>Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}</h2>
-<p>Status: {{ order()?.status }}</p>
-<p>Total: {{ order()?.total }}</p>
-<table border="1">
-    <thead>
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+
+  <!-- Header Commande -->
+  <div class="pb-4 border-b border-[var(--color-border)]">
+    <h2 class="text-2xl md:text-3xl font-extrabold text-[var(--color-text-primary)] mb-2">
+      Commande {{ order()?._id }} / {{ order()?.date | date: "dd MMMM YYYY" }}
+    </h2>
+    <p class="text-[var(--color-text-primary)] font-semibold">
+      Status: 
+      <span 
+        class="px-2 py-1 rounded-md font-medium text-sm"
+        [ngClass]="{
+          'bg-[var(--color-danger)] text-white': order()?.status === 'UNPAID',
+          'bg-[var(--color-warning)] text-white': order()?.status === 'IN_PROGRESS_DELIVERY',
+          'bg-[var(--color-success)] text-white': order()?.status === 'PAID'
+        }"
+      >
+        {{ order()?.status }}
+      </span>
+    </p>
+    <p class="text-[var(--color-text-primary)] font-bold">
+      Total: <span class="text-[var(--color-accent)] text-xl">{{ order()?.total }} Ar</span>
+    </p>
+  </div>
+
+  <!-- Table Details -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-[var(--color-border)] divide-y divide-[var(--color-border)] text-[var(--color-text-primary)]">
+      <thead class="bg-[var(--color-bg)] text-[var(--color-text-secondary)] text-left font-semibold">
         <tr>
-            <th>Produit</th>
-            <th>Quantite</th>
-            <th>Prix unitaire</th>
-            <th>Categorie</th>
-            <th>Image</th>
-            <th>Sous-total</th>
-        </tr>    
-    </thead>
-    <tbody>
+          <th class="px-4 py-2">Produit</th>
+          <th class="px-4 py-2">Quantite</th>
+          <th class="px-4 py-2">Prix unitaire</th>
+          <th class="px-4 py-2">Categorie</th>
+          <th class="px-4 py-2">Image</th>
+          <th class="px-4 py-2">Sous-total</th>
+        </tr>
+      </thead>
+      <tbody class="bg-[var(--color-card)] divide-y divide-[var(--color-border)]">
         @for (detail of order()?.details; track $index) {
-            <tr>
-                <td>{{ detail.productName }}</td>
-                <td>{{ detail.quantity }} {{ detail.productUom }}</td>
-                <td>{{ detail.price }}</td>
-                <td>{{ detail.productCategory }}</td>
-                <td>{{ detail.productPicture }}</td>
-                <td>{{ detail.price * detail.quantity }}</td>
-            </tr>
+          <tr class="hover:bg-[var(--color-bg)] transition">
+            <td class="px-4 py-2">{{ detail.productName }}</td>
+            <td class="px-4 py-2">{{ detail.quantity }} {{ detail.productUom }}</td>
+            <td class="px-4 py-2">{{ detail.price }}</td>
+            <td class="px-4 py-2">{{ detail.productCategory }}</td>
+            <td class="px-4 py-2">
+              <img src="{{ detail.productPicture }}" alt="{{ detail.productName }}" class="h-12 w-12 object-cover rounded-md">
+            </td>
+            <td class="px-4 py-2 font-bold text-[var(--color-accent)]">{{ detail.price * detail.quantity }}</td>
+          </tr>
         }
-    </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+
+</div>

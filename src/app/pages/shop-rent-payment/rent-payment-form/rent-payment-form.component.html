@@ -1,19 +1,21 @@
-<form>
-    <div class="input-group">
-        <label for="month">Mois</label>
-        <select id="month">
-            @for(m of months; track m; let i = $index){
-                <option [value]="i">{{ m }}</option>
-            }
-        </select>
-    </div>
-    <div class="input-group">
-        <label for="year">Annee</label>
-        <select id="year">
-            @for(y of years; track y; let i = $index){
-                <option [value]="i">{{ y }}</option>
-            }
-        </select>
-    </div>
-    
+<form class="space-y-4 bg-[var(--color-card)] p-6 rounded-2xl border border-[var(--color-border)] shadow-md w-full max-w-md">
+  
+  <div class="flex flex-col">
+    <label for="month" class="mb-1 text-[var(--color-text-secondary)] font-medium">Mois</label>
+    <select id="month" class="px-3 py-2 rounded-md bg-[var(--color-bg)] text-[var(--color-text-primary)] border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]">
+      @for(m of months; track m; let i = $index){
+        <option [value]="i">{{ m }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="year" class="mb-1 text-[var(--color-text-secondary)] font-medium">Année</label>
+    <select id="year" class="px-3 py-2 rounded-md bg-[var(--color-bg)] text-[var(--color-text-primary)] border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]">
+      @for(y of years; track y; let i = $index){
+        <option [value]="i">{{ y }}</option>
+      }
+    </select>
+  </div>
+
 </form>
