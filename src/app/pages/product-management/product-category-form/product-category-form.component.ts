@@ -5,14 +5,16 @@ import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 import { ProductService } from '../../../services/product.service';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { BackComponent } from "../../../components/back/back.component";
 
 @Component({
   selector: 'app-product-category-form',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
-  ],
+    NgClass,
+    BackComponent
+],
   templateUrl: './product-category-form.component.html',
   styleUrl: './product-category-form.component.scss'
 })

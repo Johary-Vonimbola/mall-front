@@ -4,13 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../../services/product.service';
 import { NgClass, NgIf } from '@angular/common';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-product-category-update',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    BackComponent
   ],
   templateUrl: './product-category-update.component.html',
   styleUrl: './product-category-update.component.scss'

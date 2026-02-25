@@ -5,13 +5,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ShopRentService } from '../../../services/shop-rent.service';
 import { isInvalid } from '../../../utils/form';
 import { NgClass, NgIf } from '@angular/common';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-shop-rent-form',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    BackComponent
 ],
   templateUrl: './shop-rent-form.component.html',
   styleUrl: './shop-rent-form.component.scss'

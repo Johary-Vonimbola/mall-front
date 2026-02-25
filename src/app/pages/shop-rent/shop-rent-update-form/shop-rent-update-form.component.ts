@@ -6,13 +6,15 @@ import { isInvalid } from '../../../utils/form';
 import { ShopResponse } from '../../../models/shop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-shop-rent-update-form',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    BackComponent
   ],
   templateUrl: './shop-rent-update-form.component.html',
   styleUrl: './shop-rent-update-form.component.scss'

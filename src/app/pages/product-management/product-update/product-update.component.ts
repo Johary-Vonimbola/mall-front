@@ -7,13 +7,15 @@ import { ProductService } from '../../../services/product.service';
 import { UomService } from '../../../services/uom.service';
 import { ProductCategory } from '../../../models/product';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-product-update-form',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    BackComponent
   ],
   templateUrl: './product-update.component.html',
   styleUrl: './product-update.component.scss'

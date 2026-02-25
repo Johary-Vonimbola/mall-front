@@ -5,13 +5,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ShopCategoryResponse } from '../../../models/shop';
 import { NgClass, NgIf } from '@angular/common';
 import { isInvalid } from '../../../utils/form';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-shop-modif',
   imports: [
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    BackComponent
   ],
   templateUrl: './shop-modif.component.html',
   styleUrl: './shop-modif.component.scss'

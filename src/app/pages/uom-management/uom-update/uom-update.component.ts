@@ -4,13 +4,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { isInvalid } from '../../../utils/form';
 import { UomService } from '../../../services/uom.service';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-uom-update',
   imports: [
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    BackComponent
   ],
   templateUrl: './uom-update.component.html',
   styleUrl: './uom-update.component.scss'

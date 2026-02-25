@@ -1,23 +1,29 @@
-<h2>Liste des unites de mesure</h2>
+<div>
+    <h2 class="title">Liste des unités de mesure</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Abbreviation</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (uom of uoms; track uom._id) {
-      <tr>
-        <td>{{ uom.name }}</td>
-        <td>{{ uom.abbr }}</td>
-        <td>
-          <button (click)="update(uom._id)">Modifier</button>
-          <button (click)="delete(uom._id)">Supprimer</button>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+    <div class="pt-5 px-3">
+        <div class="w-full overflow-x-auto">
+            <table class="bg-[var(--color-card)] min-w-full text-left border-collapse border border-[var(--color-border)] text-base">
+                <thead>
+                    <tr>
+                        <th class="text-[var(--color-text-primary)] p-2 border-2 border-[var(--color-border)]">Nom</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-2 border-[var(--color-border)]">Abbreviation</th>
+                        <th class="text-[var(--color-text-primary)] p-2 border-2 border-[var(--color-border)]">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(uom of uoms; track uom._id){
+                        <tr class="hover:bg-[var(--color-border)] transition">
+                            <td class="text-[var(--color-text-primary)] p-2 border-2 border-[var(--color-border)]">{{ uom.name }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-2 border-[var(--color-border)]">{{ uom.abbr }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-2 border-[var(--color-border)] flex gap-2">
+                                <button class="btn-default" (click)="update(uom._id)">Modifier</button>
+                                <button class="btn-warning" (click)="delete(uom._id)">Supprimer</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -5,12 +5,14 @@ import { DatePipe, NgClass } from '@angular/common';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { ShopResponse } from '../../../models/shop';
 import { MONTHS, YEARS } from '../../../models/month';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-rent-payment-admin',
   imports: [
     DatePipe,
-    NgClass
+    NgClass,
+    BackComponent
   ],
   templateUrl: './rent-payment-admin.component.html',
   styleUrl: './rent-payment-admin.component.scss'

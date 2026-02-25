@@ -4,13 +4,15 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { isInvalid } from '../../../utils/form';
 import { Router } from '@angular/router';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-shop-category-form',
   imports: [
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    BackComponent
   ],
   templateUrl: './shop-category-form.component.html',
   styleUrl: './shop-category-form.component.scss'
