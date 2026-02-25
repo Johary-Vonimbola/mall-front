@@ -7,13 +7,15 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { isInvalid, toFormData } from '../../../utils/form';
 import { ProductCategory, Uom } from '../../../models/product';
 import { UomService } from '../../../services/uom.service';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-product-form',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    BackComponent
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'

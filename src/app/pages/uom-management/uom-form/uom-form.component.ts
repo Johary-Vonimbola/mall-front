@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 import { isInvalid } from '../../../utils/form';
 import { UomService } from '../../../services/uom.service';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-uom-form',
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    BackComponent
   ],
   templateUrl: './uom-form.component.html',
   styleUrl: './uom-form.component.scss'

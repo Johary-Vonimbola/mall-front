@@ -5,13 +5,15 @@ import { ShopManagementService } from '../../../services/shop-management.service
 import { isInvalid } from '../../../utils/form';
 import { ShopCategoryResponse, ShopResponse } from '../../../models/shop';
 import { Router } from '@angular/router';
+import { BackComponent } from '../../../components/back/back.component';
 
 @Component({
   selector: 'app-shop-form',
   imports: [
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    BackComponent
   ],
   templateUrl: './shop-form.component.html',
   styleUrl: './shop-form.component.scss'

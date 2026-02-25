@@ -23,6 +23,7 @@ export class SidebarComponent {
   productCategoryOpen = false;
   stockOpen = false;
   saleOpen = false;
+  uomOpen = false;
 
   @Input() open = false;
   @Output() closeSidebar = new EventEmitter<boolean>();
@@ -35,6 +36,7 @@ export class SidebarComponent {
     this.productCategoryOpen = false;
     this.stockOpen = false;
     this.saleOpen = false;
+    this.uomOpen = false;
   }
 
   isAdminShop = computed(() => {
@@ -49,6 +51,10 @@ export class SidebarComponent {
     this.closeSidebar.emit(false);
   }
     
+  toggleUom(): void{
+    this.reinit();
+    this.uomOpen = !this.uomOpen;
+  }
   toggleShops(): void {
     this.reinit();
     this.shopsOpen = !this.shopsOpen;
