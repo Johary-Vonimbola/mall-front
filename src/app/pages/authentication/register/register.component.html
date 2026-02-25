@@ -12,17 +12,16 @@
   <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-center lg:min-h-screen lg:gap-24">
     <div class="header-form lg:flex lg:flex-col lg:justify-center">
       <img class="w-52 mx-auto lg:w-[25rem]" src="/assets/img/inter-logo.png" alt="Logo">
-      <h2 class="title text-center text-3xl text-[var(--color-text-secondary)] mt-4 lg:mt-6">
-        @if(accountCreated()){ 
-            <app-check-mark />
-            <p class="success-message">Account created</p> 
-        }@else{ Inscription }
-      </h2>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" 
           class="bg-[var(--color-card)] border border-[var(--color-border)] px-3 mx-4 py-4 rounded-lg lg:w-[30rem] lg:py-10 space-y-6">
-
+        <h2 class="title text-center text-3xl text-[var(--color-text-secondary)] mt-4 lg:mt-6">
+            @if(accountCreated()){ 
+                <app-check-mark />
+                <p class="success-message">Account created</p> 
+            }@else{ Inscription }
+        </h2>
       <div class="errors">
         @for (err of errors(); track err) {
           <p class="bg-[var(--color-danger)]/10 
