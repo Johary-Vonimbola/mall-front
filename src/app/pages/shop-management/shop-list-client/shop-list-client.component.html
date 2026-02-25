@@ -1,20 +1,43 @@
-<span class="mt-4 flex items-center justify-center text-3xl underline font-bold text-[var(--color-text-primary)]">Liste Boutique</span>
-<div class="mx-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] grid-flow-row gap-4">
+<span class="mt-6 flex items-center justify-center text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] tracking-wide">
+  Liste Boutique
+</span>
+
+<div class="p-4 md:p-6 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
   @for (shop of shops(); track shop.id; let first = $first) {
     @if (shop.isActive) {
-      <div class="flex flex-col max-w-96 m-4 p-4 border-2 border-[var(--color-border)] rounded bg-[var(--color-card)]">
 
-        <div class="bg-slate-500 flex p-1 rounded-t text-[var(--color-text-primary)]">
-          <label class="w-full text-2xl font-bold">{{ shop.name }}</label>
-          <label class="flex justify-end text-sm">{{ shop.category }}</label>
+      <div class="flex flex-col overflow-hidden border border-[var(--color-border)] rounded-2xl bg-[var(--color-card)] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center px-4 py-2 border-b border-[var(--color-border)]">
+          <label class="text-lg font-bold text-[var(--color-text-primary)] truncate">
+            {{ shop.name }}
+          </label>
+          <span class="text-xs px-2 py-0.5 bg-[var(--color-accent)] text-white rounded-md">
+            {{ shop.category }}
+          </span>
         </div>
 
-        <img class="grow" [src]="environment+shop.logo" [alt]="environment+shop.logo">
+        <!-- Logo -->
+        <div class="h-40 flex items-center justify-center p-4 bg-white">
+          <img 
+            class="max-h-full object-contain transition-transform duration-300 hover:scale-105"
+            [src]="environment+shop.logo" 
+            [alt]="environment+shop.logo"
+          >
+        </div>
 
-        <button class="w-full h-10 bg-[var(--color-success)] rounded-b text-xl font-semibold hover:bg-[var(--color-accent)]" type="button" (click)="visit(shop.id)">
+        <!-- Footer -->
+        <button 
+          class="w-full py-2 text-lg font-semibold bg-[var(--color-success)] text-white hover:bg-[var(--color-accent)] transition-colors duration-300"
+          type="button" 
+          (click)="visit(shop.id)"
+        >
           Visiter
         </button>
+
       </div>
+
     }
   }
 </div>

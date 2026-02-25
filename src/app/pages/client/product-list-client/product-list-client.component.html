@@ -1,43 +1,67 @@
 <app-back link="shops"></app-back>
 
 @if (productList().length === 0) {
-  <div class="mt-10 flex justify-center text-gray-600 text-2xl font-bold">
+  <div class="mt-10 flex justify-center text-2xl font-bold text-[var(--color-text-secondary)]">
     Aucun produit disponible
   </div>
-  }
+}
 
 @else if (productList().length > 0) {
 
-<span class="mt-2 flex items-center justify-center text-3xl underline font-bold text-[var(--color-text-primary)]">Liste Produit</span>
-<div class="mx-4 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
+<span class="mt-4 flex items-center justify-center text-3xl md:text-4xl font-bold text-[var(--color-text-primary)] tracking-wide">
+  Liste Produit
+</span>
+
+<div class="p-4 md:p-6 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
   @for (product of productList(); track product._id; let first = $first) {
     @if (product.isActive) {
-      <div class="max-w-96 m-4 p-4 border-2 border-black rounded bg-[var(--color-card)]">
 
-        <img class="" [src]="environment+product.picture" [alt]="environment+product.picture">
+      <div class="max-w-sm flex flex-col overflow-hidden border border-[var(--color-border)] rounded-2xl bg-[var(--color-card)] shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
 
-        <div class="bg-slate-500 flex p-1 rounded-b">
-          <label class="w-full text-xl font-bold">{{ product.name }}</label>
-          <label class="flex justify-end text-sm">{{ product.category }}</label>
+        <!-- Image -->
+        <div class="h-44 flex items-center justify-center p-3 bg-white">
+          <img 
+            class="max-h-full object-contain transition-transform duration-300 hover:scale-105"
+            [src]="environment+product.picture" 
+            [alt]="environment+product.picture">
         </div>
 
-        <div class="my-2 flex justify-center text-[var(--color-accent)] font-bold text-2xl">{{ product.price | number:'1.0-0' }} Ar</div>
+        <!-- Nom + categorie -->
+        <div class="flex justify-between items-center px-4 py-2 bg-[var(--color-bg)] border-b border-[var(--color-border)]">
+          <label class="text-lg font-bold text-[var(--color-text-primary)] truncate">
+            {{ product.name }}
+          </label>
+          <span class="text-xs px-2 py-0.5 bg-[var(--color-accent)] text-white rounded-md">
+            {{ product.category }}
+          </span>
+        </div>
 
-        <div class="flex">
+        <!-- Prix -->
+        <div class="my-3 flex justify-center text-[var(--color-accent)] font-bold text-2xl">
+          {{ product.price | number:'1.0-0' }} Ar
+        </div>
+
+        <!-- Commander -->
+        <div class="px-3 pb-3 flex items-center gap-2">
           <input
-            class="p-1 rounded-md w-20 text-center text-2xl font-semibold"
+            class="w-20 p-1 text-center text-xl font-semibold border border-[var(--color-border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             id="qty-{{ product._id }}"
             type="number"
             min="1"
             [value]="1"
             #qtyInput
           />
-          <button class="ml-2 w-full h-10 bg-[var(--color-success)] rounded-md text-xl font-semibold hover:bg-[var(--color-accent)]" type="button" (click)="addToBasket(product._id, qtyInput.value)">
+
+          <button 
+            class="flex-1 py-2 text-lg font-semibold bg-[var(--color-success)] text-white rounded-md hover:bg-[var(--color-accent)] transition-colors duration-300"
+            type="button" 
+            (click)="addToBasket(product._id, qtyInput.value)">
             Commander
           </button>
         </div>
 
       </div>
+
     }
   }
 </div>
