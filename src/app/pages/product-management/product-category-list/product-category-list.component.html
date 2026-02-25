@@ -1,25 +1,17 @@
-<div class="category-list">
-  @for (productCategorie of productCategories(); track productCategorie._id) {
-    <div class="category-item">
-      <span class="category-name">
-        {{ productCategorie.name }}
-      </span>
+@for (productCategorie of productCategories(); track productCategorie._id) {
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between m-4 gap-4 p-4 rounded-xl bg-[var(--color-card)]">
+    <span class="text-xl font-bold text-[var(--color-text-secondary)]">
+      {{ productCategorie.name }}
+    </span>
 
-      <button
-        type="button"
-        class="btn-delete"
-        (click)="deleteCategory(productCategorie._id)"
-      >
+    <div class="flex justify-end">
+      <button class="px-2 py-0.5 bg-[var(--color-danger)] rounded-md ml-2" (click)="deleteCategory(productCategorie._id)">
         Supprimer
       </button>
 
-      <button
-        type="button"
-        class="btn-primary"
-        (click)="update(productCategorie._id)"
-      >
+      <button class="px-2 py-0.5 bg-[var(--color-accent)] rounded-md ml-2" (click)="update(productCategorie._id)">
         Modifier
       </button>
     </div>
-  }
-</div>
+  </div>
+}

@@ -3,10 +3,14 @@ import { StockService } from '../../../services/stock.service';
 import { StockMoveLine } from '../../../models/Stock';
 import { ActivatedRoute } from '@angular/router';
 import { BackComponent } from "../../../components/back/back.component";
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-stock-move-list-detail',
-  imports: [BackComponent],
+  imports: [
+    BackComponent,
+    NgClass
+  ],
   templateUrl: './stock-move-list-detail.component.html',
   styleUrl: './stock-move-list-detail.component.scss'
 })

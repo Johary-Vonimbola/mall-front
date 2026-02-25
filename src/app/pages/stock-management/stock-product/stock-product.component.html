@@ -1,28 +1,94 @@
-<h2>Stock actuel des produits</h2>
-<button (click)="onConfigThreshold()">Configurer les seuils de stock</button>
-<form [formGroup]="form">
-    <div class="input-group" formArrayName="checkedProducts">
-        @for (p of products(); track p._id; let i = $index) {
-            <label [for]="p.name">{{ p.name }}</label>
-            <input [id]="p.name" type="checkbox" [formControlName]="i">
-        }
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
+
+  <!-- HEADER -->
+  <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 border-b border-[var(--color-border)] pb-4">
+    <h2 class="text-3xl font-extrabold text-[var(--color-text-secondary)] underline">
+      Stock actuel des produits
+    </h2>
+
+    <button
+      class="px-5 py-2 rounded-xl font-semibold bg-[var(--color-warning)] hover:opacity-90 transition"
+      (click)="onConfigThreshold()"
+    >
+      Configurer les seuils
+    </button>
+  </div>
+
+  <!-- FILTER CHECKBOX -->
+  <form [formGroup]="form">
+    <div
+      class="grid grid-cols-2 md:grid-cols-4 gap-4"
+      formArrayName="checkedProducts"
+    >
+      @for (p of products(); track p._id; let i = $index) {
+
+        <label
+          class="flex items-center gap-2 bg-[var(--color-bg)] p-3 rounded-xl border border-[var(--color-border)] cursor-pointer hover:border-[var(--color-accent)] transition"
+        >
+          <input
+            type="checkbox"
+            class="accent-[var(--color-accent)] w-4 h-4"
+            [formControlName]="i"
+          />
+          <span class="text-[var(--color-text-primary)] font-medium">
+            {{ p.name }}
+          </span>
+        </label>
+
+      }
     </div>
-</form>
-<table border="1">
-  <thead>
-    <tr>
-      <th>Produit</th>
-      <th>Stock</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (p of filteredProducts(); track p._id) {
-      <tr>
-        <td>{{ p.name }}</td>
-        <td [ngClass]="{ 'is-not-enough': p.stock <= p.stockThreshold}">{{ p.stock }} {{ p.uom }}</td>
-        <td><button (click)="onSeeMoveLines(p._id)">Details</button></td>
-      </tr>
-    }
-  </tbody>
-</table>
+  </form>
+
+  <!-- TABLE -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+
+      <thead>
+        <tr class="bg-[var(--color-bg)] text-[var(--color-text-secondary)]">
+          <th class="p-3 rounded-tl-xl">Produit</th>
+          <th class="p-3">Stock</th>
+          <th class="p-3 rounded-tr-xl text-right">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (p of filteredProducts(); track p._id) {
+
+        <tr class="border-b border-[var(--color-border)] hover:bg-[var(--color-bg)] transition">
+
+          <!-- Product -->
+          <td class="p-3 font-semibold text-[var(--color-text-primary)]">
+            {{ p.name }}
+          </td>
+
+          <!-- Stock -->
+          <td class="p-3">
+            <span
+              class="px-3 py-1 rounded-full text-sm font-bold"
+              [ngClass]="p.stock <= p.stockThreshold
+                ? 'bg-[var(--color-danger)] text-white'
+                : 'bg-[var(--color-success)] text-white'"
+            >
+              {{ p.stock }} {{ p.uom }}
+            </span>
+          </td>
+
+          <!-- Action -->
+          <td class="p-3 text-right">
+            <button
+              class="px-4 py-1 rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] transition font-medium"
+              (click)="onSeeMoveLines(p._id)"
+            >
+              Détails
+            </button>
+          </td>
+
+        </tr>
+
+        }
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

@@ -3,10 +3,13 @@ import { Router } from '@angular/router';
 import { StockService } from '../../../services/stock.service';
 import { StockMove } from '../../../models/Stock';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-stock-move-list',
-  imports: [],
+  imports: [
+    DatePipe
+  ],
   templateUrl: './stock-move-list.component.html',
   styleUrl: './stock-move-list.component.scss'
 })

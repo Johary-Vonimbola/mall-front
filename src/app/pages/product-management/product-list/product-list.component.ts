@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product, ProductCategory } from '../../../models/product';
 import { AuthenticationService } from '../../../services/authentication.service';
+import { environment } from '../../../../environment';
 
 @Component({
   selector: 'app-product-list',
@@ -22,7 +23,7 @@ export class ProductListComponent implements OnInit {
   private authService: AuthenticationService = inject(AuthenticationService);
 
   currentShopId = this.authService.currentShop()?.id  ?? "";
-
+  environment = environment.apiUrl + "/" ;
   products = signal<Product[]>([]);
   filteredProducts = signal<Product[]>([]);
   categories = signal<ProductCategory[]>([]);

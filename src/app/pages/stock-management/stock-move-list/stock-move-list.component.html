@@ -1,21 +1,58 @@
-<h2>Liste des mouvements de stock</h2>
+<div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (move of stockMoves; track move._id) {
-      <tr>
-        <td>{{ move.date }}</td>
-        <td>
-          <button (click)="details(move._id)">Details</button>
-          <button (click)="delete(move._id)">Supprimer</button>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+  <!-- HEADER -->
+  <div class="flex flex-col items-center border-b border-gray-100 pb-4">
+    <h2 class="text-[var(--color-text-secondary)] text-3xl font-extrabold underline">
+      Liste des mouvements de stock
+    </h2>
+  </div>
+
+  <!-- TABLE -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+
+      <thead>
+        <tr class="bg-[var(--color-bg)] text-[var(--color-text-secondary)]">
+          <th class="p-3 rounded-tl-xl">Date</th>
+          <th class="p-3 rounded-tr-xl text-right">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (move of stockMoves; track move._id) {
+
+        <tr class="border-b border-[var(--color-border)] hover:bg-[var(--color-bg)] transition">
+
+          <!-- DATE -->
+          <td class="p-3 text-[var(--color-text-primary)] font-semibold">
+            {{ move.date | date:'dd MMM yyyy HH:mm' }}
+          </td>
+
+          <!-- ACTIONS -->
+          <td class="p-3 text-right space-x-2">
+
+            <button
+              class="bg-[var(--color-accent)] px-3 py-1 rounded-xl font-semibold"
+              (click)="details(move._id)"
+            >
+              Details
+            </button>
+
+            <button
+              class="bg-[var(--color-danger)] px-3 py-1 rounded-xl font-semibold"
+              (click)="delete(move._id)"
+            >
+              Supprimer
+            </button>
+
+          </td>
+
+        </tr>
+
+        }
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

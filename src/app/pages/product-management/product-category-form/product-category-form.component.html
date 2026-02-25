@@ -1,31 +1,71 @@
-<h2>Creer un categorie de produit</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="main-form">
+<div class="px-4 py-8 flex justify-center">
+  <div class="w-full max-w-xl bg-[var(--color-card)] 
+              border border-[var(--color-border)] 
+              rounded-2xl p-6 shadow-lg">
 
-    <div class="errors">
-      @for (err of errors(); track err) {
-        <p class="header-error">{{ err }}</p>
+    <h2 class="title">
+      Creer un categorie de produit
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
+
+      <!-- ERREURS BACKEND -->
+      @if (errors().length > 0) {
+        <div class="bg-[var(--color-danger)]
+                    border border-[var(--color-danger)] 
+                    text-[var(--color-danger)] 
+                    p-4 rounded-xl text-sm space-y-1">
+          @for (err of errors(); track err) {
+            <p>{{ err }}</p>
+          }
+        </div>
       }
-    </div>
 
-    <div class="input-group">
-      <label for="name">Nom du Categorie</label>
-      <input
-        id="name"
-        type="text"
-        placeholder="Nom du categorie"
-        formControlName="name"
-        [ngClass]="{'is-invalid': isInvalid(form.controls.name)}"
-      />
+      <!-- NAME -->
+      <div class="space-y-2">
+        <label for="name" class="text-sm text-[var(--color-text-secondary)]">
+          Nom du Categorie
+        </label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Nom du categorie"
+          formControlName="name"
+          class="w-full px-4 py-3 rounded-xl
+                 bg-[var(--color-bg)]
+                 border border-[var(--color-border)]
+                 text-[var(--color-text-primary)]
+                 focus:outline-none
+                 focus:ring-2
+                 focus:ring-[var(--color-accent)]
+                 transition"
+          [ngClass]="{
+            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
+            isInvalid(form.controls.name)
+          }"
+        />
 
-      <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error">
-        Le nom est obligatoire
-      </p>
-    </div>
+        <p *ngIf="isInvalid(form.controls.name) && form.controls.name.hasError('required')" class="error"
+          class="text-sm text-[var(--color-danger)]">
+          Le nom est obligatoire
+        </p>
+      </div>
 
-    <div class="input-group">
-        <button [disabled]="form.invalid" type="submit">Valider</button>
-    </div>
-
+      <!-- SUBMIT -->
+      <div>
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="w-full py-3 rounded-xl font-semibold
+                 bg-[var(--color-accent)]
+                 text-white
+                 transition
+                 hover:bg-[var(--color-accent-hover)]
+                 disabled:opacity-50
+                 disabled:cursor-not-allowed">
+          Valider
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</div>
