@@ -45,7 +45,7 @@ export class LoginComponent {
       });
     }else{
       if(user.role === 'MALL_ADMIN'){
-        this.router.navigateByUrl('admin/shops');
+        this.router.navigateByUrl('admin/dashboard');
       }else{
         this.router.navigateByUrl('shops');
       }

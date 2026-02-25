@@ -10,7 +10,7 @@
     @apply text-[var(--color-text-secondary)] p-3;
     
     tr{
-      @apply border-b-2;
+      @apply border;
 
       td{
         @apply p-3;
