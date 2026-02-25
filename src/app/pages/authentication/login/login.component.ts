@@ -36,6 +36,7 @@ export class LoginComponent {
   }
 
   setShopIfAdmin(user: User): void{
+    this.authService.currentUser.set(user);
     if(user.role === 'SHOP_ADMIN'){
       this.shopService.getShopByIdUser(user.id).subscribe(shop => {
         this.authService.currentShop.set(shop);

@@ -50,6 +50,8 @@ export class AuthenticationService {
   clear(): void{
     this.accessToken = null;
     this.refreshToken = null;
+    this.currentShop.set(null);
+    this.currentUser.set(null);
     clear();
   }
 
