@@ -29,8 +29,7 @@ export class HeaderClientComponent {
   }
 
   logout(): void {
-    this.isMenuOpen = false;
-    localStorage.clear();
+    this.authService.clear();
     this.router.navigate(['/login']);
   }
 
