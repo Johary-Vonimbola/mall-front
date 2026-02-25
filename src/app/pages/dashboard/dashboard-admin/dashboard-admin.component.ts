@@ -55,7 +55,7 @@ export class DashboardAdminComponent implements OnInit {
             borderColor: 'rgba(16, 185, 129, 1)',
             backgroundColor: 'rgba(16, 185, 129, 0.2)', 
             fill: true,
-            tension: 0.4, 
+            tension: 0.4,
             pointBackgroundColor: 'rgba(16, 185, 129, 1)',
             pointRadius: 4,
           },
@@ -76,7 +76,7 @@ export class DashboardAdminComponent implements OnInit {
         plugins: {
           legend: {
             labels: {
-              color: '#F1F5F9', // couleur texte légere
+              color: '#F1F5F9',
               font: { size: 14 }
             }
           },

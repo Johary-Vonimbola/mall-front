@@ -1,36 +1,49 @@
 <!-- dashboard-shop.component.html -->
-<div *ngIf="dashboard" class="container mt-4">
+<div *ngIf="dashboard" class="mt-4 lg:w-full lg:px-2">
 
-  <h2>Tableau de bord Boutique</h2>
+  <h2 class="title">Tableau de bord Boutique</h2>
 
-  <div class="row mt-4">
+  <div class="mt-4 p-1 lg:flex lg:gap-1">
 
-    <div class="col">
+    <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5>Chiffre d'affaire</h5>
-        <h3>{{dashboard.chiffreAffaire}} Ar</h3>
+        <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Chiffre d'affaire</h5>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.chiffreAffaire}}</h3>
       </div>
     </div>
 
-    <div class="col">
+    <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5>Loyer</h5>
-        <h3>{{dashboard.rent}} Ar</h3>
+        <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Loyer</h5>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.rent}}</h3>
       </div>
     </div>
 
-    <div class="col">
+    <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
-        <h5>Bénéfice</h5>
-        <h3>{{dashboard.profit}} Ar</h3>
+        <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Bénéfice</h5>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.profit}}</h3>
       </div>
     </div>
 
   </div>
 
-  <!-- 📊 GRAPH -->
-  <div class="mt-5">
-    <canvas #salesChart></canvas> <!-- Remplacer id par # -->
+  <div class="flex flex-col">
+    <div class="mt-4 bg-[var(--color-card)] p-4 lg:grow">
+      <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Graphique de vente</h4>
+      <button class="btn-accent" (click)="loadDashboard()">Rafraichir</button>
+      <canvas id="salesChart" class="w-full"></canvas>
+    </div>
+    <div class="my-4 bg-[var(--color-card)] p-4">
+      <h4 class="text-center text-[var(--color-text-primary)] text-base mb-3">Meilleur vente de ce mois</h4>
+      <div class="card p-3">
+        <h5 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{ dashboard.bestProduct?.name }}</h5>
+        <div class="flex gap-3 justify-center items-center">
+          <p class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Quantites vendus</p>
+          <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.bestProduct?.quantity}}</h3>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
