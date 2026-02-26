@@ -26,7 +26,7 @@
 
           <p><strong class="text-[var(--color-text-secondary)]">DATE :</strong> <span class="date font-semibold">{{ order.date | date: 'dd MMMM YYYY HH:mm' }}</span></p>
           <p><strong class="text-[var(--color-text-secondary)]">Nb Article :</strong> <span class="nbArticles font-semibold">{{ order.nbArticles }}</span></p>
-          <p><strong class="text-[var(--color-text-secondary)]">Total :</strong> <span class="total font-bold text-[var(--color-accent)]">{{ order.total }} Ar</span></p>
+          <p><strong class="text-[var(--color-text-secondary)]">Total :</strong> <span class="total font-bold text-[var(--color-accent)]">{{ order.total | number:'1.0-0' }} Ar</span></p>
           <p><strong class="text-[var(--color-text-secondary)]">Status :</strong> 
             <span class="status-badge" [ngClass]="'status-' + order.status">{{ order.status }}</span>
           </p>

@@ -66,7 +66,7 @@
                         <tr class="hover:bg-[var(--color-border)] transition">
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent._id }}</td>
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.shopName }}</td>
-                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.amount }}</td>
+                            <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.amount | number:'1.0-0' }} Ar</td>
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.frequencyString }}</td>
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.dueDate }}</td>
                             <td class="text-[var(--color-text-primary)] p-2 border-collapse border-2 border-[var(--color-border)]">{{ shopRent.createdAt | date : 'dd MMMM YYYY'}}</td>

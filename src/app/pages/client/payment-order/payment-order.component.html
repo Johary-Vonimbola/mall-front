@@ -21,7 +21,7 @@
                 Total de la commande
             </p>
             <p class="text-2xl font-bold text-[var(--color-accent)]">
-                {{ order()?.total }} Ar
+                {{ order()?.total | number:'1.0-0' }} Ar
             </p>
         </div>
     </div>
@@ -181,7 +181,7 @@
 
             <p class="text-xs text-[var(--color-text-secondary)]">
               {{ detail.quantity }} {{ detail.productUom }} 
-              x {{ detail.price }} Ar
+              x {{ detail.price | number:'1.0-0' }} Ar
             </p>
 
             <p class="text-xs text-[var(--color-text-secondary)]">
@@ -196,7 +196,7 @@
             Sous-total
           </p>
           <p class="font-semibold text-[var(--color-success)]">
-            {{ detail.price * detail.quantity }} Ar
+            {{ detail.price * detail.quantity | number:'1.0-0' }} Ar
           </p>
         </div>
 

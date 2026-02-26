@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Order } from '../../../models/Order';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../environment';
@@ -9,7 +9,8 @@ import { environment } from '../../../../environment';
   selector: 'app-order-detail',
   imports: [
     DatePipe,
-    NgClass
+    NgClass,
+    DecimalPipe
   ],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'

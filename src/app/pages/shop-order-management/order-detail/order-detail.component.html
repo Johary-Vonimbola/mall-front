@@ -10,7 +10,7 @@
       <span class="status-badge" [ngClass]="'status-' + order()?.status">{{ order()?.status }}</span>
     </p>
     <p class="text-[var(--color-text-primary)] font-bold">
-      Total: <span class="text-[var(--color-accent)] text-xl">{{ order()?.total }} Ar</span>
+      Total: <span class="text-[var(--color-accent)] text-xl">{{ order()?.total | number:'1.0-0' }} Ar</span>
     </p>
   </div>
 
@@ -32,12 +32,12 @@
           <tr class="hover:bg-[var(--color-bg)] transition">
             <td class="px-4 py-2">{{ detail.productName }}</td>
             <td class="px-4 py-2">{{ detail.quantity }} {{ detail.productUom }}</td>
-            <td class="px-4 py-2">{{ detail.price }}</td>
+            <td class="px-4 py-2">{{ detail.price | number:'1.0-0' }} Ar</td>
             <td class="px-4 py-2">{{ detail.productCategory }}</td>
             <td class="px-4 py-2">
               <img [src]="environment + detail.productPicture" alt="{{ detail.productName }}" class="h-12 w-12 object-cover rounded-md">
             </td>
-            <td class="px-4 py-2 font-bold text-[var(--color-accent)]">{{ detail.price * detail.quantity }}</td>
+            <td class="px-4 py-2 font-bold text-[var(--color-accent)]">{{ detail.price * detail.quantity | number:'1.0-0' }} Ar</td>
           </tr>
         }
       </tbody>

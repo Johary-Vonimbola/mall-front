@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from '../../../models/Order';
-import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgIf } from '@angular/common';
 import { PaymentService } from '../../../services/payment.service';
 import { environment } from '../../../../environment';
 import { loadStripe } from '@stripe/stripe-js';
@@ -19,7 +19,8 @@ import { isInvalid } from '../../../utils/form';
     BackComponent,
     NgIf,
     NgClass,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DecimalPipe
 ],
   templateUrl: './payment-order.component.html',
   styleUrl: './payment-order.component.scss'

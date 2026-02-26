@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ShopRentPaymentService } from '../../../services/shop-rent-payment.service';
 import { ShopRentPayment } from '../../../models/shopRent';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { ShopManagementService } from '../../../services/shop-management.service';
 import { ShopResponse } from '../../../models/shop';
 import { MONTHS, YEARS } from '../../../models/month';
@@ -12,7 +12,8 @@ import { BackComponent } from '../../../components/back/back.component';
   imports: [
     DatePipe,
     NgClass,
-    BackComponent
+    BackComponent,
+    DecimalPipe
   ],
   templateUrl: './rent-payment-admin.component.html',
   styleUrl: './rent-payment-admin.component.scss'

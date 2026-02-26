@@ -3,13 +3,14 @@ import { ShopDashboardService } from '../../../services/shop-dashboard.service';
 import { DashboardShop } from '../../../models/shopDashboard';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Chart } from 'chart.js/auto';
-import { NgIf } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, NgIf } from '@angular/common';
 import { MONTHS } from '../../../models/month';
 
 @Component({
   selector: 'app-dashboard-shop',
   imports: [
-    NgIf
+    NgIf,
+    DecimalPipe
   ],
   templateUrl: './dashboard-shop.component.html',
   styleUrl: './dashboard-shop.component.scss'

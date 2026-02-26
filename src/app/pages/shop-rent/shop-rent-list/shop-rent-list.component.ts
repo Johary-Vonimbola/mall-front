@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ShopRentService } from '../../../services/shop-rent.service';
 import { ShopRent } from '../../../models/shopRent';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -10,7 +10,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   imports: [
     DatePipe,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    DecimalPipe
 ],
   templateUrl: './shop-rent-list.component.html',
   styleUrl: './shop-rent-list.component.scss'
