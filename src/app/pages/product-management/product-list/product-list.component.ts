@@ -28,6 +28,9 @@ export class ProductListComponent implements OnInit {
   filteredProducts = signal<Product[]>([]);
   categories = signal<ProductCategory[]>([]);
 
+  activeUploadProductId: string | null = null;
+  selectedFile: File | null = null;
+
   form = new FormGroup({
     active: new FormControl(false),
     inactive: new FormControl(false),
@@ -104,5 +107,42 @@ export class ProductListComponent implements OnInit {
 
   onUpdate(product: Product): void {
     this.router.navigateByUrl(`/admin-shop/product-update/${product._id}`);
+  }
+
+  openModal(shopId: string) {
+    this.activeUploadProductId = shopId;
+    this.selectedFile = null;
+  }
+
+  closeModal() {
+    this.activeUploadProductId = null;
+    this.selectedFile = null;
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  upload() {
+    if (!this.selectedFile || !this.activeUploadProductId) return;
+
+    const formData = new FormData();
+    formData.append('picture', this.selectedFile);
+
+    this.productService.uploadLogoproduct(this.activeUploadProductId, formData)
+      .subscribe({
+        next: res => {
+          alert('Logo uploadé avec succès !');
+          this.closeModal();
+          this.loadProducts();
+        },
+        error: err => {
+          alert('Erreur lors de l’upload');
+          console.error(err);
+        }
+      });
   }
 }

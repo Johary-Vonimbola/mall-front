@@ -88,7 +88,7 @@ export class ShopListComponent implements OnInit {
         next: res => {
           alert('Logo uploadé avec succès !');
           this.closeModal();
-          this.loadShops(); // Rafraîchir pour voir le nouveau logo
+          this.loadShops();
         },
         error: err => {
           alert('Erreur lors de l’upload');
