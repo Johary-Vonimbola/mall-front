@@ -5,13 +5,14 @@ import { Order } from '../../../models/Order';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BackComponent } from '../../../components/back/back.component';
 import { STATUS_ORDER, STATUS_ORDER_ENUM } from '../../../models/DataStatus';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-order-list-client',
   imports: [
     BackComponent,
-    DatePipe
+    DatePipe,
+    NgClass
   ],
   templateUrl: './order-list-client.component.html',
   styleUrl: './order-list-client.component.scss'

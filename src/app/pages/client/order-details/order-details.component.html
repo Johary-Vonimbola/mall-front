@@ -12,10 +12,7 @@
       </p>
     </div>
 
-    <span class="px-4 py-1 text-xs font-semibold rounded-full w-fit bg-[var(--color-warning)] text-black">
-      {{ order()?.status }}
-    </span>
-
+    <span class="status-badge" [ngClass]="'status-' + order()?.status">{{ order()?.status }}</span>
   </div>
 
   <div class="flex justify-between items-center">
@@ -30,6 +27,126 @@
     </div>
 
   </div>
+
+  <div class="pb-4 border-b border-[var(--color-border)]">
+        @if (order()?.status === STATUS_ORDER.PAID) {
+            <div class="flex justify-center">
+                <button class="px-4 py-0.5 bg-[var(--color-accent)] rounded-md ml-2" (click)="receive()">Récupérer</button>
+                <button class="px-4 py-0.5 bg-[var(--color-warning)] rounded-md ml-2" (click)="openDeliveryModal()">Livrer</button>
+            </div>
+        }
+
+        @if(showDeliveryModal()) {
+          <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <div class="bg-[var(--color-card)] w-full max-w-md rounded-xl p-6 border border-[var(--color-border)]">
+
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-[var(--color-text-primary)]">Information de livraison</h2>
+                <button class="text-xl text-[var(--color-text-primary)]" (click)="showDeliveryModal.set(false)">&times;</button>
+              </div>
+
+              <form class=" flex flex-col justify-center items-center gap-4 p-4 rounded-xl mt-2
+                    bg-[var(--color-border)] border border-[var(--color-border)] hover:border-[var(--color-accent)] 
+              " [formGroup]="form" (ngSubmit)="confirmDelivery()">
+                  <!-- ERREURS BACKEND -->
+                  @if (errors().length > 0) {
+                    <div class="bg-[var(--color-danger)]
+                                border border-[var(--color-danger)] 
+                                text-[var(--color-danger)] 
+                                p-4 rounded-xl text-sm space-y-1">
+                      @for (err of errors(); track err) {
+                        <p>{{ err }}</p>
+                      }
+                    </div>
+                  }
+
+                  <!-- Address -->
+                  <div class="space-y-2 m-3">
+                    <label class="text-sm text-[var(--color-text-secondary)]" for="address">Addresse</label>
+                    <input 
+                      class="w-full px-4 py-3 rounded-xl
+                        bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]
+                        transition" 
+                      placeholder="Addresse" 
+                      formControlName="address" 
+                      type="text" 
+                      id="address" 
+                      [ngClass]="{ 'is-invalid': isInvalid(form.controls.address) }"
+                    >
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="isInvalid(form.controls.address) && form.controls.address.hasError('required')"
+                      class="text-sm text-[var(--color-danger)]">
+                      Addresse is required
+                    </p>
+                  </div>
+
+                  <!-- Contact -->
+                  <div class="space-y-2 m-3">
+                    <label class="text-sm text-[var(--color-text-secondary)]" for="contact">Contact</label>
+                    <input 
+                      class="w-full px-4 py-3 rounded-xl
+                        bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]
+                        transition" 
+                      placeholder="033/034/038 .. ... .." 
+                      formControlName="contact" 
+                      type="text" 
+                      id="contact" 
+                      [ngClass]="{ 'is-invalid': isInvalid(form.controls.contact) }"
+                    >
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="isInvalid(form.controls.contact) && form.controls.contact.hasError('required')"
+                      class="text-sm text-[var(--color-danger)]">
+                      Contact is required
+                    </p>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="space-y-2 m-3">
+                    <label class="text-sm text-[var(--color-text-secondary)]" for="email">Email</label>
+                    <input 
+                      class="w-full px-4 py-3 rounded-xl
+                        bg-[var(--color-bg)]
+                        border border-[var(--color-border)]
+                        text-[var(--color-text-primary)]
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[var(--color-accent)]
+                        transition" 
+                      placeholder="john@gmail.com" 
+                      formControlName="email" 
+                      type="email" 
+                      id="email" 
+                      [ngClass]="{ 'is-invalid': isInvalid(form.controls.email) }"
+                    >
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="isInvalid(form.controls.email) && form.controls.email.hasError('required')"
+                      class="text-sm text-[var(--color-danger)]">
+                      Email is required
+                    </p>
+                    <p class="text-[var(--color-danger)] text-center text-sm" *ngIf="form.controls.email.hasError('email')"
+                      class="text-sm text-[var(--color-danger)]">
+                      Invalid Format
+                    </p>
+                  </div>
+
+                  <!-- SUBMIT -->
+                  <div class="flex">
+                      <button class="px-2 py-0.5 bg-[var(--color-success)] rounded-md ml-2" [disabled]="form.invalid" type="submit">Valider</button>
+                      <button class="px-2 py-0.5 bg-[var(--color-danger)] rounded-md ml-2" (click)="showDeliveryModal.set(false)" type="submit">Annuler</button>
+                  </div>
+
+              </form>
+            </div>
+          </div>   
+        }
+    </div>
 
   <div class="space-y-4">
 

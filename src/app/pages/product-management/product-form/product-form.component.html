@@ -41,10 +41,6 @@
                   focus:ring-2
                   focus:ring-[var(--color-accent)]
                   transition"
-          [ngClass]="{
-            'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-            isInvalid(form.controls.name)
-          }"
         />
       </div>
 
@@ -95,7 +91,7 @@
                  transition"
           [ngClass]="{
             'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-            isInvalid(form.controls.name)
+            isInvalid(form.controls.uomId)
           }"
         >
           @for(u of uoms(); track u._id){
@@ -124,7 +120,7 @@
                  transition"
           [ngClass]="{
             'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-            isInvalid(form.controls.name)
+            isInvalid(form.controls.categoryId)
           }"
           >
           @for(c of categories(); track c._id){
@@ -158,7 +154,7 @@
                  transition"
           [ngClass]="{
             'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-            isInvalid(form.controls.name)
+            isInvalid(form.controls.price)
           }"
           >
         

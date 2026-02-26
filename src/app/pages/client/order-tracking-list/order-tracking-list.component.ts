@@ -4,10 +4,13 @@ import { OrderService } from '../../../services/order.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Order } from '../../../models/Order';
 import { STATUS_ORDER } from '../../../models/DataStatus';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-order-tracking-list',
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './order-tracking-list.component.html',
   styleUrl: './order-tracking-list.component.scss'
 })

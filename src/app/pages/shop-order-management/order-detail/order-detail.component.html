@@ -7,16 +7,7 @@
     </h2>
     <p class="text-[var(--color-text-primary)] font-semibold">
       Status: 
-      <span 
-        class="px-2 py-1 rounded-md font-medium text-sm"
-        [ngClass]="{
-          'bg-[var(--color-danger)] text-white': order()?.status === 'UNPAID',
-          'bg-[var(--color-warning)] text-white': order()?.status === 'IN_PROGRESS_DELIVERY',
-          'bg-[var(--color-success)] text-white': order()?.status === 'PAID'
-        }"
-      >
-        {{ order()?.status }}
-      </span>
+      <span class="status-badge" [ngClass]="'status-' + order()?.status">{{ order()?.status }}</span>
     </p>
     <p class="text-[var(--color-text-primary)] font-bold">
       Total: <span class="text-[var(--color-accent)] text-xl">{{ order()?.total }} Ar</span>
@@ -44,7 +35,7 @@
             <td class="px-4 py-2">{{ detail.price }}</td>
             <td class="px-4 py-2">{{ detail.productCategory }}</td>
             <td class="px-4 py-2">
-              <img src="{{ detail.productPicture }}" alt="{{ detail.productName }}" class="h-12 w-12 object-cover rounded-md">
+              <img [src]="environment + detail.productPicture" alt="{{ detail.productName }}" class="h-12 w-12 object-cover rounded-md">
             </td>
             <td class="px-4 py-2 font-bold text-[var(--color-accent)]">{{ detail.price * detail.quantity }}</td>
           </tr>

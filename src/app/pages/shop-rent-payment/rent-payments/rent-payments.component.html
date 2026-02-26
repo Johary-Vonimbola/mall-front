@@ -22,16 +22,7 @@
             <td class="px-4 py-2">{{ rent.amount }} Ar</td>
             <td class="px-4 py-2">{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
             <td class="px-4 py-2">
-              <span 
-                class="px-2 py-1 rounded-md text-sm font-medium"
-                [ngClass]="{
-                  'bg-[var(--color-success)] text-white': rent.status === 'PAID',
-                  'bg-[var(--color-warning)] text-white': rent.status === 'PENDING',
-                  'bg-[var(--color-danger)] text-white': rent.status === 'OVERDUE'
-                }"
-              >
-                {{ rent.status }}
-              </span>
+              <span class="status-badge" [ngClass]="'status-' + rent.status">{{ rent.status }}</span>
             </td>
             <td class="px-4 py-2">
               @if(shouldPay(rent)){

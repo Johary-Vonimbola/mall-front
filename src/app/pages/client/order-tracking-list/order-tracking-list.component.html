@@ -7,7 +7,7 @@
                 <p><strong>DATE : </strong>  <span class="date">{{ order.date }}</span></p>
                 <p><strong>Nb Article : </strong>  <span class="nbArticles">{{ order.nbArticles }}</span></p>
                 <p><strong>Total : </strong>  <span class="total">{{ order.total }}</span></p>
-                <p><strong>Status : </strong>  <span class="status">{{ order.status }}</span></p>
+                <p><strong>Status : </strong>  <span class="status-badge" [ngClass]="'status-' + order.status">{{ order.status }}</span></p>
             </div>
         </div>
     }
