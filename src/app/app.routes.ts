@@ -41,15 +41,21 @@ import { PaymentOrderComponent } from './pages/client/payment-order/payment-orde
 import { RentPaymentsComponent } from './pages/shop-rent-payment/rent-payments/rent-payments.component';
 import { RentPaymentAdminComponent } from './pages/shop-rent-payment/rent-payment-admin/rent-payment-admin.component';
 import { DashboardShopComponent } from './pages/dashboard/dashboard-shop/dashboard-shop.component';
+import { adminGuard } from './guards/admin.guard';
+import { clientGuard } from './guards/client.guard';
+import { adminShopGuard } from './guards/admin-shop.guard';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 
 export const routes: Routes = [
     {
         path: '',
         redirectTo: 'login',
         pathMatch: 'full'
-    },{
+    },
+    {
         path: '',
         component: ClientComponent,
+        canActivate: [clientGuard],
         children: [
             {
                 path: 'shops',
@@ -87,12 +93,17 @@ export const routes: Routes = [
             {
                 path: 'register',
                 component: RegisterComponent
+            },
+            {
+                path: 'forbidden',
+                component: ForbiddenComponent
             }
         ]
     },
     {
         path: 'admin',
         component: FullComponent,
+        canActivate: [adminGuard],
         children: [
             {
                 path: 'dashboard',
@@ -154,6 +165,7 @@ export const routes: Routes = [
     {
         path: 'admin-shop',
         component: FullComponent,
+        canActivate: [adminShopGuard],
         children: [
             {
                 path: 'dashboard',
