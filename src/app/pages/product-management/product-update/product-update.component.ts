@@ -40,7 +40,9 @@ export class ProductUpdateFormComponent implements OnInit {
     name: new FormControl('', Validators.required),
     price: new FormControl(0, Validators.required),
     uomId: new FormControl('', Validators.required),
-    categoryId: new FormControl('', Validators.required)
+    categoryId: new FormControl('', Validators.required),
+    category: new FormControl(''),
+    uom: new FormControl('')
   });
 
   productId = signal('');
@@ -66,6 +68,14 @@ export class ProductUpdateFormComponent implements OnInit {
           categoryId: product.categoryId
         });
       }
+    });
+
+    this.form.controls.categoryId.valueChanges.subscribe(r => {
+      this.form.controls.category.setValue(this.categories().find(s => s._id === r)?.name ?? '');
+    });
+
+    this.form.controls.uomId.valueChanges.subscribe(r => {
+      this.form.controls.uom.setValue(this.uoms().find(s => s._id === r)?.name ?? '');
     });
   }
 
