@@ -69,7 +69,7 @@
                   transition"
         [ngClass]="{
           'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-          isInvalid(form.controls.name)
+          isInvalid(form.controls.price)
         }"
       >
       <p class="error" *ngIf="isInvalid(form.controls.price) && form.controls.price.hasError('required')"
@@ -95,7 +95,7 @@
                   transition"
         [ngClass]="{
           'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-          isInvalid(form.controls.name)
+          isInvalid(form.controls.uomId)
         }"
       >
         @for (u of uoms(); track u._id) {
@@ -126,7 +126,7 @@
                   transition"
         [ngClass]="{
           'border-[var(--color-danger)] focus:ring-[var(--color-danger)]':
-          isInvalid(form.controls.name)
+          isInvalid(form.controls.categoryId)
         }"
       >
         @for (c of categories(); track c._id) {

@@ -27,16 +27,7 @@
           <p><strong class="text-[var(--color-text-secondary)]">Nb Article :</strong> <span class="nbArticles font-semibold">{{ order.nbArticles }}</span></p>
           <p><strong class="text-[var(--color-text-secondary)]">Total :</strong> <span class="total font-bold text-[var(--color-accent)]">{{ order.total }} Ar</span></p>
           <p><strong class="text-[var(--color-text-secondary)]">Status :</strong> 
-            <span 
-              class="status px-2 py-0.5 rounded-md font-medium"
-              [ngClass]="{
-                'bg-[var(--color-warning)] text-[var(--color-bg)]': order.status === STATUS_ORDER.UNPAID,
-                'bg-[var(--color-accent)] text-[var(--color-bg)]': order.status === STATUS_ORDER.IN_PROGRESS_DELIVERY,
-                'bg-[var(--color-success)] text-[var(--color-bg)]': order.status === STATUS_ORDER.DELIVERED
-              }"
-            >
-              {{ order.status }}
-            </span>
+            <span class="status-badge" [ngClass]="'status-' + order.status">{{ order.status }}</span>
           </p>
 
           <div class="flex flex-wrap gap-2 mt-2">

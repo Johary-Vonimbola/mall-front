@@ -17,6 +17,12 @@
     --color-success: #10B981;
     --color-warning: #F59E0B;
     --color-danger: #F43F5E;
+
+    --color-paid: #22C55E;
+    --color-unpaid: var(--color-warning);
+    --color-in-progress-delivery: var(--color-accent);
+    --color-delivered: #059669;
+    --color-canceled: var(--color-danger);
 }
 * {
     box-sizing: border-box;
@@ -61,4 +67,28 @@ body{
     @apply text-center font-bold text-[var(--color-text-primary)] text-2xl;
   }
 
+  .status-badge {
+      @apply px-3 py-1 rounded-md font-semibold text-sm;
+      color: var(--color-bg);
+  }
+
+  .status-PAID {
+      background-color: var(--color-paid);
+  }
+
+  .status-UNPAID {
+      background-color: var(--color-unpaid);
+  }
+
+  .status-IN_PROGRESS_DELIVERY {
+      background-color: var(--color-in-progress-delivery);
+  }
+
+  .status-DELIVERED {
+      background-color: var(--color-delivered);
+  }
+
+  .status-CANCELED {
+      background-color: var(--color-canceled);
+  }
 }
