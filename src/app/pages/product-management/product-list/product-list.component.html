@@ -72,6 +72,43 @@
 
       <div class="flex gap-4 justify-evenly">
         <button class="px-2 py-0.5 bg-[var(--color-accent)] rounded-md ml-2" (click)="onUpdate(product)">Modifier</button>
+        <button type="button" class="btn btn-warning" (click)="openModal(product._id)">
+          Importer
+        </button>
+        <!-- MODAL UPLOAD -->
+          @if (activeUploadProductId === product._id) {
+          <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+
+            <div class="bg-[var(--color-card)] w-full max-w-md rounded-xl p-6 border border-[var(--color-border)]">
+
+              <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-[var(--color-text-primary)]">Importer un picture pour {{ product.name }}</h2>
+                <button class="text-xl text-[var(--color-text-primary)]" (click)="closeModal()">&times;</button>
+              </div>
+
+              <form (submit)="upload(); $event.preventDefault()" class="space-y-4">
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  (change)="onFileSelected($event)"
+                  class="w-full text-sm"
+                />
+
+                <button
+                  type="submit"
+                  [disabled]="!selectedFile"
+                  class="btn-accent w-full"
+                >
+                  Importer
+                </button>
+
+              </form>
+
+            </div>
+          </div>
+        }
+
         @if(product.isActive){
           <button class="px-2 py-0.5 bg-[var(--color-danger)] rounded-md ml-2" (click)="onDeactivate(product)">Desactiver</button>
         }@else{

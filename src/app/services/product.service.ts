@@ -35,6 +35,13 @@ export class ProductService {
     return this.http.put<ApiReponse<any>>(`${this.productCategoryUrl}/${id}`, payload);
   }
 
+  uploadLogoproduct(id: string, payload: any) {
+    return this.http.post<ApiReponse<any>>(
+      `${this.productUrl}/${id}/upload`,
+      payload
+    );
+  }
+
   getProductCategoryById(id: string): Observable<ProductCategory | undefined>{
     return this.http.get<ApiReponse<ProductCategory>>(`${this.productCategoryUrl}/${id}`).pipe(
       map(response => {
