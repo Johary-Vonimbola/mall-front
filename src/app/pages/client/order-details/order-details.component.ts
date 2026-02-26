@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild, ElementRef  } from '@angular/core';
 import { OrderService } from '../../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from '../../../models/Order';
@@ -9,7 +9,8 @@ import { environment } from '../../../../environment';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { isInvalid } from '../../../utils/form';
 import { STATUS_ORDER } from '../../../models/DataStatus';
-import { PaymentService } from '../../../services/payment.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-order-details',
@@ -43,6 +44,21 @@ export class OrderDetailsComponent implements OnInit{
   });
   errors = signal<String[]>([]);
   showDeliveryModal = signal(false);
+  @ViewChild('content') content!: ElementRef;
+
+  public generatePDF(): void {
+    const elementToExport = this.content.nativeElement;
+
+    html2canvas(elementToExport).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const width = pdf.internal.pageSize.getWidth();
+      const height = pdf.internal.pageSize.getHeight();
+
+      pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+      pdf.save(`${this.order()?._id}-${this.order()?.date}-${this.order()?.clientId}.pdf`);
+    });
+  }
 
   loadOrder(id: string): void{
     this.orderService.getById(id).subscribe(res => {
