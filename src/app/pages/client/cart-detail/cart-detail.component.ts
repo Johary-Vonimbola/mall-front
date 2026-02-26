@@ -9,10 +9,14 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { BackComponent } from "../../../components/back/back.component";
 import { STATUS_ORDER } from '../../../models/DataStatus';
 import { environment } from '../../../../environment';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart-detail',
-  imports: [BackComponent],
+  imports: [
+    BackComponent,
+    DecimalPipe
+  ],
   templateUrl: './cart-detail.component.html',
   styleUrl: './cart-detail.component.scss'
 })

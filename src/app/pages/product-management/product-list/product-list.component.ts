@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { DecimalPipe, NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
 import { Product, ProductCategory } from '../../../models/product';
@@ -11,7 +11,8 @@ import { environment } from '../../../../environment';
   selector: 'app-product-list',
   imports: [
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    DecimalPipe
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'

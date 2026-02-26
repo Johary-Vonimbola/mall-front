@@ -19,7 +19,7 @@
           <tr class="hover:bg-[var(--color-bg)] transition">
             <td class="px-4 py-2">{{ rent.year }}</td>
             <td class="px-4 py-2">{{ rent.month }}</td>
-            <td class="px-4 py-2">{{ rent.amount }} Ar</td>
+            <td class="px-4 py-2">{{ rent.amount | number:'1.0-0' }} Ar</td>
             <td class="px-4 py-2">{{ rent.paidAt | date: "dd MMMM YYYY HH:mm"}}</td>
             <td class="px-4 py-2">
               <span class="status-badge" [ngClass]="'status-' + rent.status">{{ rent.status }}</span>

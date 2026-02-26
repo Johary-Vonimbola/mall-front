@@ -15,7 +15,7 @@
     <div class="w-5/6 bg-[var(--color-card)] border-b-2 border-gray-400 mb-2 text-[var(--color-text-primary)] rounded-md p-4">
       <div>
         <p class="flex justify-center text-[var(--color-text-secondary)] underline">{{ order.date | date: "dd MMMM yyyy" }}</p>
-        <p class="text-lg text-[var(--color-text-secondary)]">Total : <span class="text-2xl font-bold text-[var(--color-success)]">{{ order.total }} Ar</span></p>
+        <p class="text-lg text-[var(--color-text-secondary)]">Total : <span class="text-2xl font-bold text-[var(--color-success)]">{{ order.total | number:'1.0-0' }} Ar</span></p>
         <p class="text-sm text-[var(--color-text-secondary)]">Nombre d'articles : <span class="text-2xl font-bold text-[var(--color-text-primary)]">{{ order.nbArticles }}</span></p>    
         <p class="text-lg text-[var(--color-text-secondary)]">Status : <span class="status-badge" [ngClass]="'status-' + order.status">{{ order.status }}</span></p>
 

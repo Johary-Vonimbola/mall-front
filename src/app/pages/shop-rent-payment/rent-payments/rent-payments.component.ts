@@ -1,14 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ShopRentPayment } from '../../../models/shopRent';
 import { ShopRentPaymentService } from '../../../services/shop-rent-payment.service';
-import { DatePipe, NgClass } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { AuthenticationService } from '../../../services/authentication.service';
 
 @Component({
   selector: 'app-rent-payments',
   imports: [
     DatePipe,
-    NgClass
+    NgClass,
+    DecimalPipe
   ],
   templateUrl: './rent-payments.component.html',
   styleUrl: './rent-payments.component.scss'

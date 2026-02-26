@@ -8,21 +8,20 @@
     <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
         <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Chiffre d'affaire</h5>
-        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.chiffreAffaire}}</h3>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.chiffreAffaire | number:'1.0-0' }} Ar</h3>
       </div>
     </div>
-
     <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
         <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Loyer</h5>
-        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.rent}}</h3>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.rent | number:'1.0-0' }} Ar</h3>
       </div>
     </div>
 
     <div class="col lg:grow lg:p-3 border-2 mt-2 bg-[var(--color-card)] border-solid">
       <div class="card p-3">
         <h5 class="lg:text-2xl text-base text-[var(--color-text-secondary)] text-center">Bénéfice</h5>
-        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.profit}}</h3>
+        <h3 class="text-center lg:text-3xl text-2xl font-bold text-[var(--color-text-primary)]">{{dashboard.profit | number:'1.0-0' }} Ar</h3>
       </div>
     </div>
 

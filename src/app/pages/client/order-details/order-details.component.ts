@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal, ViewChild, ElementRef  } from '@angu
 import { OrderService } from '../../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from '../../../models/Order';
-import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgIf } from '@angular/common';
 import { BackComponent } from "../../../components/back/back.component";
 import { AuthenticationService } from '../../../services/authentication.service';
 import { environment } from '../../../../environment';
@@ -19,7 +19,8 @@ import html2canvas from 'html2canvas';
     BackComponent,
     NgClass,
     NgIf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DecimalPipe
 ],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.scss'

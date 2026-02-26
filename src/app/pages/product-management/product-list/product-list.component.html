@@ -37,6 +37,11 @@
           <p class="text-xs text-[var(--color-text-secondary)]">
             Catégorie : {{ product.category }}
           </p>
+
+          <p class="text-lg text-[var(--color-text-secondary)]">
+            Prix : <span class="text-[var(--color-success)]">{{ product.price | number:'1.0-0' }} Ar</span>
+          </p>
+           
         </div>
       </div>
 
