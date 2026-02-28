@@ -2,7 +2,7 @@
 
 <div class="m-4 p-6 rounded-2xl bg-[var(--color-card)] border border-[var(--color-border)] shadow-xl space-y-6">
 
-    <h2 class="text-[var(--color-text-secondary)] text-3xl font-extrabold underline border-b border-[var(--color-border)] pb-4">
+    <h2 class="title">
         Configurer les seuils de stock
     </h2>
 
@@ -27,7 +27,7 @@
                             [id]="thresholds.at(i).get('productId')?.value"
                             class="w-5 h-5 accent-[var(--color-accent)] cursor-pointer"
                         >
-                        <label [for]="thresholds.at(i).get('productId')?.value" class="text-[var(--color-text-primary)] font-semibold">
+                        <label [for]="thresholds.at(i).get('productId')?.value" class="text-[var(--color-text-primary)] font-semibold" [ngClass]="{'line-through text-[var(--color-text-secondary)]': !thresholds.at(i).get('checked')?.value}">
                             {{ getProductName(thresholds.at(i).get('productId')?.value) }}
                         </label>
                         <input type="hidden" formControlName="productId">
@@ -43,6 +43,7 @@
                             type="number"
                             formControlName="quantity"
                             class="w-24 p-2 rounded-lg bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-accent)]"
+                            [ngClass]="{'bg-[var(--color-card)]': !thresholds.at(i).get('checked')?.value}"
                         >
                     </div>
                 </div>
