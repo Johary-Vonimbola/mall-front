@@ -34,7 +34,7 @@ export class ShopCategoryFormComponent {
     this.shopManagementService.createCategoryShop(formValue).subscribe({
       next: res => {
         alert(res.message);
-        this.router.navigateByUrl('admin/shopCategories');
+        this.router.navigateByUrl('admin/shop-categories');
       },
       error: res => {
         this.errors.set(res.error.errors);
