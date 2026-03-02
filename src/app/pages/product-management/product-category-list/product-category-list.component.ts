@@ -36,8 +36,13 @@ export class ProductCategoryListComponent implements OnInit{
   deleteCategory(id: string): void {
     if (!confirm('Voulez-vous vraiment supprimer cette catégorie de produit?')) return;
 
-    this.productService.deleteProductCategory(id).subscribe(() => {
-      this.loadProductCategories();
+    this.productService.deleteProductCategory(id).subscribe({
+      next: res => {
+        this.loadProductCategories();
+      },
+      error: err => {
+        alert(err.error.message);
+      }
     });
   }
 
