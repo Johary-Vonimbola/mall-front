@@ -145,18 +145,6 @@ export const routes: Routes = [
                 component: ShopCategoryModifComponent
             },
             {
-                path: 'uom-form',
-                component: UomFormComponent
-            },
-            {
-                path: 'uoms',
-                component: UomListComponent
-            },
-            {
-                path: 'uom-update/:id',
-                component: UomUpdateFormComponent
-            },
-            {
                 path: 'rent-payments',
                 component: RentPaymentAdminComponent
             }
@@ -230,6 +218,18 @@ export const routes: Routes = [
             {
                 path: 'shop-rent-payments',
                 component: RentPaymentsComponent
+            },
+            {
+                path: 'uom-form',
+                component: UomFormComponent
+            },
+            {
+                path: 'uoms',
+                component: UomListComponent
+            },
+            {
+                path: 'uom-update/:id',
+                component: UomUpdateFormComponent
             },
         ]
     },
