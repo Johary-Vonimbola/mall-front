@@ -52,6 +52,21 @@ export class LoginComponent {
     }
   }
 
+  setCredentials(username: string, password: string): void{
+    this.form.controls.username.setValue(username);
+    this.form.controls.password.setValue(password);
+  }
+
+  onAdmin(): void{
+    this.setCredentials("admin@gmail.com", "admin");
+  }
+  onShop(): void{
+    this.setCredentials("sanifer@gmail.com", "saniferpwd");
+  }
+  onClient(): void{
+    this.setCredentials("client@gmail.com", "client");
+  }
+
   onSubmit(): void{
     this.form.markAllAsTouched();
     if(this.form.invalid) return;
