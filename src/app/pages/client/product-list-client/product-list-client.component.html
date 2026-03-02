@@ -13,7 +13,7 @@
 
 <div class="p-4 md:p-6 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8">
   @for (product of productList(); track product._id; let first = $first) {
-    @if (product.isActive) {
+    @if (product.isActive && product.stock > 0) {
 
       <div class="max-w-sm group relative overflow-hidden rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
 
