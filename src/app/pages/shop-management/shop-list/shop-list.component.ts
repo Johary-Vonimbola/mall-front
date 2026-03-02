@@ -21,7 +21,6 @@ export class ShopListComponent implements OnInit {
 
   private shopManagementService = inject(ShopManagementService);
 
-  serverUrl = environment.apiUrl;
   activeUploadShopId: string | null = null;
   selectedFile: File | null = null;
 
