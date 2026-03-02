@@ -36,7 +36,7 @@ export class UomFormComponent {
     this.uomService.save(formValue).subscribe({
       next: res => {
         alert(res.message);
-        this.router.navigateByUrl('admin/uoms');
+        this.router.navigateByUrl('admin-shop/uoms');
       },
       error: res => {
         this.errors.set(res.error.errors);
